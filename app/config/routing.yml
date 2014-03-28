@@ -1,0 +1,15 @@
+recetas:
+    resource: "@RecetasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+almacen:
+    resource: "@AlmacenBundle/Resources/config/routing.yml"
+    prefix:   /
+
+centro_log:
+    resource: "@CentroLogBundle/Resources/config/routing.yml"
+    prefix:   /
+pagina_ayuda:
+    pattern: /ayuda
+    defaults: { _controller: RecetasBundle:Default:prueba }
+

@@ -1,0 +1,7 @@
+parameters:
+#    recetas.example.class: Gestor_cocina\RecetasBundle\Example
+
+services:
+#    recetas.example:
+#        class: %recetas.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
