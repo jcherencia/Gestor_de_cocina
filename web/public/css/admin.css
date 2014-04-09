@@ -1,0 +1,142 @@
+/************MENU LATERAL ADMIN************/
+.side-bar-admin{
+	padding-left: 0px;
+}
+
+.admin .side-nav li{
+	width: 100%;
+}
+.admin .side-nav li a{
+	color:white;
+}
+.admin .side-nav li a:hover, 
+.admin .side-nav li.active,
+.admin .side-nav li a:focus{
+	background: #62B1D0;
+	color:inherit;
+	border-right: 2px solid white;	
+}
+/************************/
+
+
+
+/************ESTILOS GENERALES***************/
+.admin .panel{
+	border-radius: 0px;
+}
+.admin .table-responsive{
+	border:none;
+}
+.admin .table-responsive > .table{
+	background: transparent;
+}
+.admin .panel .panel-heading{
+	border-radius: 0px;
+}
+
+/*************FONDO DE LOS PANELES*******************/
+.admin .panel-danger > .panel-heading{
+	background: none repeat scroll 0% 0% rgb(217, 83, 79);
+	color: #9e0909;
+	border-radius: 0px;
+}
+.admin .panel-warning > .panel-heading{
+	background: none repeat scroll 0% 0% rgb(244, 221, 115);
+	color: #c09853;
+	border-radius: 0px;
+}
+.admin .panel-success > .panel-heading{
+	background: none repeat scroll 0% 0% rgb(70, 136, 71);
+	color:#1c591c;
+	border-radius: 0px;
+}
+/***********FONDO DEL BODY DE LOS PANELES************/
+.admin .panel-warning > .panel-heading + 
+.panel-collapse .panel-body {
+	background: none repeat scroll 0% 0% rgba(244, 221, 115,0.2);
+}
+.admin .panel-success > .panel-heading + 
+.panel-collapse .panel-body {
+	background: none repeat scroll 0% 0% rgba(70, 136, 71,0.2);
+}
+.admin .panel-danger > .panel-heading + 
+.panel-collapse .panel-body {
+	background: none repeat scroll 0% 0% rgba(217, 83, 79, 0.2);
+}
+/************ COLORES DE TEXO PANELES***********/
+.admin .panel-warning > 
+.panel-heading + .panel-collapse .panel-body a,
+.admin .panel-warning .table thead > tr > th {
+	color: #c09853;
+}
+.admin .panel-success > 
+.panel-heading + .panel-collapse .panel-body a,
+.admin .panel-success .table thead > tr > th {
+	color: #1c591c;
+}
+.admin .panel-danger > 
+.panel-heading + .panel-collapse .panel-body a,
+.admin .panel-danger .table thead > tr > th {
+	color: #9e0909;
+}
+/************BORDES EN LOS PANELES******************/
+.admin .table tbody > tr:last-child > td{
+	border:transparent;
+}
+.admin .panel-warning .table thead > tr > th{
+	border-bottom: 2px solid #c09853;
+}
+.admin .panel-warning .table tbody > tr > td{
+	border-bottom: 1px solid rgba(244, 221, 115,0.7);
+}
+.admin .panel-danger .table thead > tr > th{
+	border-bottom: 2px solid #9e0909;
+}
+.admin .panel-danger .table tbody > tr > td{
+	border-bottom: 1px solid rgba(217, 83, 79,0.4);
+}
+.admin .panel-success .table thead > tr > th{
+	border-bottom: 2px solid #1c591c;
+}
+.admin .panel-success .table tbody > tr > td{
+	border-bottom: 1px solid rgba(70, 136, 71,0.4);
+}
+
+/***************************/
+
+.admin .panel-heading + .panel-collapse .panel-body a{
+	width: 100%;
+}
+.admin .panel-heading + .panel-collapse .panel-body tr:last-child td{
+	border-bottom: none;
+}
+
+
+
+.admin .panel-heading + .panel-collapse .panel-body tr td:first-child{
+	padding: 0px;
+}
+.admin .panel-heading + .panel-collapse .panel-body tr td:first-child a{
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+}
+.admin .panel-heading + .panel-collapse .panel-body tr td:first-child:hover a{
+	text-decoration: none;
+}
+.admin .panel-warning > .panel-heading + .panel-collapse .panel-body tr td:first-child:hover{
+	background: rgb(244, 221, 115);
+}
+.admin .panel-success > .panel-heading + .panel-collapse .panel-body tr td:first-child:hover{
+	background: rgb(70, 136, 71);
+}
+.admin .panel-danger > .panel-heading + .panel-collapse .panel-body tr td:first-child:hover{
+	background: rgb(217, 83, 79);
+}
+
+@media (max-width: 780px) {
+	.side-bar-admin{
+	padding-left: 15px;
+}
+
+}

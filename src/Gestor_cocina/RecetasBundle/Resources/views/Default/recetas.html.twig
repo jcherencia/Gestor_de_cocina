@@ -1,0 +1,177 @@
+{% extends '::base.html.twig' %}
+	{% block title %}Recetas - Gestor de cocina {% endblock %}
+		{% block body %}
+			<div class='content'>
+				<div class='navbar navbar-default complement-1-b'>
+					<div class='container'> 
+						<div class='navbar-header'>
+							<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='navbar-collapse'>
+								<span class='icon-bar'></span>
+								<span class='icon-bar'></span>
+								<span class='icon-bar'></span>
+							</button>
+							<a class='navbar-brand' href='#'> Gestor de cocina</a>
+						</div>
+						<div class='navbar-collapse collapse'>
+							<ul class='nav navbar-nav menu'>
+								<li>
+									<a href="{{ path('inicio') }}"> Inicio</a>
+								</li>
+								<li  class='active'>
+									<a href="{{ path('recetas') }}"> Recetas</a>
+								</li>
+								<li>
+									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+								</li>
+								<li>
+									<a href="{{ path('almacen') }}"> Almacén</a>
+								</li>
+							</ul>
+							<ul class='nav navbar-nav navbar-right menu-user'>
+								<li class='dropdown'>
+									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+										<span class='glyphicon glyphicon-user'></span>  
+										<span>   Usuario 1</span>
+										<span class='caret caret-white'></span>
+									</a>
+									<ul class='dropdown-menu complement-1-b'>
+										<li>
+											<a href="{{ path('perfil') }}"> 
+												<span class='glyphicon glyphicon-user'></span>
+												<span>   Perfil</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class='glyphicon glyphicon-off'></span>
+												<span>   Cerrar Sesión</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			<div class='container'>
+				<div class='row row-grid'>
+					<div class='col-md-12'>
+						<a href="{{ path('nueva_receta') }}">
+							<button class='btn btn-primary complement-1-b'> Nueva Receta</button>
+						</a>
+					</div>
+				</div>
+				<div id='panel-grid' class='panel panel-primary panel-view'>
+					<div class='panel-heading complement-1-b'>
+						<span> 
+							<strong> Mis recetas</strong>
+						</span>
+						<div class='btn-group pull-right dropdown-head-panel'>
+							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
+								Ordenar  
+								<span class='caret'></span>
+							</button>
+							<ul class='dropdown-menu' role='menu'>
+								<li>
+									<a href='#'>  Ordenar por:</a>
+								</li>
+								<li class='divider'></li>
+								<li>
+									<a href='#'> Tipo</a>
+								</li>
+								<li>
+									<a href='#'> Fecha</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class='panel-body'>
+						<div class='row row-grid'>
+							<div class='col-sm-6 col-md-3'>
+								<figure class='receta'>
+									<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
+									<figcaption>
+										<a class='nombre' href="">Nombre</a>
+										<p class='description info_hide'>Descripcion</p>
+										<div class='info-rec content-hide'>
+											<div class='slug'>Slug</div>
+											<p class='desc'>Descrip</p>
+											<ul class='ingr'>
+												<li> ingr1</li>
+												<li> ingr1 </li>
+												<li> ingr1</li>
+											</ul>
+											<div class='precio'>10</div>
+											<div class='comensales'>5</div>
+										</div>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div id='modal-prepare' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
+				<div class="modal-dialog">
+					<div class='modal-content'>
+						<div class='modal-header complement-1-b'>
+							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
+							<div class='modal-title'>
+								<span id='ModalLabel' class='col-md-9'></span>
+
+								<div class='btn-group btn-group-sm'>
+										<button data-href="" id='edit' class="btn btn-primary complement-1-b">
+											<span class='glyphicon glyphicon-edit'></span>
+										</button>
+										<button data-href="" id='delete' class='btn btn-danger'>
+											<span class='glyphicon glyphicon-trash' ></span>
+										</button>
+								</div>
+							</div>
+						</div>
+						<div class='modal-body'>
+							<div class='row'>
+								<div class='col-md-4'>
+									<div id='img-rec'></div>
+								</div>
+								<div class='col-md-6'>
+									<h4> Ingredientes</h4>
+									<ul class='ingr'></ul>
+								</div>
+							</div>
+							<h4> Preparación</h4>
+							<p class='desc'></p>
+							<table class='info_pr_rec table'>
+								<thead>
+									<tr>
+										<th class='col-md-4'> Precio / pers</th>
+										<th class='col-md-4'> Comensales</th>
+										<th class='col-md-4'> P. Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class='precio'></td>
+										<td class='comensales'></td>
+										<td class='pr-total'></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>						
+						<div class='modal-footer'>
+							<button type='button' class='btn btn-primary complement-1-b'> Preparar</button>
+							<button class='btn btn-danger' type='button', data-dismiss='modal' > Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}
+	

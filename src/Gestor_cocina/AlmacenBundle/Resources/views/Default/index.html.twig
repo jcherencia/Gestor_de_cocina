@@ -1,1 +1,179 @@
-Hello {{ name }}!
+<html>
+<head>
+	<title>Adminstración - Gestor de cocina</title>
+	<link type='text/css' rel='stylesheet' href='../public/css/style.css'>
+	<link type='text/css' rel='stylesheet' href='../public/css/bootstrap.css'>
+	<link type='text/css' rel='stylesheet' href='../public/css/bootstrap-theme.css'>
+	
+	<link type='text/css' rel='stylesheet' href='../public/css/notepad.css'>
+	<link type='text/css' rel='stylesheet' href='../public/css/login.css'>
+	<link type='text/css' rel='stylesheet' href='../public/css/menu.css'>
+	<link type='text/css' rel='stylesheet' href='../public/css/admin.css'>
+	
+
+	<script type="text/javascript" src="../public/js/jquery.js"></script>
+	<script type="text/javascript" src="../public/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../public/js/efectos.js"></script>
+	<script type="text/javascript" src="../public/js/acciones.js"></script>
+</head>
+
+<body>
+<div class='navbar navbar-default complement-1-b'>
+			<div class='container'> 
+				<div class='navbar-header'>
+					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='#'> Gestor de cocina</a>
+				</div>
+				<div class='navbar-collapse collapse'>
+					<ul class='nav navbar-nav menu'>
+						<li>
+							<a href="{{ path('inicio') }}"> Inicio</a>
+						</li>
+						<li>
+							<a href="{{ path('recetas') }}"> Recetas</a>
+						</li>
+						<li>
+							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+						</li>
+						<li class='active'>
+							<a href="{{ path('almacen') }}"> Almacén</a>
+						</li>
+					</ul>
+					<ul class='nav navbar-nav navbar-right menu-user'>
+						<li class='dropdown'>
+							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+								<span class='glyphicon glyphicon-user'></span>  
+								<span>   Usuario 1</span>
+								<span class='caret caret-white'></span>
+							</a>
+							<ul class='dropdown-menu complement-1-b'>
+								<li>
+									<a href="{{ path('perfil') }}"> 
+										<span class='glyphicon glyphicon-user'></span>
+										<span>   Perfil</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class='glyphicon glyphicon-off'></span>
+										<span>   Cerrar Sesión</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	<div class="container">	
+		<div class="row row-grid">
+			<div class="col-md-12">
+				<a  href="{{ path('nuevo_producto') }}">
+					<button class="btn btn-primary complement-1-b">Nuevo Producto</button>
+				</a>
+			</div>
+	 	</div>
+		<div id="panel-grid" class="panel panel-primary panel-view">
+		<div class="panel-heading complement-1-b">
+		 	<span>Almacén</span>
+		 	<div class="btn-group pull-right dropdown-head-panel">
+			 	<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle complement-1-b">Ordenar  
+			 		<span class="caret"></span>
+			 	</button>
+		 	<ul role="menu" class="dropdown-menu">
+			 	<li>
+			 		<a href="#">Ordenar por:</a>
+			 	</li>
+			 	<li class="divider"></li>
+			 	<li>
+			 		<a href="#">Tipo</a>
+			 	</li>
+		 		<li>
+		 		<a href="#">Fecha</a>
+		 		</li>
+	 		</ul>
+		 	</div>
+	 	</div>
+	 	<div class="panel-body">
+	 		<div class="row row-grid">
+	 			<div class="col-sm-6 col-md-3">
+	 				<figure>
+ 						<img src="../public/img/no_image.png">
+ 							<figcaption>
+ 								<a href="/receta/editar/">Pollo</a>
+ 								<table class="table info_hide">
+ 									<tr>
+ 										<td>Precio</td>
+ 										<td>1.3 €</td>
+									</tr>
+									<tr>
+									<td>Stock</td>
+									<td>3000 </td>
+									</tr>
+									<tr>
+									<td>Stock mínimo</td>
+									<td>1000 <span class="pr_total"></span></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<div class="btn-group btn-group-sm">
+												<button data-href="/almacen/editar/" class="btn btn-primary">
+													<span class="glyphicon glyphicon-edit"></span>
+													<span class="visible_lg"> Editar</span>
+												</button>
+												<button data-href="/almacen/eliminar-producto/" class="btn btn-danger">
+													<span class="glyphicon glyphicon-trash"></span><span class="visible_lg"> Borrar</span>
+												</button>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</figcaption>
+						</figure>
+					</div>
+	 			<div class="col-sm-6 col-md-3">
+	 				<figure>
+ 						<img src="../public/img/no_image.png">
+ 							<figcaption>
+ 								<a href="/receta/editar/">Arroz</a>
+ 								<table class="table info_hide">
+ 									<tr>
+ 										<td>Precio</td>
+ 										<td>1.3 €</td>
+									</tr>
+									<tr>
+									<td>Stock</td>
+									<td>3000 </td>
+									</tr>
+									<tr>
+									<td>Stock mínimo</td>
+									<td>1000 <span class="pr_total"></span></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<div class="btn-group btn-group-sm">
+												<button data-href="/almacen/editar/" class="btn btn-primary">
+													<span class="glyphicon glyphicon-edit"></span>
+													<span class="visible_lg"> Editar</span>
+												</button>
+												<button data-href="/almacen/eliminar-producto/" class="btn btn-danger">
+													<span class="glyphicon glyphicon-trash"></span><span class="visible_lg"> Borrar</span>
+												</button>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+		 	</div>
+		</div>
+	</div>
+</body>
+</html>

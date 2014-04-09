@@ -1,1 +1,377 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+	{% block title %}Centro Logístico - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/admin.css') }}">
+		
+	{% endblock %}
+		{% block body %}
+	<div class='navbar navbar-default complement-1-b'>
+			<div class='container'> 
+				<div class='navbar-header'>
+					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='#'> Gestor de cocina</a>
+				</div>
+				<div class='navbar-collapse collapse'>
+					<ul class='nav navbar-nav menu'>
+						<li >
+							<a href="{{ path('inicio') }}"> Inicio</a>
+						</li>
+						<li>
+							<a href="{{ path('recetas') }}"> Recetas</a>
+						</li>
+						<li class='active'>
+							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+						</li>
+						<li>
+							<a href="{{ path('almacen') }}"> Almacén</a>
+						</li>
+					</ul>
+					<ul class='nav navbar-nav navbar-right menu-user'>
+						<li class='dropdown'>
+							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+								<span class='glyphicon glyphicon-user'></span>  
+								<span>   Usuario 1</span>
+								<span class='caret caret-white'></span>
+							</a>
+							<ul class='dropdown-menu complement-1-b'>
+								<li>
+									<a href="{{ path('perfil') }}"> 
+										<span class='glyphicon glyphicon-user'></span>
+										<span>   Perfil</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class='glyphicon glyphicon-off'></span>
+										<span>   Cerrar Sesión</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<div class="admin">
+		<div class="col-md-2 complement-1-b">
+			<div class="complement-1-b side-bar-admin">				
+				<ul class="nav navbar-nav side-nav">
+					<li>
+						<a href="#" id="pedidos">
+							<span class="glyphicon glyphicon-inbox"></span>
+							<span> Pedidos</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" id="usuarios">
+							<span class="glyphicon glyphicon-user"></span>
+							<span> Gestion de usuarios</span>
+						</a>
+					</li>
+					<li class="active">
+						<a href="#" id="info">
+							<span class="glyphicon glyphicon-dashboard"></span>
+							<span> Info</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div id="mod_pedidos" class="mod col-md-10">
+					<div id="accordion" class="panel-group">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+									<strong>
+										<span class="glyphicon glyphicon-warning-sign"> </span>
+										<span>  Pedidos Pendientes</span>
+									</strong>
+								</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="col-md-5">Pedido</th>
+															<th class="col-md-3">Fecha</th>
+															<th class="col-md-3">Creador</th>
+															<th class="col-md-1">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr id="ped_pend-1">
+															<td>
+															<a href="#" onclick="show_pedido(1,'pendiente')">
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit"> Pedido pendiente 1</span>
+															</a></td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-edit"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																	</div>
+															</td>
+														</tr>
+														<tr id="ped_pend-2">
+															<td>
+															<a href="#" onclick="show_pedido(2,'pendiente')">
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit"> Pedido pendiente 2</span>
+															</a>
+															</td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-edit"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+										<strong>
+											<span class="glyphicon glyphicon-export"> </span>
+											<span>  Pedidos Enviados</span>
+										</strong>
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="col-md-5">Pedido</th>
+															<th class="col-md-3">Fecha</th>
+															<th class="col-md-3">Creador</th>
+															<th class="col-md-1">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr id="ped_pend-1">
+															<td>
+																<a href="#" onclick="show_pedido(1,'enviado')">
+																	<span class="glyphicon glyphicon-file"></span>
+																	<span class="ped-tit">  Pedido enviado 1</span>
+																</a>
+															</td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-edit"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																</div>
+															</td>
+														</tr>
+														<tr id="ped_pend-2">
+															<td>
+																<a href="#" onclick="show_pedido(2,'enviado')">
+																	<span class="glyphicon glyphicon-file"></span>
+																	<span class="ped-tit">  Pedido enviado 2</span>
+																</a>
+															</td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-edit"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="panel panel-success">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+											<strong>
+												<span class="glyphicon glyphicon-import"> </span>
+												<span>  Pedidos Recibidos</span>
+											</strong>
+										</a>
+									</h4>
+								</div>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body"><div class="row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th class="col-md-5">Pedido</th>
+														<th class="col-md-3">Fecha</th>
+														<th class="col-md-3">Creador</th>
+														<th class="col-md-1">Opciones</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr id="ped_pend-1">
+														<td>
+															<a href="#" onclick="show_pedido(1,'enviado')">
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit">  Pedido recibido 1</span>
+															</a>
+														</td>
+														<td>22/04/2013</td>
+														<td>Usuario 1</td>
+														<td>
+															<div class="btn-group btn-group-sm">
+																<button type="button" class="btn btn-primary">
+																	<span class="glyphicon glyphicon-edit"></span>
+																</button>
+																<button type="button" class="btn btn-danger">
+																	<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+															</div>
+														</td>
+													</tr>
+													<tr id="ped_pend-2">
+														<td>
+															<a href="#" onclick="show_pedido(2,'enviado')">
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit">  Pedido recibido 2</span>
+															</a>
+														</td>
+														<td>22/04/2013</td>
+														<td>Usuario 1</td>
+														<td>
+															<div class="btn-group btn-group-sm">
+																<button type="button" class="btn btn-primary">
+																	<span class="glyphicon glyphicon-edit"></span>
+																</button>
+																<button type="button" class="btn btn-danger">
+																	<span class="glyphicon glyphicon-remove"></span>
+																</button>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="mod_usuarios" style="display:none" class="mod col-md-10">
+				<div id="panel-grid" class="panel panel-primary panel-view">
+					<div class="panel-heading complement-1-b">
+						<span> 
+							<strong>Gestion de Usuarios</strong>
+						</span>
+					</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="col-sm-6 col-md-3">Nombre</th>
+								<th class="col-sm-6 col-md-1">Email</th>
+								<th class="col-sm-6 col-md-3">Fecha registro</th>
+								<th class="col-sm-6 col-md-1">Tipo</th>
+								<th class="col-sm-4 col-md-1">Opciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Usuario 1</td>
+								<td>correo@gmail.com</td>
+								<td>22/08/2013</td>
+								<td>Usuario</td>
+								<td> 
+									<div class="btn-group btn-group-sm">
+										<button data-href="" class="btn btn-primary">
+											<span class="glyphicon glyphicon-edit"></span>
+										</button>
+										<button data-href="" class="btn btn-danger">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="row">
+			<div id="mod_info" style="display:none" class="mod col-md-10">
+			
+			</div>
+		</div>
+</div><!--fin_div_admin-->
+
+
+	
+</div>
+
+
+	<a href="#" class="scrollup">Scroll</a>
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}

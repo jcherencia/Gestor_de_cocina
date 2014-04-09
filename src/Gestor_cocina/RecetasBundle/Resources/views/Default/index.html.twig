@@ -1,7 +1,13 @@
-<html>
-<head></head>
-<body>
-	<div class='content'>
+{% extends '::base.html.twig' %}
+
+	{% block title %}Inicio - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/notepad.css') }}">
+		
+	{% endblock %}
+	{% block body %}
+		<div class='content'>
 		<div class='navbar navbar-default complement-1-b'>
 			<div class='container'> 
 				<div class='navbar-header'>
@@ -15,16 +21,16 @@
 				<div class='navbar-collapse collapse'>
 					<ul class='nav navbar-nav menu'>
 						<li class='active'>
-							<a href='/inicio'> Inicio</a>
+							<a href="{{ path('inicio') }}"> Inicio</a>
 						</li>
 						<li>
-							<a href='/receta'> Recetas</a>
+							<a href="{{ path('recetas') }}"> Recetas</a>
 						</li>
 						<li>
-							<a href='/centro_log'> Centro Logístico</a>
+							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
 						</li>
 						<li>
-							<a href='/almacen'> Almacén</a>
+							<a href="{{ path('almacen') }}"> Almacén</a>
 						</li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right menu-user'>
@@ -36,8 +42,8 @@
 							</a>
 							<ul class='dropdown-menu complement-1-b'>
 								<li>
-									<a href="/perfil">  
-										<span class='glyphicon.glyphicon-user'></span>
+									<a href="{{ path('perfil') }}"> 
+										<span class='glyphicon glyphicon-user'></span>
 										<span>   Perfil</span>
 									</a>
 								</li>
@@ -58,7 +64,7 @@
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='well note taupe'>
-						<img class='fondo' src="img/photo/chef2.png">
+						<img class='fondo' src="{{ asset('public/img/photo/chef2.png') }}">
 						<div class='row'>
 							<div class='col-md-12'>
 								<h1 class='title'> Gestor de cocina</h1>
@@ -67,11 +73,11 @@
 						</div>
 						<div class='row search'>
 							<form class='col-md-offset-2 col-md-8'>
-								<div class=' input-group.search'>
-									<input type="text" class='form-control'>
-									<span class='input-group-btn'>
-										<button type="button" class='btn.btn-primary-dark'>
-										<span class='glyphicon.glyphicon-search'></span>
+								<div class="input-group search">
+									<input type="text" class="form-control">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-primary-dark">
+											<span class="glyphicon glyphicon-search"></span>
 										</button>
 									</span>
 								</div>
@@ -85,7 +91,7 @@
 			<div class='row'>
 				<div class='col-md-6'>
 					<section class='notepad'>
-						<div class='notepad-heading.complement-1-b'>
+						<div class='notepad-heading complement-1-b'>
 							<h1> Añadidas recientemente</h1>
 						</div>
 						<p> The a essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.</p>
@@ -93,7 +99,7 @@
 				</div>
 				<div class='col-md-6'>
 					<section class='notepad'>
-						<div class='notepad-heading.complement-1-b'>
+						<div class='notepad-heading complement-1-b'>
 							<h1>
 								<!--span.glyphicon.glyphicon-star-->
 								<span>  Mis recetas favoritas</span>
@@ -114,6 +120,9 @@
 			</div><!--end row-->
 		</div><!--end container-->
 	</div><!--end content-->
-</body>
-
-</html>
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}

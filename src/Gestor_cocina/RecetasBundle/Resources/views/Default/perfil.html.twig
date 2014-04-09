@@ -1,0 +1,93 @@
+{% extends '::base.html.twig' %}
+	{% block title %}Recetas - Gestor de cocina {% endblock %}
+		
+	{% block body %}
+	<div class='navbar navbar-default complement-1-b'>
+			<div class='container'> 
+				<div class='navbar-header'>
+					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='#'> Gestor de cocina</a>
+				</div>
+				<div class='navbar-collapse collapse'>
+					<ul class='nav navbar-nav menu'>
+						<li>
+							<a href="{{ path('inicio') }}"> Inicio</a>
+						</li>
+						<li>
+							<a href="{{ path('recetas') }}"> Recetas</a>
+						</li>
+						<li>
+							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+						</li>
+						<li>
+							<a href="{{ path('almacen') }}"> Almacén</a>
+						</li>
+					</ul>
+					<ul class='nav navbar-nav navbar-right menu-user'>
+						<li class='dropdown'>
+							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+								<span class='glyphicon glyphicon-user'></span>  
+								<span>   Usuario 1</span>
+								<span class='caret caret-white'></span>
+							</a>
+							<ul class='dropdown-menu complement-1-b'>
+								<li>
+									<a href="{{ path('perfil') }}"> 
+										<span class='glyphicon glyphicon-user'></span>
+										<span>   Perfil</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class='glyphicon glyphicon-off'></span>
+										<span>   Cerrar Sesión</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+		<div class="row block-info">
+			<div class="col-md-3">
+				<img alt="Pulsa para Subir tu foto" src="../public/img/no_user2.png" id="user-photo" class="img-rounded">
+			</div>
+			<div class="col-md-8">
+				<div class="block-info-title">
+					<span>Informacion Personal</span>
+				</div>
+				<div class="block-info-content table-responsive col-md-8">	
+					<table class="table">
+						<tr>
+							<td class="col-md-3">Nombre</td>
+							<td>
+								<span class="info">Juan Carlos Herencia</span></td>
+							<td class="edit-info col-md-1"> 
+								<span class="glyphicon glyphicon-edit"></span></td>
+						</tr>
+						<tr>
+							<td class="col-md-3">Usuario</td>
+							<td><span class="info">juanca</span></td>
+							<td class="edit-info"> <span class="glyphicon glyphicon-edit"></span></td>
+						</tr>
+						<tr>
+							<td class="col-md-3">Email</td><td><span class="info">juanca@gmail.com</span></td>
+							<td class="edit-info"><span class="glyphicon glyphicon-edit"></span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}

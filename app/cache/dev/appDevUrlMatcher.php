@@ -135,27 +135,45 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        if (0 === strpos($pathinfo, '/hello')) {
-            // recetas_homepage
-            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'recetas_homepage')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::indexAction',));
+        // inicio
+        if ($pathinfo === '/inicio') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::indexAction',  '_route' => 'inicio',);
+        }
+
+        if (0 === strpos($pathinfo, '/recetas')) {
+            // recetas
+            if ($pathinfo === '/recetas') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::recetasAction',  '_route' => 'recetas',);
             }
 
-            // almacen_homepage
-            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'almacen_homepage')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::indexAction',));
-            }
-
-            // centro_log_homepage
-            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'centro_log_homepage')), array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',));
+            // nueva_receta
+            if ($pathinfo === '/recetas/nueva_receta') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::nueva_recetaAction',  '_route' => 'nueva_receta',);
             }
 
         }
 
-        // pagina_ayuda
-        if ($pathinfo === '/ayuda') {
-            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::pruebaAction',  '_route' => 'pagina_ayuda',);
+        // centro_log
+        if ($pathinfo === '/centro_log') {
+            return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
+        }
+
+        if (0 === strpos($pathinfo, '/almacen')) {
+            // almacen
+            if ($pathinfo === '/almacen') {
+                return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::indexAction',  '_route' => 'almacen',);
+            }
+
+            // nuevo_producto
+            if ($pathinfo === '/almacen/nuevo_producto') {
+                return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::nuevo_productoAction',  '_route' => 'nuevo_producto',);
+            }
+
+        }
+
+        // perfil
+        if ($pathinfo === '/perfil') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::indexAction',  '_route' => 'perfil',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

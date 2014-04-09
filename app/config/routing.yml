@@ -1,15 +1,36 @@
+# recetas:
+#     resource: "@RecetasBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+# almacen:
+#     resource: "@AlmacenBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+# centro_log:
+#     resource: "@CentroLogBundle/Resources/config/routing.yml"
+#     prefix:   /
+inicio:
+    pattern: /inicio
+    defaults: { _controller: RecetasBundle:Default:index }
+    # -----------------------------------------------------------
 recetas:
-    resource: "@RecetasBundle/Resources/config/routing.yml"
-    prefix:   /
-
-almacen:
-    resource: "@AlmacenBundle/Resources/config/routing.yml"
-    prefix:   /
-
+    pattern: /recetas
+    defaults: { _controller: RecetasBundle:Default:recetas }
+nueva_receta:
+    pattern: /recetas/nueva_receta
+    defaults: { _controller: RecetasBundle:Default:nueva_receta }
+# -------------------------------------------------------------------------#
 centro_log:
-    resource: "@CentroLogBundle/Resources/config/routing.yml"
-    prefix:   /
-pagina_ayuda:
-    pattern: /ayuda
-    defaults: { _controller: RecetasBundle:Default:prueba }
+    pattern: /centro_log
+    defaults: { _controller: CentroLogBundle:Default:index }
+almacen:
+    pattern: /almacen
+    defaults: { _controller: AlmacenBundle:Default:index }
+nuevo_producto:
+    pattern: /almacen/nuevo_producto
+    defaults: { _controller: AlmacenBundle:Default:nuevo_producto }
+
+perfil:
+    pattern: /perfil
+    defaults: { _controller: RecetasBundle:User:index }
 

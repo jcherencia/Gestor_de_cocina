@@ -1,0 +1,138 @@
+{% extends '::base.html.twig' %}
+	{% block title %}Recetas - Gestor de cocina {% endblock %}
+		{% block body %}
+	<div class='content'>
+		<div class='navbar navbar-default complement-1-b'>
+			<div class='container'> 
+				<div class='navbar-header'>
+					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='navbar-collapse'>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='#'> Gestor de cocina</a>
+				</div>
+				<div class='navbar-collapse collapse'>
+					<ul class='nav navbar-nav menu'>
+						<li>
+							<a href="{{ path('inicio') }}"> Inicio</a>
+						</li>
+						<li  class='active'>
+							<a href="{{ path('recetas') }}"> Recetas</a>
+						</li>
+						<li>
+							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+						</li>
+						<li>
+							<a href="{{ path('almacen') }}"> Almacén</a>
+						</li>
+					</ul>
+					<ul class='nav navbar-nav navbar-right menu-user'>
+						<li class='dropdown'>
+							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+								<span class='glyphicon glyphicon-user'></span>  
+								<span>   Usuario 1</span>
+								<span class='caret caret-white'></span>
+							</a>
+							<ul class='dropdown-menu complement-1-b'>
+								<li>
+									<a href="{{ path('perfil') }}"> 
+										<span class='glyphicon glyphicon-user'></span>
+										<span>   Perfil</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class='glyphicon glyphicon-off'></span>
+										<span>   Cerrar Sesión</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<div class="panel panel-primary">
+					<div class="panel-heading complement-1-b">
+						<strong>Crear Recetas</strong>
+					</div>
+					<div class="panel-body">
+						<form id="form-recetas" method="post" role="form" class="form form-horizontal">
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Nombre</label>
+								<div class="col-md-6">
+									<input type="text" name="nombre" placeholder="Nombre de la receta.." class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Preparación</label>
+								<div class="col-md-6">
+									<input id="hide_descrip" type="hidden">
+									<textarea id="descrip" name="descripcion" placeholder="Preparación de la receta..." resizable="false" class="form-control"> </textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Comensales</label>
+								<div class="col-md-2">
+									<input type="text" name="comensales" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="precio" class="col-md-3 control-label">Precio</label>
+								<div class="col-md-2">
+									<div class="input-group"><input type="text" name="precio" class="form-control">
+										<span class="input-group-addon"> €</span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Ingredientes</label>
+								<div class="input-group col-md-4">
+									<select id="sel-ingred" class="form-control form-control-first">
+										<option value="">Aceite</option>
+										<option value="">Arroz</option>
+									</select>
+									<span class="input-group-btn">
+										<button type="button" onclick="agregarIngred();" class="btn btn-primary complement-1-b pull-right">
+											<span class="glyphicon glyphicon-plus"></span>
+										</button>
+									</span>
+								</div>
+							</div>
+							<div class="form-group">
+							<label for="" class="col-md-3 control-label"> </label>
+							<div class="col-md-6">
+								<div id="list_ingr" class="col-md-9"></div>
+								<input type="hidden" name="ingredientes" id="ingredientes">
+							</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-2 col-md-10 btn-separated">
+									<button type="submit" class="btn btn-primary complement-1-b">
+										<span class="glyphicon glyphicon-floppy-disk"></span>
+										<span> Guardar</span>
+									</button>
+									<a href="{{ path('recetas') }}" class="btn btn-danger">
+										<span class="glyphicon glyphicon-remove"></span>
+										<span>  Cancelar</span>
+									</a>
+								</div>
+							</div>
+						</form>
+						<div class="info"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!--end container-->
+</div>
+{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}
