@@ -8,8 +8,12 @@ $(document).ready(function(){
 	view_receta();
     	
 	show_limit_text(".description",45);
-	//---Pasos nuevo producto----//
-	steps_create();
+	//---Pasos creacion nuevo producto----//
+	
+	if ($('#form-productos').length) {
+
+	 	steps_create();
+	}
 	//Editar info usuario
 	edit_user_info();
     //Permite cambiar entre distintas vistas
@@ -24,7 +28,7 @@ $(document).ready(function(){
 	$("#user-photo").click(function () {
 		$('#modal-upload').modal('show');
 	});
-  
+  if ($('.admin').length) {
         //IDENTIFICA SI EXISTE EL DIV ADMIN 
   	if ($('.admin').length) {
   		panel_control("mod_pedidos");
@@ -41,7 +45,7 @@ $(document).ready(function(){
 		  $(this).children("figcaption ").children(".info_hide").slideUp('fast');
 		});	
 	//prepare_rec();
-	
+	 }
 });//FIN DOCUMENT READY
 /********************************/
 // function show_hide(visible,hidden){
@@ -196,7 +200,8 @@ function prepare_rec(){
 
 /**************************/
 function steps_create(){
-	var steps=1;
+	var step=1;
+	boton=$("#button-action");
 	$(".step_1").show("slow");
 	$("#unit").change(function(){
 		if($(this).val()!=""){
@@ -213,8 +218,8 @@ function steps_create(){
 							if($(this).val()!=""){
 						//Step 4
 						$(".step_4").show("slow");
-					}
-				});
+								}
+						});
 					}
 				});
 		}
@@ -223,5 +228,8 @@ function steps_create(){
 	
 }
 
+function detector(){
+	
+}
 
 

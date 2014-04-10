@@ -7,36 +7,36 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
     {
         parent::__construct($env);
 
-        $this->parent = false;
+        $this->parent = $this->env->loadTemplate("::base.html.twig");
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
+            'body' => array($this, 'block_body'),
+            'javascript' => array($this, 'block_javascript'),
         );
+    }
+
+    protected function doGetParent(array $context)
+    {
+        return "::base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 1
-        echo "<html>
-<head>
-\t<title>Adminstración - Gestor de cocina</title>
-\t<link type='text/css' rel='stylesheet' href='../public/css/style.css'>
-\t<link type='text/css' rel='stylesheet' href='../public/css/bootstrap.css'>
-\t<link type='text/css' rel='stylesheet' href='../public/css/bootstrap-theme.css'>
-\t
-\t<link type='text/css' rel='stylesheet' href='../public/css/notepad.css'>
-\t<link type='text/css' rel='stylesheet' href='../public/css/login.css'>
-\t<link type='text/css' rel='stylesheet' href='../public/css/menu.css'>
-\t<link type='text/css' rel='stylesheet' href='../public/css/admin.css'>
-\t
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+    }
 
-\t<script type=\"text/javascript\" src=\"../public/js/jquery.js\"></script>
-\t<script type=\"text/javascript\" src=\"../public/js/bootstrap.js\"></script>
-\t<script type=\"text/javascript\" src=\"../public/js/efectos.js\"></script>
-\t<script type=\"text/javascript\" src=\"../public/js/acciones.js\"></script>
-</head>
+    // line 2
+    public function block_title($context, array $blocks = array())
+    {
+        echo "Centro Logístico - Gestor de cocina ";
+    }
 
-<body>
-<div class='navbar navbar-default complement-1-b'>
+    // line 3
+    public function block_body($context, array $blocks = array())
+    {
+        // line 4
+        echo "<div class='navbar navbar-default complement-1-b'>
 \t\t\t<div class='container'> 
 \t\t\t\t<div class='navbar-header'>
 \t\t\t\t\t<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
@@ -50,25 +50,25 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t\t\t\t\t<ul class='nav navbar-nav menu'>
 \t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t<a href=\"";
-        // line 34
+        // line 17
         echo $this->env->getExtension('routing')->getPath("inicio");
         echo "\"> Inicio</a>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t<a href=\"";
-        // line 37
+        // line 20
         echo $this->env->getExtension('routing')->getPath("recetas");
         echo "\"> Recetas</a>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t<a href=\"";
-        // line 40
+        // line 23
         echo $this->env->getExtension('routing')->getPath("centro_log");
         echo "\"> Centro Logístico</a>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<li class='active'>
 \t\t\t\t\t\t\t<a href=\"";
-        // line 43
+        // line 26
         echo $this->env->getExtension('routing')->getPath("almacen");
         echo "\"> Almacén</a>
 \t\t\t\t\t\t</li>
@@ -83,7 +83,7 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t\t\t\t\t\t\t<ul class='dropdown-menu complement-1-b'>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<a href=\"";
-        // line 55
+        // line 38
         echo $this->env->getExtension('routing')->getPath("perfil");
         echo "\"> 
 \t\t\t\t\t\t\t\t\t\t<span class='glyphicon glyphicon-user'></span>
@@ -107,7 +107,7 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t\t<div class=\"row row-grid\">
 \t\t\t<div class=\"col-md-12\">
 \t\t\t\t<a  href=\"";
-        // line 76
+        // line 59
         echo $this->env->getExtension('routing')->getPath("nuevo_producto");
         echo "\">
 \t\t\t\t\t<button class=\"btn btn-primary complement-1-b\">Nuevo Producto</button>
@@ -211,9 +211,25 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t\t \t</div>
 \t\t</div>
 \t</div>
-</body>
-</html>
-";
+\t";
+    }
+
+    // line 162
+    public function block_javascript($context, array $blocks = array())
+    {
+        // line 163
+        echo "        ";
+        $this->displayParentBlock("javascript", $context, $blocks);
+        echo "
+\t\t\t<script type=\"text/javascript\" src=\"";
+        // line 164
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
+        echo "\"></script>
+\t\t\t<script type=\"text/javascript\" src=\"";
+        // line 165
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
+        echo "\"></script>
+    ";
     }
 
     public function getTemplateName()
@@ -228,6 +244,6 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 
     public function getDebugInfo()
     {
-        return array (  111 => 76,  87 => 55,  72 => 43,  66 => 40,  60 => 37,  54 => 34,  19 => 1,);
+        return array (  230 => 165,  226 => 164,  221 => 163,  218 => 162,  111 => 59,  87 => 38,  72 => 26,  66 => 23,  60 => 20,  54 => 17,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

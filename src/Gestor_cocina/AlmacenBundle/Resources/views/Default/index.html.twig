@@ -1,23 +1,6 @@
-<html>
-<head>
-	<title>Adminstración - Gestor de cocina</title>
-	<link type='text/css' rel='stylesheet' href='../public/css/style.css'>
-	<link type='text/css' rel='stylesheet' href='../public/css/bootstrap.css'>
-	<link type='text/css' rel='stylesheet' href='../public/css/bootstrap-theme.css'>
-	
-	<link type='text/css' rel='stylesheet' href='../public/css/notepad.css'>
-	<link type='text/css' rel='stylesheet' href='../public/css/login.css'>
-	<link type='text/css' rel='stylesheet' href='../public/css/menu.css'>
-	<link type='text/css' rel='stylesheet' href='../public/css/admin.css'>
-	
-
-	<script type="text/javascript" src="../public/js/jquery.js"></script>
-	<script type="text/javascript" src="../public/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../public/js/efectos.js"></script>
-	<script type="text/javascript" src="../public/js/acciones.js"></script>
-</head>
-
-<body>
+{% extends '::base.html.twig' %}
+	{% block title %}Centro Logístico - Gestor de cocina {% endblock %}
+		{% block body %}
 <div class='navbar navbar-default complement-1-b'>
 			<div class='container'> 
 				<div class='navbar-header'>
@@ -175,5 +158,9 @@
 		 	</div>
 		</div>
 	</div>
-</body>
-</html>
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}
