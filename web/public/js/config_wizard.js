@@ -1,17 +1,24 @@
 $(document).ready(function() {
-				$.fn.wizard.logging = true;
-				var wizard = $('#some-wizard').wizard({
-					keyboard : false,
-					contentHeight : 400,
-					contentWidth : 700,
-					backdrop: 'static',
-					theme:'complement-1-b'
-				});
+		$.fn.wizard.logging = true;
+		var wizard = $('#some-wizard').wizard({
+			keyboard : false,
+			contentHeight : 400,
+			contentWidth : 700,
+			showCancel: true,
+			backdrop: 'static',
+			theme:'complement-2-b'
+		});
+		
+			// if(wizard.getActiveCard().index==1){
 				
-						
-				// wizard.on('closed', function() {
-				// 	wizard.reset();
-				// });
+			// 	$('.unit').html($('#unit').val());
+			// }
+		
+		
+				
+		wizard.on('closed', function() {
+			wizard.reset();
+		});
 
 				// wizard.on("reset", function() {
 				// 	wizard.modal.find(':input').val('').removeAttr('disabled');
@@ -55,4 +62,13 @@ $(document).ready(function() {
 					e.preventDefault();
 					wizard.show();
 				});
+
+				/*********************************************/
+
+				if($('#unit').change(function(){
+					if($(this).val()!=""){
+						$(".unit").html($(this).val());
+					}
+				}));
+
 			});

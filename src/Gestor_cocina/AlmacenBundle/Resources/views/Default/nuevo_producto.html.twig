@@ -9,29 +9,78 @@
 		<button id="open-wizard" class="btn btn-primary">
 			Open wizard
 		</button>
-		<div class="wizard" id="some-wizard" data-title="Añadir producto">
-		 
-		    <h1 class="wizard-title">Wizard Title</h1>
-		 
-		    <div class="wizard-card" data-cardname="Paso 1">
-		        <h3>Datos básicos</h3>
-		        Some content
-		    </div>
-		 
-		    <div class="wizard-card" data-cardname="card2">
-		        <h3>Unidad de compra</h3>
-		        Some other content
-		    </div>
-		    <div class="wizard-card" data-cardname="card3">
-		        <h3>Precio / unid. compra</h3>
-		        Some other content
-		    </div>
-		    <div class="wizard-card" data-cardname="card4">
-		        <h3>Stock y Stock Mínimo</h3>
-		        Some other content
-		    </div>
-		 
-		</div>
+		<form id="form-productos" method="post" role="form" class="form form-horizontal">
+			<div class="wizard" id="some-wizard" data-title="Añadir producto">
+			 
+			    <h1 class="wizard-title">Wizard Title</h1>
+			 
+			    <div class="wizard-card" id="paso2" data-cardname="Paso 1">
+			        <h3>Datos básicos</h3>
+			        	<div class="form-group ">
+							<label for="" class="col-md-3 control-label">Nombre</label>
+							<div class="col-md-6">
+								<input type="text" name="nombre" placeholder="Nombre del producto.." value class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="unid" class="col-md-3 control-label">Unidades</label>
+							<div class="col-md-6">
+								<select id="unit" class="form-control">
+									<option value="" selected>Selecciona..</option>
+									<option value="gr">gr</option>
+									<option value="L">l</option>
+									<option value="ml">ml</option>
+									<option value="und">unid</option></select>
+							</div>
+						</div>
+			    </div>
+			 
+			    <div class="wizard-card" data-cardname="card2">
+			        <h3>Unidad de compra</h3>
+			        <div class="form-group ">
+							<label for="unid_compra" class="col-md-3 control-label">Unidad de compra</label>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" name="und_compra" value class="form-control">
+									<span class="input-group-addon unit"></span>
+								</div>
+							</div>
+						</div>
+			    </div>
+			    <div class="wizard-card" data-cardname="card3">
+			        <h3>Precio / unid. compra</h3>
+			        <div class="form-group">
+							<label for="precio" class="col-md-3 control-label">Precio / Unidad de compra</label>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" name="precio" value class="form-control">
+									<span class="input-group-addon"> €</span>
+								</div>
+							</div>
+						</div>
+			    </div>
+			    <div class="wizard-card" data-cardname="card4">
+			        <h3>Stock y Stock Mínimo</h3>
+			        <div class="form-group">
+							<label for="" class="col-md-3 control-label">Stock</label>
+							<div class="col-md-2">
+								<div class="input-group">
+									<input type="text" name="stock" value class="form-control">
+									<span class="input-group-addon unit"></span>
+								</div>
+							</div>
+							<label for="" class="col-md-2 control-label">Stock Mínimo</label>
+							<div class="col-md-2">
+								<div class="input-group">
+									<input type="text" name="stock_min" value class="form-control">
+									<span class="input-group-addon unit"></span>
+								</div>
+							</div>
+						</div>
+			    </div>
+			 
+			</div>
+		</form>
 
 {% endblock %}
     {% block javascript %}

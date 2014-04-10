@@ -8,16 +8,12 @@ $(document).ready(function(){
 	view_receta();
     	
 	show_limit_text(".description",45);
-	//---Pasos creacion nuevo producto----//
-	
-	if ($('#form-productos').length) {
-
-	 	steps_create();
-	}
+	//---Pasos nuevo producto----//
+	// steps_create();
 	//Editar info usuario
 	edit_user_info();
     //Permite cambiar entre distintas vistas
-    toggleview("panel-lista");
+    // toggleview("panel-lista");
 	//Boton de "Ir Arriba"
        scrollUp();
      //-----------------------//
@@ -28,7 +24,7 @@ $(document).ready(function(){
 	$("#user-photo").click(function () {
 		$('#modal-upload').modal('show');
 	});
-  if ($('.admin').length) {
+  
         //IDENTIFICA SI EXISTE EL DIV ADMIN 
   	if ($('.admin').length) {
   		panel_control("mod_pedidos");
@@ -45,7 +41,7 @@ $(document).ready(function(){
 		  $(this).children("figcaption ").children(".info_hide").slideUp('fast');
 		});	
 	//prepare_rec();
-	 }
+	
 });//FIN DOCUMENT READY
 /********************************/
 // function show_hide(visible,hidden){
@@ -135,22 +131,22 @@ function scrollUp(){
         });
     }
 //Controla los tipos de vistas diponibles
-function toggleview(default_hidden){
-	$("#"+default_hidden).hide();
-    $("input[name=vista]").change(function () {
+// function toggleview(default_hidden){
+// 	$("#"+default_hidden).hide();
+//     $("input[name=vista]").change(function () {
 
-		var selected ="panel-"+$(this).val();
-		var hidden = [];
-		 $('.panel-view').each(function(key, element){
-		 	var id_element=$(element).attr('id');
-		 	if(id_element!=selected){
-		 		hidden.push(id_element);
-		 	}
-  		});
-			show_hide_slide(selected,hidden);
-		  //Efecto mostrar/ocultar para los open id
-	});
-}
+// 		var selected ="panel-"+$(this).val();
+// 		var hidden = [];
+// 		 $('.panel-view').each(function(key, element){
+// 		 	var id_element=$(element).attr('id');
+// 		 	if(id_element!=selected){
+// 		 		hidden.push(id_element);
+// 		 	}
+//   		});
+// 			show_hide_slide(selected,hidden);
+// 		  //Efecto mostrar/ocultar para los open id
+// 	});
+// }
 /********************USER INFO****************************/
 function edit_user_info(){
 	$(".edit-info").click(function(e){

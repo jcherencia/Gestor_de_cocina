@@ -41,7 +41,7 @@
         this._loaded 	= false;
         this._events =	 {};
 
-        this.theme ="complement-1-b";
+        this.theme ="complement-3-b";
     };
     
     WizardCard.prototype = {
@@ -391,8 +391,8 @@
                 cancelText: "Cancelar",
                 nextText: "Siguiente",
                 backText: "Atras",
-                submitText: "Enviar",
-                submittingText: "Enviando...",
+                submitText: "Crear",
+                submittingText: "Creando...",
             },
             formClass: "form-horizontal",
             theme :"complement-1-b"
@@ -400,6 +400,7 @@
         
         /* TEMPLATE */
         theme=this.args.theme;
+        // alert(theme);
         this.wizard_template = [
             '<div  class="modal fade wizard">',
                 '<div class="modal-dialog wizard-dialog">',
@@ -427,7 +428,7 @@
                                     '</div>',
                                     '<div class="wizard-footer">',
                                         '<div class="wizard-buttons-container">',
-                                            '<button class="btn wizard-cancel wizard-close" type="button">Cancel</button>',
+                                            '<button class="btn btn-danger wizard-cancel wizard-close" type="button">Cancel</button>',
                                             '<div class="btn-group-single pull-right">',
                                                 '<button class="btn wizard-back" type="button">Atras</button>',
                                                 '<button class="btn btn-primary wizard-next " type="button">Siguiente</button>',

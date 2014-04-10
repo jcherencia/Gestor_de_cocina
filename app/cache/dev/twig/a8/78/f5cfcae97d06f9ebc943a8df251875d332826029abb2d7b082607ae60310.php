@@ -56,54 +56,103 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
         echo "\t\t<button id=\"open-wizard\" class=\"btn btn-primary\">
 \t\t\tOpen wizard
 \t\t</button>
-\t\t<div class=\"wizard\" id=\"some-wizard\" data-title=\"Añadir producto\">
-\t\t 
-\t\t    <h1 class=\"wizard-title\">Wizard Title</h1>
-\t\t 
-\t\t    <div class=\"wizard-card\" data-cardname=\"Paso 1\">
-\t\t        <h3>Datos básicos</h3>
-\t\t        Some content
-\t\t    </div>
-\t\t 
-\t\t    <div class=\"wizard-card\" data-cardname=\"card2\">
-\t\t        <h3>Unidad de compra</h3>
-\t\t        Some other content
-\t\t    </div>
-\t\t    <div class=\"wizard-card\" data-cardname=\"card3\">
-\t\t        <h3>Precio / unid. compra</h3>
-\t\t        Some other content
-\t\t    </div>
-\t\t    <div class=\"wizard-card\" data-cardname=\"card4\">
-\t\t        <h3>Stock y Stock Mínimo</h3>
-\t\t        Some other content
-\t\t    </div>
-\t\t 
-\t\t</div>
+\t\t<form id=\"form-productos\" method=\"post\" role=\"form\" class=\"form form-horizontal\">
+\t\t\t<div class=\"wizard\" id=\"some-wizard\" data-title=\"Añadir producto\">
+\t\t\t 
+\t\t\t    <h1 class=\"wizard-title\">Wizard Title</h1>
+\t\t\t 
+\t\t\t    <div class=\"wizard-card\" id=\"paso2\" data-cardname=\"Paso 1\">
+\t\t\t        <h3>Datos básicos</h3>
+\t\t\t        \t<div class=\"form-group \">
+\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\">Nombre</label>
+\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t<input type=\"text\" name=\"nombre\" placeholder=\"Nombre del producto..\" value class=\"form-control\">
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
+\t\t\t\t\t\t<div class=\"form-group\">
+\t\t\t\t\t\t\t<label for=\"unid\" class=\"col-md-3 control-label\">Unidades</label>
+\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t<select id=\"unit\" class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<option value=\"\" selected>Selecciona..</option>
+\t\t\t\t\t\t\t\t\t<option value=\"gr\">gr</option>
+\t\t\t\t\t\t\t\t\t<option value=\"L\">l</option>
+\t\t\t\t\t\t\t\t\t<option value=\"ml\">ml</option>
+\t\t\t\t\t\t\t\t\t<option value=\"und\">unid</option></select>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
+\t\t\t    </div>
+\t\t\t 
+\t\t\t    <div class=\"wizard-card\" data-cardname=\"card2\">
+\t\t\t        <h3>Unidad de compra</h3>
+\t\t\t        <div class=\"form-group \">
+\t\t\t\t\t\t\t<label for=\"unid_compra\" class=\"col-md-3 control-label\">Unidad de compra</label>
+\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t<div class=\"input-group\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"und_compra\" value class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\"></span>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
+\t\t\t    </div>
+\t\t\t    <div class=\"wizard-card\" data-cardname=\"card3\">
+\t\t\t        <h3>Precio / unid. compra</h3>
+\t\t\t        <div class=\"form-group\">
+\t\t\t\t\t\t\t<label for=\"precio\" class=\"col-md-3 control-label\">Precio / Unidad de compra</label>
+\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t<div class=\"input-group\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"precio\" value class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon\"> €</span>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
+\t\t\t    </div>
+\t\t\t    <div class=\"wizard-card\" data-cardname=\"card4\">
+\t\t\t        <h3>Stock y Stock Mínimo</h3>
+\t\t\t        <div class=\"form-group\">
+\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\">Stock</label>
+\t\t\t\t\t\t\t<div class=\"col-md-2\">
+\t\t\t\t\t\t\t\t<div class=\"input-group\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"stock\" value class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\"></span>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-2 control-label\">Stock Mínimo</label>
+\t\t\t\t\t\t\t<div class=\"col-md-2\">
+\t\t\t\t\t\t\t\t<div class=\"input-group\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"stock_min\" value class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\"></span>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
+\t\t\t    </div>
+\t\t\t 
+\t\t\t</div>
+\t\t</form>
 
 ";
     }
 
-    // line 37
+    // line 86
     public function block_javascript($context, array $blocks = array())
     {
-        // line 38
+        // line 87
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
         \t<script type=\"text/javascript\" src=\"";
-        // line 39
+        // line 88
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/bootstrap-wizard.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 40
+        // line 89
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 41
+        // line 90
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 42
+        // line 91
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/config_wizard.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -121,6 +170,6 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 
     public function getDebugInfo()
     {
-        return array (  107 => 42,  103 => 41,  99 => 40,  95 => 39,  90 => 38,  87 => 37,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  156 => 91,  152 => 90,  148 => 89,  144 => 88,  139 => 87,  136 => 86,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }
