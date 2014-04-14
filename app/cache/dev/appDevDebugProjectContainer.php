@@ -2970,7 +2970,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getUriSignerService()
     {
-        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('4f54ddbba4c2accb1b02565ee93cccb1');
+        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('fead84632ecfb3e79178f9ce98102e885');
     }
 
     /**
@@ -3425,7 +3425,7 @@ class appDevDebugProjectContainer extends Container
             'mailer_user' => NULL,
             'mailer_password' => NULL,
             'locale' => 'en',
-            'secret' => '4f54ddbba4c2accb1b02565ee93cccb1',
+            'secret' => 'fead84632ecfb3e79178f9ce98102e885',
             'database_path' => NULL,
             'controller_resolver.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver',
             'controller_name_converter.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerNameParser',
@@ -3480,7 +3480,7 @@ class appDevDebugProjectContainer extends Container
             'debug.stopwatch.class' => 'Symfony\\Component\\Stopwatch\\Stopwatch',
             'debug.container.dump' => 'C:/xampp/htdocs/Gestor_de_cocina/app/cache/dev/appDevDebugProjectContainer.xml',
             'debug.controller_resolver.class' => 'Symfony\\Component\\HttpKernel\\Controller\\TraceableControllerResolver',
-            'kernel.secret' => '4f54ddbba4c2accb1b02565ee93cccb1',
+            'kernel.secret' => 'fead84632ecfb3e79178f9ce98102e885',
             'kernel.http_method_override' => true,
             'kernel.trusted_hosts' => array(
 
