@@ -19,6 +19,9 @@ recetas:
 nueva_receta:
     pattern: /recetas/nueva_receta
     defaults: { _controller: RecetasBundle:Default:nueva_receta }
+crear_receta:
+    pattern: /recetas/nueva_receta/crear
+    defaults: { _controller: RecetasBundle:FormRecetas:crear_receta }
 # -------------------------------------------------------------------------#
 centro_log:
     pattern: /centro_log

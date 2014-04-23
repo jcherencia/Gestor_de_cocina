@@ -33,22 +33,20 @@
         this.next 		= next;
         this.el 		= card;
         this.title 		= card.find("h3").first().text();
-        this.name 		= this.title || card.data("cardname") ;
+        this.name 		= card.data("cardname") || this.title;
 
         this.nav 		= this._createNavElement(this.title, index);
 
         this._disabled 	= false;
         this._loaded 	= false;
         this._events =	 {};
-
-        this.theme ="complement-3-b";
     };
     
     WizardCard.prototype = {
         select: function() {
             this.log("selecting");
             if (!this.isSelected()) {
-                this.nav.addClass("active ");
+                this.nav.addClass("active");
                 this.el.show();
 
                 if (!this._loaded) {
@@ -130,7 +128,6 @@
             // this.nav.removeClass('hide');
             
             this.nav.addClass("active");
-            alert("ok");
             this._disabled = false;
             this.trigger("enabled");
             return this;
@@ -374,32 +371,9 @@
     };
     
     Wizard = function(markup, args) {
-       
-
-        this.args = {
-            keyboard: true,
-            backdrop: true,
-            show: false,
-            submitUrl: "",
-            showCancel: false,
-            showClose: true,
-            progressBarCurrent: false,
-            increaseHeight: 0,
-            contentHeight: 300,
-            contentWidth: 580,
-            buttons: {
-                cancelText: "Cancelar",
-                nextText: "Siguiente",
-                backText: "Atras",
-                submitText: "Crear",
-                submittingText: "Creando...",
-            },
-            formClass: "form-horizontal",
-            theme :"complement-1-b"
-        };
         
         /* TEMPLATE */
-        theme=this.args.theme;
+       theme="complement-1-b";
         // alert(theme);
         this.wizard_template = [
             '<div  class="modal fade wizard">',
@@ -443,7 +417,27 @@
                 '</div>',
             '</div>'
         ];
-       
+        
+        this.args = {
+            keyboard: true,
+            backdrop: true,
+            show: false,
+            submitUrl: "",
+            showCancel: false,
+            showClose: true,
+            progressBarCurrent: false,
+            increaseHeight: 0,
+            contentHeight: 300,
+            contentWidth: 580,
+            buttons: {
+                cancelText: "Cancelar",
+                nextText: "Siguiente",
+                backText: "Atras",
+                submitText: "Enviar",
+                submittingText: "Enviando...",
+            },
+            formClass: "form-horizontal"
+        };
         $.extend(this.args, args || {});
         
         this._create(markup);

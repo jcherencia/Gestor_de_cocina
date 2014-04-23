@@ -20,7 +20,7 @@ class Recetas{
 	protected $slug;
 	/** /** @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Usuarios") */
 	protected $autor;
-	/** @ORM\Column(type="date") */
+	/** @ORM\Column(type="datetime") */
 	protected $fecha_creacion;
 	/** @ORM\Column(type="string", length=300) */
 	protected $descripcion;

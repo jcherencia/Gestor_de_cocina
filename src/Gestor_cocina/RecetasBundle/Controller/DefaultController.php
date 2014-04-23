@@ -6,13 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
+    //Creacion de las vistas
     public function indexAction()
     {
         return $this->render('RecetasBundle:Default:index.html.twig');
     }
     public function recetasAction()
     {
-    	return $this->render('RecetasBundle:Default:recetas.html.twig');
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
+        
+    	return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas));
+
     }
     public function perfilAction()
     {
@@ -22,4 +28,4 @@ class DefaultController extends Controller
     {
         return $this->render('RecetasBundle:Default:nueva_receta.html.twig');
     }
-}
+} 

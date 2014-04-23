@@ -86,7 +86,7 @@
 						</div>
 					</div>
 
-					<div class='panel-body'>
+					{# <div class='panel-body'>
 						<div class='row row-grid'>
 							<div class='col-sm-6 col-md-3'>
 								<figure class='receta'>
@@ -109,8 +109,35 @@
 								</figure>
 							</div>
 						</div>
+					</div> #}
+					<div class='panel-body'>
+						<div class='row row-grid'>
+						{% for receta in recetas %}
+							<div class='col-sm-6 col-md-3'>
+							
+								<figure class='receta'>
+									<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
+									<figcaption>
+										<a class='nombre' href="">{{ receta.nombre }}</a>
+										<p class='description info_hide'>{{ receta.descripcion }}</p>
+										<div class='info-rec content-hide'>
+											<div class='slug'>{{ receta.slug }}</div>
+											<p class='desc'>{{ receta.descripcion }}</p>
+											<ul class='ingr'>
+												<li> ingr1</li>
+												<li> ingr1 </li>
+												<li> ingr1</li>
+											</ul>
+											<div class='precio'>10</div>
+											<div class='comensales'>{{ receta.comensales }}</div>
+										</div>
+									</figcaption>
+								</figure>
+							
+							</div>
+							{% endfor %}
+						</div>
 					</div>
-
 				</div>
 			</div>
 			<div id='modal-prepare' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>

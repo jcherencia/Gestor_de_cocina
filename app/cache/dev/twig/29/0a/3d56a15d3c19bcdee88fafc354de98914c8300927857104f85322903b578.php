@@ -137,23 +137,52 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t \t</div>
 \t \t<div class=\"panel-body\">
 \t \t\t<div class=\"row row-grid\">
-\t \t\t\t<div class=\"col-sm-6 col-md-3\">
+\t \t\t";
+        // line 87
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["productos"]) ? $context["productos"] : $this->getContext($context, "productos")));
+        foreach ($context['_seq'] as $context["_key"] => $context["producto"]) {
+            // line 88
+            echo "\t \t\t\t<div class=\"col-sm-6 col-md-3\">
 \t \t\t\t\t<figure>
- \t\t\t\t\t\t<img src=\"../public/img/no_image.png\">
+ \t\t\t\t\t\t<img src=\"";
+            // line 90
+            echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_image.png"), "html", null, true);
+            echo "\">
  \t\t\t\t\t\t\t<figcaption>
- \t\t\t\t\t\t\t\t<a href=\"/receta/editar/\">Pollo</a>
+ \t\t\t\t\t\t\t\t<a href=\"/receta/editar/\">";
+            // line 92
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "nombre"), "html", null, true);
+            echo "</a>
  \t\t\t\t\t\t\t\t<table class=\"table info_hide\">
  \t\t\t\t\t\t\t\t\t<tr>
  \t\t\t\t\t\t\t\t\t\t<td>Precio</td>
- \t\t\t\t\t\t\t\t\t\t<td>1.3 €</td>
+ \t\t\t\t\t\t\t\t\t\t<td>";
+            // line 96
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "precio"), "html", null, true);
+            echo " € / ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidadCompra"), "html", null, true);
+            echo " ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidad"), "html", null, true);
+            echo "</td>
 \t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t<td>Stock</td>
-\t\t\t\t\t\t\t\t\t<td>3000 </td>
+\t\t\t\t\t\t\t\t\t<td>";
+            // line 100
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "stock"), "html", null, true);
+            echo "  ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidad"), "html", null, true);
+            echo "</td>
 \t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t<td>Stock mínimo</td>
-\t\t\t\t\t\t\t\t\t<td>1000 <span class=\"pr_total\"></span></td>
+\t\t\t\t\t\t\t\t\t<td>";
+            // line 104
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "stockMin"), "html", null, true);
+            echo " ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidad"), "html", null, true);
+            echo "<span class=\"pr_total\"></span></td>
 \t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t<td colspan=\"2\">
@@ -172,61 +201,34 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 \t\t\t\t\t\t\t</figcaption>
 \t\t\t\t\t\t</figure>
 \t\t\t\t\t</div>
-\t \t\t\t<div class=\"col-sm-6 col-md-3\">
-\t \t\t\t\t<figure>
- \t\t\t\t\t\t<img src=\"../public/img/no_image.png\">
- \t\t\t\t\t\t\t<figcaption>
- \t\t\t\t\t\t\t\t<a href=\"/receta/editar/\">Arroz</a>
- \t\t\t\t\t\t\t\t<table class=\"table info_hide\">
- \t\t\t\t\t\t\t\t\t<tr>
- \t\t\t\t\t\t\t\t\t\t<td>Precio</td>
- \t\t\t\t\t\t\t\t\t\t<td>1.3 €</td>
-\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t<td>Stock</td>
-\t\t\t\t\t\t\t\t\t<td>3000 </td>
-\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t<td>Stock mínimo</td>
-\t\t\t\t\t\t\t\t\t<td>1000 <span class=\"pr_total\"></span></td>
-\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t\t<td colspan=\"2\">
-\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
-\t\t\t\t\t\t\t\t\t\t\t\t<button data-href=\"/almacen/editar/\" class=\"btn btn-primary\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\"></span>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"visible_lg\"> Editar</span>
-\t\t\t\t\t\t\t\t\t\t\t\t</button>
-\t\t\t\t\t\t\t\t\t\t\t\t<button data-href=\"/almacen/eliminar-producto/\" class=\"btn btn-danger\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-trash\"></span><span class=\"visible_lg\"> Borrar</span>
-\t\t\t\t\t\t\t\t\t\t\t\t</button>
-\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t</td>
-\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t</figcaption>
-\t\t\t\t\t\t</figure>
-\t\t\t\t\t</div>
-\t\t\t\t</div>
+\t\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['producto'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 124
+        echo "\t \t\t\t";
+        // line 159
+        echo "\t\t\t\t</div>
 \t\t \t</div>
 \t\t</div>
 \t</div>
 \t";
     }
 
-    // line 162
+    // line 164
     public function block_javascript($context, array $blocks = array())
     {
-        // line 163
+        // line 165
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 164
+        // line 166
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 165
+        // line 167
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -244,6 +246,6 @@ class __TwigTemplate_290a3d56a15d3c19bcdee88fafc354de98914c8300927857104f8532290
 
     public function getDebugInfo()
     {
-        return array (  230 => 165,  226 => 164,  221 => 163,  218 => 162,  111 => 59,  87 => 38,  72 => 26,  66 => 23,  60 => 20,  54 => 17,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  232 => 167,  228 => 166,  223 => 165,  220 => 164,  212 => 159,  210 => 124,  182 => 104,  173 => 100,  162 => 96,  155 => 92,  150 => 90,  146 => 88,  142 => 87,  111 => 59,  87 => 38,  72 => 26,  66 => 23,  60 => 20,  54 => 17,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

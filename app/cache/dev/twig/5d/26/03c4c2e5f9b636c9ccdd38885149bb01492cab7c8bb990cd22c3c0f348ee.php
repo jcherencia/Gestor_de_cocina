@@ -139,31 +139,61 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
 
-\t\t\t\t\t<div class='panel-body'>
+\t\t\t\t\t";
+        // line 113
+        echo "\t\t\t\t\t<div class='panel-body'>
 \t\t\t\t\t\t<div class='row row-grid'>
-\t\t\t\t\t\t\t<div class='col-sm-6 col-md-3'>
+\t\t\t\t\t\t";
+        // line 115
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["recetas"]) ? $context["recetas"] : $this->getContext($context, "recetas")));
+        foreach ($context['_seq'] as $context["_key"] => $context["receta"]) {
+            // line 116
+            echo "\t\t\t\t\t\t\t<div class='col-sm-6 col-md-3'>
+\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t<figure class='receta'>
 \t\t\t\t\t\t\t\t\t<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
 \t\t\t\t\t\t\t\t\t<figcaption>
-\t\t\t\t\t\t\t\t\t\t<a class='nombre' href=\"\">Nombre</a>
-\t\t\t\t\t\t\t\t\t\t<p class='description info_hide'>Descripcion</p>
+\t\t\t\t\t\t\t\t\t\t<a class='nombre' href=\"\">";
+            // line 121
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "nombre"), "html", null, true);
+            echo "</a>
+\t\t\t\t\t\t\t\t\t\t<p class='description info_hide'>";
+            // line 122
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "descripcion"), "html", null, true);
+            echo "</p>
 \t\t\t\t\t\t\t\t\t\t<div class='info-rec content-hide'>
-\t\t\t\t\t\t\t\t\t\t\t<div class='slug'>Slug</div>
-\t\t\t\t\t\t\t\t\t\t\t<p class='desc'>Descrip</p>
+\t\t\t\t\t\t\t\t\t\t\t<div class='slug'>";
+            // line 124
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "slug"), "html", null, true);
+            echo "</div>
+\t\t\t\t\t\t\t\t\t\t\t<p class='desc'>";
+            // line 125
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "descripcion"), "html", null, true);
+            echo "</p>
 \t\t\t\t\t\t\t\t\t\t\t<ul class='ingr'>
 \t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1</li>
 \t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1 </li>
 \t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1</li>
 \t\t\t\t\t\t\t\t\t\t\t</ul>
 \t\t\t\t\t\t\t\t\t\t\t<div class='precio'>10</div>
-\t\t\t\t\t\t\t\t\t\t\t<div class='comensales'>5</div>
+\t\t\t\t\t\t\t\t\t\t\t<div class='comensales'>";
+            // line 132
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "comensales"), "html", null, true);
+            echo "</div>
 \t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t</figcaption>
 \t\t\t\t\t\t\t\t</figure>
+\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 139
+        echo "\t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
-
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t\t<div id='modal-prepare' class=\"modal fade\" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
@@ -224,19 +254,19 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 \t";
     }
 
-    // line 172
+    // line 199
     public function block_javascript($context, array $blocks = array())
     {
-        // line 173
+        // line 200
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 174
+        // line 201
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 175
+        // line 202
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -254,6 +284,6 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 
     public function getDebugInfo()
     {
-        return array (  240 => 175,  236 => 174,  231 => 173,  228 => 172,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  270 => 202,  266 => 201,  261 => 200,  258 => 199,  195 => 139,  182 => 132,  172 => 125,  168 => 124,  163 => 122,  159 => 121,  152 => 116,  148 => 115,  144 => 113,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

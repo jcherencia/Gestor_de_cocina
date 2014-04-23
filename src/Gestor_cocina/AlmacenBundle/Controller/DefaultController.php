@@ -8,7 +8,9 @@ class DefaultController extends Controller
 {
      public function indexAction()
     {
-        return $this->render('AlmacenBundle:Default:index.html.twig');
+    	$em = $this->getDoctrine()->getEntityManager();
+        $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+        return $this->render('AlmacenBundle:Default:index.html.twig',array('productos' => $productos));
     }
     public function nuevo_productoAction(){
     	 return $this->render('AlmacenBundle:Default:nuevo_producto.html.twig');

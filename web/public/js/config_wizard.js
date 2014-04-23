@@ -1,30 +1,24 @@
 $(document).ready(function() {
-		$.fn.wizard.logging = true;
-		var wizard = $('#some-wizard').wizard({
-			keyboard : false,
-			contentHeight : 400,
-			contentWidth : 700,
-			showCancel: true,
-			backdrop: 'static',
-			theme:'complement-2-b'
-		});
-		
-			// if(wizard.getActiveCard().index==1){
+				$.fn.wizard.logging = true;
+				var wizard = $('#satellite-wizard').wizard({
+					keyboard : false,
+					contentHeight : 400,
+					contentWidth : 700,
+					backdrop: 'static',
+					showCancel: true,
+					submitUrl:""
+				});
 				
-			// 	$('.unit').html($('#unit').val());
-			// }
-		
-		
-				
-		wizard.on('closed', function() {
-			wizard.reset();
-		});
+						
+				wizard.on('closed', function() {
+					wizard.reset();
+				});
 
-				// wizard.on("reset", function() {
-				// 	wizard.modal.find(':input').val('').removeAttr('disabled');
-				// 	wizard.modal.find('.form-group').removeClass('has-error').removeClass('has-succes');
-				// 	wizard.modal.find('#fqdn').data('is-valid', 0).data('lookup', 0);
-				// });
+				wizard.on("reset", function() {
+					wizard.modal.find(':input').val('').removeAttr('disabled');
+					wizard.modal.find('.form-group').removeClass('has-error').removeClass('has-succes');
+					wizard.modal.find('#fqdn').data('is-valid', 0).data('lookup', 0);
+				});
 
 				// wizard.on("submit", function(wizard) {
 				// 	var submit = {
@@ -45,13 +39,13 @@ $(document).ready(function() {
 				// 	}, 2000);
 				// });
 				
-				// wizard.el.find(".wizard-success .im-done").click(function() {
-				// 	wizard.hide();
-				// 	setTimeout(function() {
-				// 		wizard.reset();	
-				// 	}, 250);
+				wizard.el.find(".wizard-success .im-done").click(function() {
+					wizard.hide();
+					setTimeout(function() {
+						wizard.reset();	
+					}, 250);
 					
-				// });
+				});
 			
 				// wizard.el.find(".wizard-success .create-another-server").click(function() {
 				// 	wizard.reset();
@@ -63,12 +57,60 @@ $(document).ready(function() {
 					wizard.show();
 				});
 
-				/*********************************************/
 
+				cargarUnidades();
+
+				// generarInforme();
+			});
+
+			function validateNum(el){
+				var element = el.val();
+				var retValue = {};
+
+				if (element == "" ){
+					retValue.status = false;
+					retValue.msg = "Obligatorio *";
+				} else {
+					if(isNaN(element)){
+						retValue.status = false;
+						retValue.msg = "Introduce numeros *";
+					}else{
+						retValue.status = true;
+					}
+					
+
+				}
+
+				return retValue;
+			}	
+			function validateNull(el) {
+				var element = el.val();
+				var retValue = {};
+
+				if (element == "") {
+					retValue.status = false;
+					retValue.msg = "Obligatorio *";
+				} else {
+					retValue.status = true;
+				}
+
+				return retValue;
+			};
+			/*-------------FUNCIONES EXTRA---------*/
+			function cargarUnidades(){
 				if($('#unit').change(function(){
 					if($(this).val()!=""){
 						$(".unit").html($(this).val());
 					}
 				}));
+			}
 
-			});
+			function generarInforme(){
+				var cadena = $("#form-productos").attr('class');
+				var cadena = $("#form-productos").serialize();
+				alert(cadena);
+				return false;
+			}
+
+
+

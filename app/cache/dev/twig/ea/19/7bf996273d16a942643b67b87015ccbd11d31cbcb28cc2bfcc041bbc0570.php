@@ -111,7 +111,10 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t<strong>Crear Recetas</strong>
 \t\t\t\t\t</div>
 \t\t\t\t\t<div class=\"panel-body\">
-\t\t\t\t\t\t<form id=\"form-recetas\" method=\"post\" role=\"form\" class=\"form form-horizontal\">
+\t\t\t\t\t\t<form action =\"";
+        // line 64
+        echo $this->env->getExtension('routing')->getPath("crear_receta");
+        echo "\" id=\"form-recetas\" method=\"post\" role=\"form\" class=\"form form-horizontal\">
 \t\t\t\t\t\t\t<div class=\"form-group\">
 \t\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\">Nombre</label>
 \t\t\t\t\t\t\t\t<div class=\"col-md-6\">
@@ -216,6 +219,6 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 
     public function getDebugInfo()
     {
-        return array (  202 => 137,  198 => 136,  193 => 135,  190 => 134,  171 => 119,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  205 => 137,  201 => 136,  196 => 135,  193 => 134,  174 => 119,  116 => 64,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

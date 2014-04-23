@@ -9,78 +9,151 @@
 		<button id="open-wizard" class="btn btn-primary">
 			Open wizard
 		</button>
+		
 		<form id="form-productos" method="post" role="form" class="form form-horizontal">
-			<div class="wizard" id="some-wizard" data-title="Añadir producto">
-			 
-			    <h1 class="wizard-title">Wizard Title</h1>
-			 
-			    <div class="wizard-card" id="paso2" data-cardname="Paso 1">
-			        <h3>Datos básicos</h3>
-			        	<div class="form-group ">
+			<div class="wizard" id="satellite-wizard" data-title="Añadir Producto">
+
+			<!-- Step 1 Name & FQDN -->
+			<div class="wizard-card" data-cardname="name">
+				<h3>Nombre y Unidades</h3>
+
+				<div class="wizard-input-section">
+					<div class="form-group ">
 							<label for="" class="col-md-3 control-label">Nombre</label>
 							<div class="col-md-6">
-								<input type="text" name="nombre" placeholder="Nombre del producto.." value class="form-control">
+								<input type="text" name="nombre" placeholder="Nombre del producto.." 
+								value class="form-control" data-validate="validateNull" >
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="unid" class="col-md-3 control-label">Unidades</label>
+					</div>
+				</div>
+
+				<div class="wizard-input-section">
+					
+					<div class="form-group">
+							<label for="unit" class="col-md-3 control-label">Unidades</label>
 							<div class="col-md-6">
-								<select id="unit" class="form-control">
+								<select id="unit" name="unidad" class="form-control" data-validate="validateNull">
 									<option value="" selected>Selecciona..</option>
 									<option value="gr">gr</option>
 									<option value="L">l</option>
 									<option value="ml">ml</option>
-									<option value="und">unid</option></select>
+									<option value="und">unid</option>
+								</select>
 							</div>
 						</div>
-			    </div>
-			 
-			    <div class="wizard-card" data-cardname="card2">
-			        <h3>Unidad de compra</h3>
-			        <div class="form-group ">
-							<label for="unid_compra" class="col-md-3 control-label">Unidad de compra</label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="text" name="und_compra" value class="form-control">
-									<span class="input-group-addon unit"></span>
-								</div>
+				</div>
+
+				
+			</div>
+
+			<div class="wizard-card" data-cardname="unidad">
+				<h3>Unidad de compra</h3>
+				<div class="wizard-input-section">
+					<div class="form-group ">
+						<label for="unid_compra" class="col-md-3 control-label">Unidad de compra</label>
+						<div class="col-md-6">
+							<div class="input-group">
+								<input type="text" name="und_compra" class="form-control" data-validate="validateNum">
+								<span class="input-group-addon unit"></span>
 							</div>
 						</div>
-			    </div>
-			    <div class="wizard-card" data-cardname="card3">
-			        <h3>Precio / unid. compra</h3>
+					</div>
+					<div class="bs-callout bs-callout-info">
+						<p>* La <strong>unidad de compra</strong> es la cantidad que </p>
+					</div>
+				</div>
+		        
+			</div>
+
+			<div class="wizard-card wizard-card-overlay" data-cardname="precio">
+				<h3>Precio / unid. compra</h3>
+				<div class="wizard-input-section">
+					
 			        <div class="form-group">
 							<label for="precio" class="col-md-3 control-label">Precio / Unidad de compra</label>
 							<div class="col-md-6">
 								<div class="input-group">
-									<input type="text" name="precio" value class="form-control">
+									<input type="text" name="precio" value class="form-control" data-validate="validateNum">
 									<span class="input-group-addon"> €</span>
 								</div>
 							</div>
-						</div>
-			    </div>
-			    <div class="wizard-card" data-cardname="card4">
-			        <h3>Stock y Stock Mínimo</h3>
-			        <div class="form-group">
-							<label for="" class="col-md-3 control-label">Stock</label>
-							<div class="col-md-2">
-								<div class="input-group">
-									<input type="text" name="stock" value class="form-control">
-									<span class="input-group-addon unit"></span>
-								</div>
-							</div>
-							<label for="" class="col-md-2 control-label">Stock Mínimo</label>
-							<div class="col-md-2">
-								<div class="input-group">
-									<input type="text" name="stock_min" value class="form-control">
-									<span class="input-group-addon unit"></span>
-								</div>
-							</div>
-						</div>
-			    </div>
-			 
+						</div>	
+
+
+				</div>
 			</div>
-		</form>
+			<div class="wizard-card" data-cardname="stock">
+				<h3>Stock y Stock Mínimo</h3>
+
+				<div class="wizard-input-section">
+					<div class="form-group ">
+							<label for="" class="col-md-3 control-label">Stock</label>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" name="stock_min" value class="form-control" data-validate="validateNum">
+									<span class="input-group-addon unit"></span>
+								</div>
+							</div>
+					</div>
+				</div>
+
+				<div class="wizard-input-section">
+					
+					<div class="form-group">
+							<label for="unit" class="col-md-3 control-label">Stock Mínmo</label>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" name="stock_min" value class="form-control" data-validate="validateNum">
+									<span class="input-group-addon unit"></span>
+								</div>
+							</div>
+						</div>
+				</div>
+
+				
+			</div>
+			<div class="wizard-card" data-cardname="photo">
+				<h3>Cargar foto</h3>
+
+				<div class="wizard-input-section">
+					<div class="form-group ">
+						<div class="col-md-6">
+							<input type="file" name="img_producto">
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="wizard-card" data-cardname="photo">
+				<h3>Crear Producto</h3>
+
+				<div class="wizard-input-section">
+					<div class="form-group">
+							<label class="col-md-4 control-label">Nombre</label>
+							<div class="col-md-6" id="info_nombre"></div>
+					</div>
+					<div class="form-group">
+							<label class="col-md-4 control-label">Unidad de compra</label>
+							<div class="col-md-6" id="info_und_compra"></div>
+					</div>
+					<div class="form-group">
+							<label class="col-md-4 control-label">Stock</label>
+							<div class="col-md-6" id="info_stock"></div>
+					</div>
+					<div class="form-group">
+							<label class="col-md-4 control-label">Stock Mínmo</label>
+							<div class="col-md-6" id="info_stock_min"></div>
+					</div>
+					<a href="#" onclick="generarInforme()">Generar</a>
+				</div>
+
+							
+			</div>
+				
+
+			
+		</div><!--Fin div wizzard-->
+	</form>
 
 {% endblock %}
     {% block javascript %}
@@ -89,4 +162,10 @@
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/config_wizard.js') }}"></script>
+
+
+
+		<script type="text/javascript">
+			
+		</script>
     {% endblock %}
