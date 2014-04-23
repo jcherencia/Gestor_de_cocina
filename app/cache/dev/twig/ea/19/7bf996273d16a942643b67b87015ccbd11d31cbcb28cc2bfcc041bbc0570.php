@@ -143,25 +143,54 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
-\t\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\">Ingredientes</label>
-\t\t\t\t\t\t\t\t<div class=\"input-group col-md-4\">
-\t\t\t\t\t\t\t\t\t<select id=\"sel-ingred\" class=\"form-control form-control-first\">
-\t\t\t\t\t\t\t\t\t\t<option value=\"\">Aceite</option>
-\t\t\t\t\t\t\t\t\t\t<option value=\"\">Arroz</option>
-\t\t\t\t\t\t\t\t\t</select>
-\t\t\t\t\t\t\t\t\t<span class=\"input-group-btn\">
-\t\t\t\t\t\t\t\t\t\t<button type=\"button\" onclick=\"agregarIngred();\" class=\"btn btn-primary complement-1-b pull-right\">
-\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-plus\"></span>
-\t\t\t\t\t\t\t\t\t\t</button>
-\t\t\t\t\t\t\t\t\t</span>
-\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t<label class=\"col-md-3\"></label>
+\t\t\t\t\t\t\t\t<button type=\"button\" class=\"col-md-3 btn btn-primary complement-1-b\" onClick=\"crearListadoIng('list_ingre')\">Añadir ingredientes</button>
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
-\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\"> </label>
-\t\t\t\t\t\t\t<div class=\"col-md-6\">
-\t\t\t\t\t\t\t\t<div id=\"list_ingr\" class=\"col-md-9\"></div>
-\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"ingredientes\" id=\"ingredientes\">
-\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t<div class=\"col-md-3\"></div>
+\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t\t<table class=\"table table-hover\">
+\t\t\t\t\t\t\t\t\t\t<thead>
+\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-8\">Ingrediente</th>
+\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-3\">Cantidad</th>
+\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-2\"></th>
+\t\t\t\t\t\t\t\t\t\t</thead>
+\t\t\t\t\t\t\t\t\t\t<tbody>
+\t\t\t\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t\t\t\t<td><input type=\"text\" class=\"form-control input-sm\"></td>
+\t\t\t\t\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"\" class=\"btn btn-danger btn-sm\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t\t\t\t<td><input type=\"text\" class=\"form-control input-sm\"></td>
+\t\t\t\t\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"\" class=\"btn btn-danger btn-sm\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t\t\t</tbody>
+\t\t\t\t\t\t\t\t\t\t
+
+\t\t\t\t\t\t\t\t\t</table>\t
+\t\t\t\t\t\t\t\t</div>
+
+
+
+\t\t\t\t\t\t\t\t";
+        // line 143
+        echo "\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div class=\"form-group\">
+\t\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\"> </label>
+\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t\t<div id=\"list_ingr\" class=\"col-md-9\"></div>
+\t\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"ingredientes\" id=\"ingredientes\">
+\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
 \t\t\t\t\t\t\t\t<div class=\"col-md-offset-2 col-md-10 btn-separated\">
@@ -170,7 +199,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t\t<span> Guardar</span>
 \t\t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t\t<a href=\"";
-        // line 119
+        // line 157
         echo $this->env->getExtension('routing')->getPath("recetas");
         echo "\" class=\"btn btn-danger\">
 \t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
@@ -185,23 +214,80 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t</div>
 \t\t</div>
 \t</div> <!--end container-->
+\t<!-- Modal -->
+\t<div class=\"modal fade\" id=\"list_ingre\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+\t\t<div class=\"modal-dialog\">
+\t\t\t<div class=\"modal-content\">
+\t\t\t\t<div class=\"modal-header complement-1-b\">
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
+\t\t\t\t\t<h4 class=\"modal-title\" id=\"myModalLabel\">Listado de ingredientes</h4>
+\t\t\t\t</div>
+\t\t\t\t<div class=\"modal-body\">
+\t\t\t\t\t<div class=\"table-container\">
+\t\t\t\t\t\t<table class=\"table table-hover\">
+\t\t\t\t\t\t\t<thead>
+\t\t\t\t\t\t\t\t<th class=\"col-md-1\"></th>
+\t\t\t\t\t\t\t\t<th class=\"col-md-6\">Nombre</th>
+\t\t\t\t\t\t\t\t<th class=\"col-md-2\">Stock</th>
+\t\t\t\t\t\t\t\t<th class=\"col-md-2\">Precio/Unid</th>
+
+\t\t\t\t\t\t\t</thead>
+\t\t\t\t\t\t\t<tbody>
+\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" class=\"form-control\"></td>
+\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t<td>1000 gr</td>
+\t\t\t\t\t\t\t\t\t<td>2€ / 1Kg</td>
+\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" class=\"form-control\"></td>
+\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t<td>1000 gr</td>
+\t\t\t\t\t\t\t\t\t<td>2€ / 1Kg</td>
+\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" class=\"form-control\"></td>
+\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t<td>1000 gr</td>
+\t\t\t\t\t\t\t\t\t<td>2€ / 1Kg</td>
+\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" class=\"form-control\"></td>
+\t\t\t\t\t\t\t\t\t<td>Pollo</td>
+\t\t\t\t\t\t\t\t\t<td>1000 gr</td>
+\t\t\t\t\t\t\t\t\t<td>2€ / 1Kg</td>
+\t\t\t\t\t\t\t\t</tr>
+
+
+\t\t\t\t\t\t\t</tbody>
+\t\t\t\t\t\t</table>
+\t\t\t\t\t</div>\t
+\t\t\t\t</div>
+\t\t\t\t<div class=\"modal-footer\">
+\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\">Guardar</button>
+\t\t\t\t\t<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
+
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</div>
+\t</div><!--fin modal-->
 </div>
 ";
     }
 
-    // line 134
+    // line 229
     public function block_javascript($context, array $blocks = array())
     {
-        // line 135
+        // line 230
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 136
+        // line 231
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 137
+        // line 232
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -219,6 +305,6 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 
     public function getDebugInfo()
     {
-        return array (  205 => 137,  201 => 136,  196 => 135,  193 => 134,  174 => 119,  116 => 64,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  291 => 232,  287 => 231,  282 => 230,  279 => 229,  203 => 157,  187 => 143,  116 => 64,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

@@ -313,6 +313,13 @@ label.error{
 .table-responsive{
 	border: none;
 }
+.table-container{
+	height: 200px;
+	overflow: auto;
+}
+.table-container table{
+	border:none !important;
+}
 .text-view{
 		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	}

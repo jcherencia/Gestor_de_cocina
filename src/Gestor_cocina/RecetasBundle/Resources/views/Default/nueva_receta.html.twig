@@ -90,8 +90,46 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="" class="col-md-3 control-label">Ingredientes</label>
-								<div class="input-group col-md-4">
+								<label class="col-md-3"></label>
+								<button type="button" class="col-md-3 btn btn-primary complement-1-b" onClick="crearListadoIng('list_ingre')">Añadir ingredientes</button>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<table class="table table-hover">
+										<thead>
+											<th class="col-md-8">Ingrediente</th>
+											<th class="col-md-3">Cantidad</th>
+											<th class="col-md-2"></th>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Pollo</td>
+												<td><input type="text" class="form-control input-sm"></td>
+												<td>
+													<a href="" class="btn btn-danger btn-sm">
+														<span class="glyphicon glyphicon-remove"></span>
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td>Pollo</td>
+												<td><input type="text" class="form-control input-sm"></td>
+												<td>
+													<a href="" class="btn btn-danger btn-sm">
+														<span class="glyphicon glyphicon-remove"></span>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+										
+
+									</table>	
+								</div>
+
+
+
+								{# <div class="input-group col-md-4">
 									<select id="sel-ingred" class="form-control form-control-first">
 										<option value="">Aceite</option>
 										<option value="">Arroz</option>
@@ -101,14 +139,14 @@
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
 									</span>
-								</div>
+								</div> #}
 							</div>
 							<div class="form-group">
-							<label for="" class="col-md-3 control-label"> </label>
-							<div class="col-md-6">
-								<div id="list_ingr" class="col-md-9"></div>
-								<input type="hidden" name="ingredientes" id="ingredientes">
-							</div>
+								<label for="" class="col-md-3 control-label"> </label>
+								<div class="col-md-6">
+									<div id="list_ingr" class="col-md-9"></div>
+									<input type="hidden" name="ingredientes" id="ingredientes">
+								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-offset-2 col-md-10 btn-separated">
@@ -129,6 +167,63 @@
 			</div>
 		</div>
 	</div> <!--end container-->
+	<!-- Modal -->
+	<div class="modal fade" id="list_ingre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header complement-1-b">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Listado de ingredientes</h4>
+				</div>
+				<div class="modal-body">
+					<div class="table-container">
+						<table class="table table-hover">
+							<thead>
+								<th class="col-md-1"></th>
+								<th class="col-md-6">Nombre</th>
+								<th class="col-md-2">Stock</th>
+								<th class="col-md-2">Precio/Unid</th>
+
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" class="form-control"></td>
+									<td>Pollo</td>
+									<td>1000 gr</td>
+									<td>2€ / 1Kg</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" class="form-control"></td>
+									<td>Pollo</td>
+									<td>1000 gr</td>
+									<td>2€ / 1Kg</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" class="form-control"></td>
+									<td>Pollo</td>
+									<td>1000 gr</td>
+									<td>2€ / 1Kg</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" class="form-control"></td>
+									<td>Pollo</td>
+									<td>1000 gr</td>
+									<td>2€ / 1Kg</td>
+								</tr>
+
+
+							</tbody>
+						</table>
+					</div>	
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+				</div>
+			</div>
+		</div>
+	</div><!--fin modal-->
 </div>
 {% endblock %}
     {% block javascript %}
