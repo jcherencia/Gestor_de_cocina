@@ -26,6 +26,8 @@ class DefaultController extends Controller
     }
     public function nueva_recetaAction()
     {
-        return $this->render('RecetasBundle:Default:nueva_receta.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('productos'=>$productos));
     }
 } 

@@ -23,8 +23,8 @@ crear_receta:
     pattern: /recetas/nueva_receta/crear
     defaults: { _controller: RecetasBundle:FormRecetas:crear_receta }
 listar_ing:
-    pattern:/recetas/nueva_receta/crear/listar_ing
-    defaults: { _controller: AlmacenBundle:Default:listarProductos}
+    pattern: /recetas/nueva_receta/crear/listar_ing
+    defaults: { _controller: AlmacenBundle:Default:listarProductos }
 # -------------------------------------------------------------------------#
 centro_log:
     pattern: /centro_log

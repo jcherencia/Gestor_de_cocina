@@ -152,9 +152,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::nueva_recetaAction',  '_route' => 'nueva_receta',);
                 }
 
-                // crear_receta
-                if ($pathinfo === '/recetas/nueva_receta/crear') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::crear_recetaAction',  '_route' => 'crear_receta',);
+                if (0 === strpos($pathinfo, '/recetas/nueva_receta/crear')) {
+                    // crear_receta
+                    if ($pathinfo === '/recetas/nueva_receta/crear') {
+                        return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::crear_recetaAction',  '_route' => 'crear_receta',);
+                    }
+
+                    // listar_ing
+                    if ($pathinfo === '/recetas/nueva_receta/crear/listar_ing') {
+                        return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::listarProductosAction',  '_route' => 'listar_ing',);
+                    }
+
                 }
 
             }

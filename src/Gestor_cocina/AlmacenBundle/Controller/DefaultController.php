@@ -16,8 +16,9 @@ class DefaultController extends Controller
     	 return $this->render('AlmacenBundle:Default:nuevo_producto.html.twig');
     }
     public function listarProductos(){
-    	$em = $this->getDoctrine()->getEntityManager();
-    	$productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
-    	return $productos;
+    	// $em = $this->getDoctrine()->getEntityManager();
+    	// $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+    	// return $productos;
+        return "Hola";
     }
 }
