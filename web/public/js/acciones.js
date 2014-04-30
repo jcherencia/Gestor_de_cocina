@@ -60,7 +60,7 @@ function anadirIngre(){
         } 
 	});
 	genInterfaz();
-	$('#'+idModal).modal('hide');
+	$('#'+idModal).modal('hide');id_ing
 	
 }
 function genInterfaz(){
@@ -70,10 +70,10 @@ function genInterfaz(){
     	if( comprobarExistIng(i)== false){
     		interfaz=[
 			'<tr class="ingr_'+i+'">'+
-				'<td>'+ingredientes[i].nombre+'<input type="hidden" value="'+ingredientes[i].id+'"></td>'+
+				'<td>'+ingredientes[i].nombre+'<input type="hidden" name="id_ing['+i+']" value="'+ingredientes[i].id+'"></td>'+
 				'<td>'+
 					'<div class="input-group">'+
-						'<input type="text" id="cantidad_'+i+'" class="form-control input-sm" onchange="calcPrecioTotal('+i+',true)">'+
+						'<input type="text" id="cantidad_'+i+'" name="cantidad['+i+']" class="form-control input-sm" onchange="calcPrecioTotal('+i+',true)">'+
 						'<span class="input-group-addon">'+ingredientes[i].unidad+'</span>'+
 				'</td>'+
 				'<td>'+
@@ -84,7 +84,7 @@ function genInterfaz(){
 			'</tr>'
 			];
 			$('#listado_ingr').html($('#listado_ingr').html()+interfaz);
-			alert($('#listado_ingr').html());
+			// alert($('#listado_ingr').html());
     	}
 			
 	}
@@ -101,7 +101,7 @@ function eliminarIng(id){
 function calcPrecioTotal(key,accion){
 
 	cantidad=parseInt($("#cantidad_"+key).val());
-	alert(cantidad+" - "+ typeof(cantidad));
+	// alert(cantidad+" - "+ typeof(cantidad));
 	if(cantidad!=""){
 		precio=(parseInt(cantidad) * parseInt(ingredientes[key].precio) ) / parseInt(ingredientes[key].und_comp);
 		if(accion){
@@ -111,7 +111,7 @@ function calcPrecioTotal(key,accion){
 		}
 		$("#precioTotal").val(precioTotal);
 	}
-	alert(precioTotal);
+	// alert(precioTotal);
 }
 function comprobarExistIng(id){
 	encontrado=false;

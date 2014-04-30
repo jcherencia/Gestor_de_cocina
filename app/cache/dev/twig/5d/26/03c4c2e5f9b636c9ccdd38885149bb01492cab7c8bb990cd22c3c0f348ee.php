@@ -152,7 +152,10 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
             echo "\t\t\t\t\t\t\t<div class='col-sm-6 col-md-3'>
 \t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t<figure class='receta'>
-\t\t\t\t\t\t\t\t\t<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
+\t\t\t\t\t\t\t\t\t<img class='img-rounded' alt='300x200' src=\"";
+            // line 119
+            echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_image.png"), "html", null, true);
+            echo "\">
 \t\t\t\t\t\t\t\t\t<figcaption>
 \t\t\t\t\t\t\t\t\t\t<a class='nombre' href=\"\">";
             // line 121
@@ -172,13 +175,44 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "descripcion"), "html", null, true);
             echo "</p>
 \t\t\t\t\t\t\t\t\t\t\t<ul class='ingr'>
-\t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1</li>
-\t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1 </li>
-\t\t\t\t\t\t\t\t\t\t\t\t<li> ingr1</li>
-\t\t\t\t\t\t\t\t\t\t\t</ul>
-\t\t\t\t\t\t\t\t\t\t\t<div class='precio'>10</div>
+\t\t\t\t\t\t\t\t\t\t\t\t";
+            // line 130
+            echo "\t\t\t\t\t\t\t\t\t\t\t\t";
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["ingredientes"]) ? $context["ingredientes"] : $this->getContext($context, "ingredientes")));
+            $context['_iterated'] = false;
+            foreach ($context['_seq'] as $context["key"] => $context["ingre"]) {
+                if (($this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "receta"), "id") == $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "id"))) {
+                    // line 131
+                    echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<li>";
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "nombre"), "html", null, true);
+                    echo " ";
+                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "cantidad"), "html", null, true);
+                    echo " ";
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "unidad"), "html", null, true);
+                    echo "</li>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+                    // line 133
+                    echo "\t\t\t\t\t\t\t\t\t\t\t\t";
+                    $context['_iterated'] = true;
+                }
+            }
+            if (!$context['_iterated']) {
+                // line 134
+                echo "\t\t\t\t\t\t\t\t\t\t\t\t\t<li>Not found</li>
+\t\t\t\t\t\t\t\t\t\t\t\t";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['key'], $context['ingre'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 136
+            echo "\t\t\t\t\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t\t\t\t\t\t<div class='precio'>";
+            // line 137
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "comensales"), "html", null, true);
+            echo "</div>
 \t\t\t\t\t\t\t\t\t\t\t<div class='comensales'>";
-            // line 132
+            // line 138
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "comensales"), "html", null, true);
             echo "</div>
 \t\t\t\t\t\t\t\t\t\t</div>
@@ -191,7 +225,7 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 139
+        // line 145
         echo "\t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
@@ -254,19 +288,19 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 \t";
     }
 
-    // line 199
+    // line 205
     public function block_javascript($context, array $blocks = array())
     {
-        // line 200
+        // line 206
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 201
+        // line 207
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 202
+        // line 208
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -284,6 +318,6 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 
     public function getDebugInfo()
     {
-        return array (  270 => 202,  266 => 201,  261 => 200,  258 => 199,  195 => 139,  182 => 132,  172 => 125,  168 => 124,  163 => 122,  159 => 121,  152 => 116,  148 => 115,  144 => 113,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  304 => 208,  300 => 207,  295 => 206,  292 => 205,  229 => 145,  216 => 138,  212 => 137,  209 => 136,  202 => 134,  196 => 133,  187 => 131,  180 => 130,  175 => 125,  171 => 124,  166 => 122,  162 => 121,  157 => 119,  152 => 116,  148 => 115,  144 => 113,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

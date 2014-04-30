@@ -29,7 +29,7 @@ class Ingredientes
 		return $this->cantidad;
 	}
 
-	public function setReceta(Gestor_cocina\RecetasBundle\Entity\Recetas $receta)
+	public function setReceta(\Gestor_cocina\RecetasBundle\Entity\Recetas $receta)
 	{
 		$this->receta = $receta;
 	}
@@ -38,7 +38,7 @@ class Ingredientes
 		return $this->receta;
 	}
 
-	public function setProducto(Gestor_cocina\AlmacenBundle\Entity\Productos $producto)
+	public function setProducto(\Gestor_cocina\AlmacenBundle\Entity\Productos $producto)
 	{
 		$this->producto = $producto;
 	}
@@ -46,5 +46,20 @@ class Ingredientes
 	{
 		return $this->producto;
 	}
+	//
+	// public function findIngr($id)
+ //    {
+ //       $em = $this->getEntityManager();
+
+ //        $consulta = $em->createQuery('
+	// 		SELECT P.nombre,I.cantidad
+	// 		FROM AlmacenBundle:Productos P, RecetaBundle:Ingredientes I JOIN I.producto P
+	// 		WHERE I.receta = :receta
+ //        ');
+ //        $consulta->setParameter('receta', $id);
+ //        $consulta->setMaxResults(1);
+
+ //        return $consulta->getOneOrNullResult();
+ //    }
 }
 	

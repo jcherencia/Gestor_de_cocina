@@ -116,7 +116,7 @@
 							<div class='col-sm-6 col-md-3'>
 							
 								<figure class='receta'>
-									<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
+									<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
 									<figcaption>
 										<a class='nombre' href="">{{ receta.nombre }}</a>
 										<p class='description info_hide'>{{ receta.descripcion }}</p>
@@ -124,11 +124,17 @@
 											<div class='slug'>{{ receta.slug }}</div>
 											<p class='desc'>{{ receta.descripcion }}</p>
 											<ul class='ingr'>
-												<li> ingr1</li>
-												<li> ingr1 </li>
-												<li> ingr1</li>
+												{# {% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
+														<li>{{ingredientes[0][key]}}{{ingredientes[1][key]}}</li>
+												{% endfor %} #}
+												{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
+														<li>{{ingre.producto.nombre}} {{ingre.cantidad}} {{ingre.producto.unidad}}</li>
+														{# <li>{{ingre.receta.id}} --> {{receta.id}}</li> #}
+												{% else %}
+													<li>Not found</li>
+												{% endfor %}
 											</ul>
-											<div class='precio'>10</div>
+											<div class='precio'>{{ receta.comensales }}</div>
 											<div class='comensales'>{{ receta.comensales }}</div>
 										</div>
 									</figcaption>
