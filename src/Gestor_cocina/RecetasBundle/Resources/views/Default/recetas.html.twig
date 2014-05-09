@@ -85,31 +85,6 @@
 							</ul>
 						</div>
 					</div>
-
-					{# <div class='panel-body'>
-						<div class='row row-grid'>
-							<div class='col-sm-6 col-md-3'>
-								<figure class='receta'>
-									<img class='img-rounded' alt='300x200' src='../public/img/no_image.png'>
-									<figcaption>
-										<a class='nombre' href="">Nombre</a>
-										<p class='description info_hide'>Descripcion</p>
-										<div class='info-rec content-hide'>
-											<div class='slug'>Slug</div>
-											<p class='desc'>Descrip</p>
-											<ul class='ingr'>
-												<li> ingr1</li>
-												<li> ingr1 </li>
-												<li> ingr1</li>
-											</ul>
-											<div class='precio'>10</div>
-											<div class='comensales'>5</div>
-										</div>
-									</figcaption>
-								</figure>
-							</div>
-						</div>
-					</div> #}
 					<div class='panel-body'>
 						<div class='row row-grid'>
 						{% for receta in recetas %}
@@ -121,20 +96,19 @@
 										<a class='nombre' href="">{{ receta.nombre }}</a>
 										<p class='description info_hide'>{{ receta.descripcion }}</p>
 										<div class='info-rec content-hide'>
-											<div class='slug'>{{ receta.slug }}</div>
+											<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.slug }) }}</div>
+											<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.slug }) }}</div>
+											{# {{ receta.slug }} #}
 											<p class='desc'>{{ receta.descripcion }}</p>
-											<ul class='ingr'>
-												{# {% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
-														<li>{{ingredientes[0][key]}}{{ingredientes[1][key]}}</li>
-												{% endfor %} #}
+											<ul class='ingr list-group'>
 												{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
-														<li>{{ingre.producto.nombre}} {{ingre.cantidad}} {{ingre.producto.unidad}}</li>
-														{# <li>{{ingre.receta.id}} --> {{receta.id}}</li> #}
+														<li class="list-group-item">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+
 												{% else %}
 													<li>Not found</li>
 												{% endfor %}
 											</ul>
-											<div class='precio'>{{ receta.comensales }}</div>
+											<div class='precio'>{{ receta.precio }}</div>
 											<div class='comensales'>{{ receta.comensales }}</div>
 										</div>
 									</figcaption>

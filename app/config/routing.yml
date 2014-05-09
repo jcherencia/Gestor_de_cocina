@@ -25,17 +25,40 @@ crear_receta:
 listar_ing:
     pattern: /recetas/nueva_receta/crear/listar_ing
     defaults: { _controller: AlmacenBundle:Default:listarProductos }
+editar_receta:
+    pattern: /recetas/editar/{receta}
+    defaults: { _controller: RecetasBundle:Default:editar_receta }
+mod_receta:
+    pattern: /recetas/editar/mod/{receta}
+    defaults: { _controller: RecetasBundle:FormRecetas:editar_receta }
+borrar_receta:
+    pattern: /recetas/borrar/{receta}
+    defaults: { _controller: RecetasBundle:Default:borrar_receta }
 # -------------------------------------------------------------------------#
 centro_log:
     pattern: /centro_log
     defaults: { _controller: CentroLogBundle:Default:index }
+# -------------------------------------------------------------------------#
 almacen:
     pattern: /almacen
     defaults: { _controller: AlmacenBundle:Default:index }
 nuevo_producto:
     pattern: /almacen/nuevo_producto
     defaults: { _controller: AlmacenBundle:Default:nuevo_producto }
+mod_producto:
+    pattern: /almacen/mod_producto/{producto}
+    defaults: { _controller: AlmacenBundle:Default:mod_producto }
 
+crear_producto:
+    pattern: /almacen/nuevo_producto/crear
+    defaults: { _controller: AlmacenBundle:FormProductos:crear_producto }
+editar_producto:
+    pattern: /almacen/nuevo_producto/editar/{producto}
+    defaults: { _controller: AlmacenBundle:FormProductos:editar_producto }
+borrar_producto:
+    pattern: /almacen/borrar_producto/{producto}
+    defaults: { _controller: AlmacenBundle:FormProductos:borrar_producto }
+# -------------------------------------------------------------------------#
 perfil:
     pattern: /perfil
     defaults: { _controller: RecetasBundle:User:index }

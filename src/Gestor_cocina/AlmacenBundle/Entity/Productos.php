@@ -38,14 +38,14 @@ class Productos
     /**
      * @var integer
      *
-     * @ORM\Column(name="precio", type="integer")
+     * @ORM\Column(name="precio", type="float")
      */
     private $precio;
 
     /**
-     * @var integer
+     * @var decimal
      *
-     * @ORM\Column(name="unidad_compra", type="integer")
+     * @ORM\Column(name="unidad_compra", type="float")
      */
     private $unidadCompra;
 
@@ -59,14 +59,14 @@ class Productos
     /**
      * @var integer
      *
-     * @ORM\Column(name="stock", type="integer")
+     * @ORM\Column(name="stock", type="float")
      */
     private $stock;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="stock_min", type="integer")
+     * @ORM\Column(name="stock_min", type="float")
      */
     private $stockMin;
 

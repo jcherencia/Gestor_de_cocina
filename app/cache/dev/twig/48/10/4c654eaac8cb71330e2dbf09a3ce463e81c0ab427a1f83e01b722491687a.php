@@ -105,7 +105,10 @@ class __TwigTemplate_48104c654eaac8cb71330e2dbf09a3ce463e81c0ab427a1f83e01b72249
 \t<div class=\"container\">
 \t\t<div class=\"row block-info\">
 \t\t\t<div class=\"col-md-3\">
-\t\t\t\t<img alt=\"Pulsa para Subir tu foto\" src=\"../public/img/no_user2.png\" id=\"user-photo\" class=\"img-rounded\">
+\t\t\t\t<img alt=\"Pulsa para Subir tu foto\" src=\"";
+        // line 59
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_user2.png"), "html", null, true);
+        echo "\" id=\"user-photo\" class=\"img-rounded\">
 \t\t\t</div>
 \t\t\t<div class=\"col-md-8\">
 \t\t\t\t<div class=\"block-info-title\">
@@ -167,6 +170,6 @@ class __TwigTemplate_48104c654eaac8cb71330e2dbf09a3ce463e81c0ab427a1f83e01b72249
 
     public function getDebugInfo()
     {
-        return array (  153 => 92,  149 => 91,  144 => 90,  141 => 89,  87 => 39,  72 => 27,  66 => 24,  60 => 21,  54 => 18,  39 => 5,  36 => 4,  30 => 2,);
+        return array (  156 => 92,  152 => 91,  147 => 90,  144 => 89,  110 => 59,  87 => 39,  72 => 27,  66 => 24,  60 => 21,  54 => 18,  39 => 5,  36 => 4,  30 => 2,);
     }
 }

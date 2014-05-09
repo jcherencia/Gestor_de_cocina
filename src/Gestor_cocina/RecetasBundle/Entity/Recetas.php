@@ -18,8 +18,8 @@ class Recetas{
 	protected $nombre;
 	/** @ORM\Column(type="string", length=150) */
 	protected $slug;
-	/** /** @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Usuarios") */
-	protected $autor;
+	// * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Usuarios") 
+	// protected $autor;
 	/** @ORM\Column(type="datetime") */
 	protected $fecha_creacion;
 	/** @ORM\Column(type="string", length=300) */
@@ -32,7 +32,7 @@ class Recetas{
 	protected $foto;
 	/** @ORM\Column(type="array") */
 	protected $tags;
-	/** @ORM\Column(type="integer") */
+	/** @ORM\Column(type="float") */
 	protected $precio;
 
 
@@ -102,15 +102,15 @@ class Recetas{
     /**
      * Set autor
      *
-     * @param integer $autor
+     * @param $autor
      * @return Recetas
      */
-    public function setAutor(Gestor_cocina\RecetasBundle\Entity\Usuarios $autor)
-    {
-        $this->autor = $autor;
+    // public function setAutor(Gestor_cocina\RecetasBundle\Entity\Usuarios $autor)
+    // {
+    //     $this->autor = $autor;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get autor

@@ -167,6 +167,24 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            if (0 === strpos($pathinfo, '/recetas/editar')) {
+                // editar_receta
+                if (preg_match('#^/recetas/editar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::editar_recetaAction',));
+                }
+
+                // mod_receta
+                if (0 === strpos($pathinfo, '/recetas/editar/mod') && preg_match('#^/recetas/editar/mod/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'mod_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::editar_recetaAction',));
+                }
+
+            }
+
+            // borrar_receta
+            if (0 === strpos($pathinfo, '/recetas/borrar') && preg_match('#^/recetas/borrar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::borrar_recetaAction',));
+            }
+
         }
 
         // centro_log
@@ -183,6 +201,29 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // nuevo_producto
             if ($pathinfo === '/almacen/nuevo_producto') {
                 return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::nuevo_productoAction',  '_route' => 'nuevo_producto',);
+            }
+
+            // mod_producto
+            if (0 === strpos($pathinfo, '/almacen/mod_producto') && preg_match('#^/almacen/mod_producto/(?P<producto>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'mod_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::mod_productoAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/almacen/nuevo_producto')) {
+                // crear_producto
+                if ($pathinfo === '/almacen/nuevo_producto/crear') {
+                    return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\FormProductosController::crear_productoAction',  '_route' => 'crear_producto',);
+                }
+
+                // editar_producto
+                if (0 === strpos($pathinfo, '/almacen/nuevo_producto/editar') && preg_match('#^/almacen/nuevo_producto/editar/(?P<producto>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\FormProductosController::editar_productoAction',));
+                }
+
+            }
+
+            // borrar_producto
+            if (0 === strpos($pathinfo, '/almacen/borrar_producto') && preg_match('#^/almacen/borrar_producto/(?P<producto>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\FormProductosController::borrar_productoAction',));
             }
 
         }

@@ -14,7 +14,7 @@ class Ingredientes
 	* @ORM\ManyToOne(targetEntity="Gestor_cocina\AlmacenBundle\Entity\Productos")
 	*/
 	protected $producto;
-	/** @ORM\Column(type="integer") */
+	/** @ORM\Column(type="float") */
 	protected $cantidad;
 
 
@@ -46,20 +46,6 @@ class Ingredientes
 	{
 		return $this->producto;
 	}
-	//
-	// public function findIngr($id)
- //    {
- //       $em = $this->getEntityManager();
 
- //        $consulta = $em->createQuery('
-	// 		SELECT P.nombre,I.cantidad
-	// 		FROM AlmacenBundle:Productos P, RecetaBundle:Ingredientes I JOIN I.producto P
-	// 		WHERE I.receta = :receta
- //        ');
- //        $consulta->setParameter('receta', $id);
- //        $consulta->setMaxResults(1);
-
- //        return $consulta->getOneOrNullResult();
- //    }
 }
 	

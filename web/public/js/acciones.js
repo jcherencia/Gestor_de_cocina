@@ -5,8 +5,14 @@
 ***/
 $(document).ready(function(){
 	$("button[data-href]").click(function(){
-		location.href = $(this).attr("data-href");
-			});
+		if($(this).data("type")=="delete"){
+			alert("delete");
+		}else{
+
+			location.href = $(this).attr("data-href");
+		}
+		
+	});
 
 	loadTextarea();
 	deshabilitar(0);
@@ -54,13 +60,12 @@ function anadirIngre(){
           	precio=$(element).children("td").children('.precio').text();
           	und_comp=$(element).children("td").children('.und_comp').text();
            var ingr = new Ingrediente(id, nombre, unidad,precio,und_comp);
-           	// ingr.select=true;
-           // alert(id+" - "+nombre);
            ingredientes[key]=ingr;
+          
         } 
 	});
 	genInterfaz();
-	$('#'+idModal).modal('hide');id_ing
+	$('#'+idModal).modal('hide');
 	
 }
 function genInterfaz(){
@@ -70,7 +75,7 @@ function genInterfaz(){
     	if( comprobarExistIng(i)== false){
     		interfaz=[
 			'<tr class="ingr_'+i+'">'+
-				'<td>'+ingredientes[i].nombre+'<input type="hidden" name="id_ing['+i+']" value="'+ingredientes[i].id+'"></td>'+
+				'<td>'+ingredientes[i].nombre+" --"+i+'<input type="hidden" name="id_ing['+i+']" value="'+ingredientes[i].id+'"></td>'+
 				'<td>'+
 					'<div class="input-group">'+
 						'<input type="text" id="cantidad_'+i+'" name="cantidad['+i+']" class="form-control input-sm" onchange="calcPrecioTotal('+i+',true)">'+
@@ -91,27 +96,45 @@ function genInterfaz(){
 		
 }
 function eliminarIng(id){
+	// pos=indexById(id,ingredientes);
+	// alert("pos "+pos);
 	calcPrecioTotal(id,false);
+
 	ingredientes.splice(id,1);
 	
-	$(".ingr_"+id).remove();
 	
+	$(".ingr_"+id).remove();
+	// for (var i = 0; i < ingredientes.length; i++) {
+	// 	alert("->"+i);
+	// };
 }
 
 function calcPrecioTotal(key,accion){
-
-	cantidad=parseInt($("#cantidad_"+key).val());
+	
+	cantidad=parseFloat($("#cantidad_"+key).val());
 	// alert(cantidad+" - "+ typeof(cantidad));
+	// alert(ingredientes.length);
+	// alert("key"+ key+" -- "+ingredientes[key].nombre);
+	// alert("");
 	if(cantidad!=""){
-		precio=(parseInt(cantidad) * parseInt(ingredientes[key].precio) ) / parseInt(ingredientes[key].und_comp);
+		precio=(parseFloat(cantidad) * parseFloat(ingredientes[key].precio) ) / parseFloat(ingredientes[key].und_comp);
 		if(accion){
 			precioTotal+=precio;
 		}else{
 			precioTotal-=precio;
 		}
-		$("#precioTotal").val(precioTotal);
+		$(".precioTotal").val(precioTotal);
 	}
 	// alert(precioTotal);
+}
+function indexById(id,array) {
+	posicion=-1;
+	for (var i = 0; i < array.length; i++) {
+		if(array[i].id==id){
+			posicion=i;
+		}
+	};
+	return posicion;
 }
 function comprobarExistIng(id){
 	encontrado=false;

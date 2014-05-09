@@ -3,6 +3,7 @@
 namespace Gestor_cocina\AlmacenBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Gestor_cocina\RecetasBundle\Entity\Productos;
 
 class DefaultController extends Controller
 {
@@ -13,12 +14,14 @@ class DefaultController extends Controller
         return $this->render('AlmacenBundle:Default:index.html.twig',array('productos' => $productos));
     }
     public function nuevo_productoAction(){
+
+       
     	 return $this->render('AlmacenBundle:Default:nuevo_producto.html.twig');
     }
-    public function listarProductos(){
-    	// $em = $this->getDoctrine()->getEntityManager();
-    	// $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
-    	// return $productos;
-        return "Hola";
+    public function mod_productoAction($producto)
+    {
+         $em = $this->getDoctrine()->getEntityManager();
+        $producto = $em->getRepository('AlmacenBundle:Productos')->findOneBySlug($producto);
+        return $this->render('AlmacenBundle:Default:nuevo_producto.html.twig',array('producto_edit' => $producto));
     }
 }

@@ -56,6 +56,109 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
+			{% if  receta_edit is defined %}
+				<div class="panel panel-primary">
+					<div class="panel-heading complement-1-b">
+						<strong>Editar Recetas</strong>
+					</div>
+					
+					<div class="panel-body">
+						<form action ="{{ path('mod_receta') }}" id="form-recetas" method="post" role="form" class="form form-horizontal">
+							<input type="hidden" name="receta_id" value="{{receta_edit.id}}">
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Nombre</label>
+								<div class="col-md-6">
+									<input type="text" name="nombre" placeholder="Nombre de la receta.." class="form-control" value="{{receta_edit.nombre}}">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Preparación</label>
+								<div class="col-md-6">
+									<input id="hide_descrip" type="hidden">
+									<textarea id="descrip" name="descripcion" placeholder="Preparación de la receta..." resizable="false" class="form-control" value=""> {{receta_edit.descripcion}}</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Comensales</label>
+								<div class="col-md-2">
+									<input type="text" name="comensales" class="form-control" value="{{receta_edit.comensales}}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="precio" class="col-md-3 control-label">Precio</label>
+								<div class="col-md-2">
+									<div class="input-group">
+										<input type="text" name="precio" id="precioTotal" class="form-control" value="{{receta_edit.precio}}">
+										<span class="input-group-addon"> €</span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3"></label>
+								<button id="add_ing" type="button" class="col-md-3 btn btn-primary complement-1-b" onClick="crearListadoIng('list_ingre')" data-url="{{ path('listar_ing') }}">Añadir ingredientes</button>
+
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<table class="table table-hover">
+										<thead>
+											<th class="col-md-8">Ingrediente</th>
+											<th class="col-md-3">Cantidad</th>
+											<th class="col-md-2"></th>
+										</thead>
+										<tbody id="listado_ingr">
+
+											{% for key, ingre in ingredientes if ingre.receta.id == receta_edit.id %}
+												<tr class="ingr_{{loop.index0}}">
+													<td>{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{loop.index0}}]" value="{{ingre.producto.id}}"></td>
+													<td>
+														<div class="input-group">
+															<input type="text" id="cantidad_{{loop.index0}}" name="cantidad[{{loop.index0}}]" class="form-control input-sm" onchange="calcPrecioTotal({{loop.index0}},true)" value="{{ingre.cantidad}}">
+															<span class="input-group-addon">{{ingre.producto.unidad}}</span>
+													</td>
+													<td>
+														<button type="button" class="btn btn-danger btn-sm" onclick="eliminarIng({{loop.index0}})">
+															<span class="glyphicon glyphicon-remove"></span>
+														</button>
+													</td>
+												</tr>
+
+											{% endfor %}
+
+										</tbody>
+										
+
+									</table>	
+								</div>
+							
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label"> </label>
+								<div class="col-md-6">
+									<div id="list_ingr" class="col-md-9"></div>
+									<input type="hidden" name="ingredientes" id="ingredientes">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-2 col-md-10 btn-separated">
+									<button type="submit" class="btn btn-primary complement-1-b">
+										<span class="glyphicon glyphicon-floppy-disk"></span>
+										<span> Guardar</span>
+									</button>
+									<a href="{{ path('recetas') }}" class="btn btn-danger">
+										<span class="glyphicon glyphicon-remove"></span>
+										<span>  Cancelar</span>
+									</a>
+								</div>
+							</div>
+						</form>
+						<div class="info"></div>
+					</div>
+				</div>
+					{#  ---------------------------------------#}
+					{% else %}
 				<div class="panel panel-primary">
 					<div class="panel-heading complement-1-b">
 						<strong>Crear Recetas</strong>
@@ -85,9 +188,10 @@
 								<label for="precio" class="col-md-3 control-label">Precio</label>
 								<div class="col-md-2">
 									<div class="input-group">
-										<input type="text" name="precio" id="precioTotal" class="form-control">
+										<input type="text" id="precioTotal" class="form-control precioTotal">
 										<span class="input-group-addon"> €</span>
 									</div>
+									<input type="hidden" name="precio"  class="precioTotal">
 								</div>
 							</div>
 							<div class="form-group">
@@ -133,6 +237,7 @@
 						</form>
 						<div class="info"></div>
 					</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>

@@ -13,53 +13,12 @@ class DefaultController extends Controller
     {
         return $this->render('RecetasBundle:Default:index.html.twig');
     }
-    // public function recetasAction()
-    // {
-
-    //     $em = $this->getDoctrine()->getEntityManager();
-    //     $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
-        
-    // 	return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas));
-
-    // }
-      public function recetasAction()
+    public function recetasAction()
     {
 
         $em = $this->getDoctrine()->getEntityManager();
         $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
-        
-        // foreach ($recetas as $key => $receta) {
-            // echo $receta->getId()." - Receta ->".$receta->getNombre()." - ";
-            // $ingre = $em->getRepository('RecetasBundle:Ingredientes')->findOneByReceta($receta);
-            // $ingre = $em->getRepository('RecetasBundle:Ingredientes')->findBy(array('receta' => $receta ));
-            // if(!$ingre){
-            //     throw $this->createNotFoundException("no se puede listar");
-                
-            // }
-            // $ingrediente = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
-            // foreach ($ingrediente as $key => $ingre) {
-            //     if($receta->getId()==$ingre->getReceta()->getId()){
-            //         // echo $ingre->getProducto()->getNombre()." =>".$ingre->getCantidad()."</br>";
-            //         $ingredientes[0][$key]=$ingre->getProducto()->getNombre();
-            //         $ingredientes[1][$key]=$ingre->getCantidad();
-            //          }
-            //     }
-                // echo $receta->getId()." -->".$ingre->getReceta()->getId();
-                
-           // $repository = $this->getDoctrine()
-           //      ->getRepository('RecetasBundle:Ingredientes');
-             
-           //  $query = $repository->createQueryBuilder('ingr')
-           //      ->where('ingr.receta = :receta')
-           //      ->setParameter('receta', $receta)
-           //      ->getQuery();
- 
-           //  $ingre = $query->getResult();
-            // echo $ingre->getProducto()->getNombre()."</br>";
-        // }
-       
-        
         return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes));
 
     }
@@ -72,5 +31,30 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
         return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('productos'=>$productos));
+    }/*****************************/
+    public function editar_recetaAction($receta){
+        $em = $this->getDoctrine()->getEntityManager();
+        $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+        $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
+        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('receta_edit'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes));
     }
+    /*******************/
+    public function borrar_recetaAction($receta)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+        $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
+        foreach ($ingredientes as $key => $ingre) {
+           if ($receta->getId()== $ingre->getReceta()->getId()) {
+                $em->remove($ingre);
+           }
+        }
+        $em->flush();
+        // $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+        $em->remove($receta);
+        $em->flush();
+        return $this->redirect($this->generateUrl('recetas')); 
+    }
+
 } 

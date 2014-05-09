@@ -8,14 +8,18 @@ $(document).ready(function(){
 	view_receta();
     	
 	show_limit_text(".description",45);
-	//---Pasos nuevo producto----//
-	// steps_create();
 	//Editar info usuario
 	edit_user_info();
-    //Permite cambiar entre distintas vistas
-    // toggleview("panel-lista");
-	//Boton de "Ir Arriba"
+    //Boton de "Ir Arriba"
        scrollUp();
+
+       cargarUnidades();
+     //------------------------------//
+ //     $("#open-wizard").click(function () {    
+	// 	$('#wizzard').modal('show');
+	// });
+ 	//-----------------------//
+     showInfoCreate();
      //-----------------------//
 	$("#toggle-open_id").click(function () {    
 		$('.open_id_body').toggle(500);
@@ -32,26 +36,39 @@ $(document).ready(function(){
   			panel_control("mod_" + $(this).attr('id'));
   		});
   	}
- 	// $('figure').mouseover(function(){
- 	// 	$(this).children("figcaption ").slideDown('fast');
- 	// });
  	$('figure').hover(function(){
 		  $(this).children("figcaption").children(".info_hide").slideDown('fast');
 		},function(){
 		  $(this).children("figcaption ").children(".info_hide").slideUp('fast');
-		});	
+		});
+
 	//prepare_rec();
-	
+	generateSelect();
 });//FIN DOCUMENT READY
-/********************************/
-// function show_hide(visible,hidden){
-// 	for (var i = 0; i < hidden.length; i++) {
-// 		$("#"+hidden[i]).fadeOut('slow');
-// 	}
+/*******************************/
+function showInfoCreate () {
+	var info=[];
+	info['und_compra']=	"La <strong>unidad de compra</strong> es la cantidad mínima, de un producto, que se puede comprar de una sola vez";
+
+	$("input").mouseover(function () {
+		msg=info[$(this).attr('id')];
 		
-	
-// 	$("#"+visible).fadeIn('slow');
-// }
+		if(msg==""){
+			$("#info").addClass('alert-info');
+     		$("#info").html(msg);
+		}else{
+			// alert(msg);
+		}
+		
+     });
+	$("input").mouseout(function () {
+		$("#info").removeClass('alert-info');
+     	$("#info").html("");
+
+     });
+
+}
+/********************************/
 function show_hide_slide(visible,hidden){
 	for (var i = 0; i < hidden.length; i++) {
 		$("#"+hidden[i]).slideUp('slow');
@@ -92,7 +109,8 @@ function view_receta(){
 		nombre=$(this).children().children("a.nombre").text();
 		img=$(this).children("img").clone();
 		info=$(this).children().children(".info-rec");
-		slug=info.children(".slug").text();
+		slug_edit=info.children("#slug_edit").text();
+		slug_del=info.children("#slug_del").text();
 		desc=info.children(".desc").text();
 		comens=info.children(".comensales").text();
 		precio=info.children(".precio").text();
@@ -100,12 +118,12 @@ function view_receta(){
 		/************/
 
 		$("#modal-prepare #img-rec").html(img);
-		$("#modal-prepare #edit").attr("data-href","/receta/editar/"+slug);
-		$("#modal-prepare #delete").attr("data-href","/receta/editar/"+slug);
+		$("#modal-prepare #edit").attr("data-href",slug_edit);
+		$("#modal-prepare #delete").attr("data-href",slug_del);
 		/************/
-		$("#modal-prepare .precio").html(precio+" € / persona");
+		$("#modal-prepare .precio").html(precio/comens+" € / persona");
 		$("#modal-prepare .comensales").html(comens+" comensal/es");
-		$("#modal-prepare .pr-total").html("<strong>"+comens*precio+" €</strong>");
+		$("#modal-prepare .pr-total").html("<strong>"+precio+" €</strong>");
 
 		$("#modal-prepare .modal-title span#ModalLabel").html(nombre);
 		$("#modal-prepare p.desc").html(desc);
@@ -130,23 +148,7 @@ function scrollUp(){
             return false;
         });
     }
-//Controla los tipos de vistas diponibles
-// function toggleview(default_hidden){
-// 	$("#"+default_hidden).hide();
-//     $("input[name=vista]").change(function () {
 
-// 		var selected ="panel-"+$(this).val();
-// 		var hidden = [];
-// 		 $('.panel-view').each(function(key, element){
-// 		 	var id_element=$(element).attr('id');
-// 		 	if(id_element!=selected){
-// 		 		hidden.push(id_element);
-// 		 	}
-//   		});
-// 			show_hide_slide(selected,hidden);
-// 		  //Efecto mostrar/ocultar para los open id
-// 	});
-// }
 /********************USER INFO****************************/
 function edit_user_info(){
 	$(".edit-info").click(function(e){
@@ -184,48 +186,27 @@ function show_limit_text(selector,limit){
 		ind++;
 	});
 }
-function show_more_info(id){
-	//var text=$("#more-info_"+id).text().split(" + info...");
-	//$(".modal-body").html(text[0]+""+text[1]);
-	//$('#modal-descrip').modal('show');
+function  generateSelect() {
+	unid=$("#unit").data('value');
+	$("#unit option").each(function (index) {
+		 if ($(this).val() == unid){
+		 	$(this).attr("selected",true); 
+		 }
+	});
 
 }
 function prepare_rec(){
 	$("#modal-prepare").modal('show');
 }
 
-/**************************/
-function steps_create(){
-	var step=1;
-	boton=$("#button-action");
-	$(".step_1").show("slow");
-	$("#unit").change(function(){
-		if($(this).val()!=""){
-			steps++;
-			//Step 2
-			$(".unit").html($(this).val());
-			$(".step_2").show("slow");
-				$("input[name=und_compra]").change(function(){
-					
-					if($(this).val()!=""){
-						//Step 3
-						$(".step_3").show("slow");
-						$("input[name=precio]").change(function(){
-							if($(this).val()!=""){
-						//Step 4
-						$(".step_4").show("slow");
-								}
-						});
-					}
-				});
-		}
-	});
-	
-	
-}
 
-function detector(){
-	
-}
+
+function cargarUnidades(){
+				if($('#unit').change(function(){
+					if($(this).val()!=""){
+						$(".unit").html($(this).val());
+					}
+				}));
+			}
 
 

@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Recetas</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ entity.slug }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_creacion</th>
+                <td>{{ entity.fechacreacion|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ entity.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Comensales</th>
+                <td>{{ entity.comensales }}</td>
+            </tr>
+            <tr>
+                <th>Tiempo</th>
+                <td>{{ entity.tiempo }}</td>
+            </tr>
+            <tr>
+                <th>Foto</th>
+                <td>{{ entity.foto }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ entity.tags }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ entity.precio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('recetascrud') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('recetascrud_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
