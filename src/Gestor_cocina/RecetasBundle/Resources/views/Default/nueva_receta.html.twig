@@ -63,7 +63,7 @@
 					</div>
 					
 					<div class="panel-body">
-						<form action ="{{ path('mod_receta') }}" id="form-recetas" method="post" role="form" class="form form-horizontal">
+						<form action ="{{ path('mod_receta', { 'receta': receta_edit.slug }) }}" id="form-recetas" method="post" role="form" class="form form-horizontal">
 							<input type="hidden" name="receta_id" value="{{receta_edit.id}}">
 							<div class="form-group">
 								<label for="" class="col-md-3 control-label">Nombre</label>
@@ -89,8 +89,9 @@
 								<label for="precio" class="col-md-3 control-label">Precio</label>
 								<div class="col-md-2">
 									<div class="input-group">
-										<input type="text" name="precio" id="precioTotal" class="form-control" value="{{receta_edit.precio}}">
+										<input type="text" name="precio" id="precioTotal" class="form-control precioTotal" value="{{receta_edit.precio}}">
 										<span class="input-group-addon"> €</span>
+										<input type="hidden" name="precio"  class="precioTotal" value="{{receta_edit.precio}}">
 									</div>
 								</div>
 							</div>
@@ -111,11 +112,14 @@
 										<tbody id="listado_ingr">
 
 											{% for key, ingre in ingredientes if ingre.receta.id == receta_edit.id %}
-												<tr class="ingr_{{loop.index0}}">
-													<td>{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{loop.index0}}]" value="{{ingre.producto.id}}"></td>
+												<tr class="ingr_{{loop.index0}} ingredientes">
+													<td class="nombre" 
+													data-undCompra="{{ingre.producto.unidadCompra}}" 
+													data-precio="{{ingre.producto.precio}}" 
+													data-unidad="{{ingre.producto.unidad}}">{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{loop.index0}}]" value="{{ingre.producto.id}}"></td>
 													<td>
 														<div class="input-group">
-															<input type="text" id="cantidad_{{loop.index0}}" name="cantidad[{{loop.index0}}]" class="form-control input-sm" onchange="calcPrecioTotal({{loop.index0}},true)" value="{{ingre.cantidad}}">
+															<input type="text" id="cantidad_{{loop.index0}}" name="cantidad[{{loop.index0}}]" class="form-control input-sm" onchange="modCantIng({{loop.index0}})" value="{{ingre.cantidad}}">
 															<span class="input-group-addon">{{ingre.producto.unidad}}</span>
 													</td>
 													<td>

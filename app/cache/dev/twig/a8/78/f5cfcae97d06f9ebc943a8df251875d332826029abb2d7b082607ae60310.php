@@ -155,6 +155,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "unidad"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"\" selected>Selecciona..</option>
+\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"kg\">kg</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"gr\">gr</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"L\">l</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"ml\">ml</option>
@@ -167,11 +168,11 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">
 \t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"und_compra\" name=\"und_compra\" class=\"form-control\" value=\"";
-            // line 95
+            // line 96
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "unidadCompra"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\">";
-            // line 96
+            // line 97
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "unidad"), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t</div>
@@ -182,7 +183,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">
 \t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"precio\" name=\"precio\" class=\"form-control\" value=\"";
-            // line 104
+            // line 105
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "precio"), "html", null, true);
             echo "\">
 
@@ -195,11 +196,11 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">
 \t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"stock\" name=\"stock\" class=\"form-control\" value=\"";
-            // line 114
+            // line 115
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "stock"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\">";
-            // line 115
+            // line 116
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "unidad"), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t</div>
@@ -210,24 +211,24 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">
 \t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"stock_min\" name=\"stock_min\" class=\"form-control\" value=\"";
-            // line 123
+            // line 124
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "stockMin"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon unit\">";
-            // line 124
+            // line 125
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto_edit"]) ? $context["producto_edit"] : $this->getContext($context, "producto_edit")), "unidad"), "html", null, true);
             echo "</span>
 \t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t";
-            // line 129
+            // line 130
             echo "
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t<div class=\"col-md-4\">
 \t\t\t\t\t\t\t\t\t<figure class=\"col-md-10\">
 \t \t\t\t\t\t\t\t\t\t<img src=\"";
-            // line 133
+            // line 134
             echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_image.png"), "html", null, true);
             echo "\">
 \t \t\t\t\t\t\t\t\t</figure>
@@ -238,7 +239,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t<div class=\"modal-footer\">
 \t\t\t\t\t\t\t\t\t<button type=\"submit\" class=\"btn btn-primary complement-1-b\" onclick=\"\">Guardar</button>
 \t\t\t\t\t\t\t\t\t<button type=\"button\" data-href=\"";
-            // line 141
+            // line 142
             echo $this->env->getExtension('routing')->getPath("almacen");
             echo "\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
 
@@ -250,7 +251,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t</div>
 \t\t\t\t\t";
         } else {
-            // line 150
+            // line 151
             echo "\t\t\t\t\t<div class=\"panel panel-primary\">
 \t\t\t\t\t\t<div class=\"panel-heading complement-1-b\">
 \t\t\t\t\t\t\t<strong>Crear Producto</strong>
@@ -258,10 +259,10 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t<div class=\"panel-body\">
 \t\t\t\t\t\t\t<div class=\"col-md-8\">
 \t\t\t\t\t\t\t\t\t<form action=\"";
-            // line 156
+            // line 157
             echo $this->env->getExtension('routing')->getPath("crear_producto");
             echo "\" id=\"form-productos\" method=\"post\" role=\"form\" class=\"form form-horizontal\">
-\t\t\t\t\t\t\t\t\t
+
 \t\t\t\t\t\t\t\t\t<div class=\"form-group \">
 \t\t\t\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-4 control-label\">Nombre</label>
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
@@ -274,6 +275,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
 \t\t\t\t\t\t\t\t\t\t\t<select id=\"unit\" id=\"unidad\" name=\"unidad\" class=\"form-control\" data-validate=\"validateNull\">
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"\" selected>Selecciona..</option>
+\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"kg\">kg</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"gr\">gr</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"L\">l</option>
 \t\t\t\t\t\t\t\t\t\t\t\t<option value=\"ml\">ml</option>
@@ -318,13 +320,13 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t";
-            // line 214
+            // line 216
             echo "
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t<div class=\"col-md-4\">
 \t\t\t\t\t\t\t\t\t<figure class=\"col-md-10\">
 \t \t\t\t\t\t\t\t\t\t<img src=\"";
-            // line 218
+            // line 220
             echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_image.png"), "html", null, true);
             echo "\">
 \t \t\t\t\t\t\t\t\t</figure>
@@ -335,7 +337,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t\t\t\t<div class=\"modal-footer\">
 \t\t\t\t\t\t\t\t\t<button type=\"submit\" class=\"btn btn-primary complement-1-b\" onclick=\"\">Guardar</button>
 \t\t\t\t\t\t\t\t\t<button type=\"button\" data-href=\"";
-            // line 226
+            // line 228
             echo $this->env->getExtension('routing')->getPath("almacen");
             echo "\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button>
 
@@ -347,7 +349,7 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 \t\t\t\t\t</div>
 \t\t\t\t\t";
         }
-        // line 235
+        // line 237
         echo "\t\t\t\t</div><!--fin row grid-->
 
 \t\t\t</div>
@@ -357,31 +359,31 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 ";
     }
 
-    // line 242
+    // line 244
     public function block_javascript($context, array $blocks = array())
     {
-        // line 243
+        // line 245
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
         \t<script type=\"text/javascript\" src=\"";
-        // line 244
+        // line 246
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/bootstrap-wizard.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 245
+        // line 247
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 246
+        // line 248
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 247
+        // line 249
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jquery.validate.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 248
+        // line 250
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/validate.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -399,6 +401,6 @@ class __TwigTemplate_a878f5cfcae97d06f9ebc943a8df251875d332826029abb2d7b082607ae
 
     public function getDebugInfo()
     {
-        return array (  385 => 248,  381 => 247,  377 => 246,  373 => 245,  369 => 244,  364 => 243,  361 => 242,  351 => 235,  339 => 226,  328 => 218,  322 => 214,  262 => 156,  254 => 150,  242 => 141,  231 => 133,  225 => 129,  218 => 124,  214 => 123,  203 => 115,  199 => 114,  186 => 104,  175 => 96,  171 => 95,  155 => 82,  146 => 76,  138 => 71,  130 => 65,  128 => 64,  104 => 43,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  387 => 250,  383 => 249,  379 => 248,  375 => 247,  371 => 246,  366 => 245,  363 => 244,  353 => 237,  341 => 228,  330 => 220,  324 => 216,  263 => 157,  255 => 151,  243 => 142,  232 => 134,  226 => 130,  219 => 125,  215 => 124,  204 => 116,  200 => 115,  187 => 105,  176 => 97,  172 => 96,  155 => 82,  146 => 76,  138 => 71,  130 => 65,  128 => 64,  104 => 43,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

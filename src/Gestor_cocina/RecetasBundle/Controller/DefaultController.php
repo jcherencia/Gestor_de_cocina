@@ -51,7 +51,6 @@ class DefaultController extends Controller
            }
         }
         $em->flush();
-        // $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
         $em->remove($receta);
         $em->flush();
         return $this->redirect($this->generateUrl('recetas')); 

@@ -36,14 +36,14 @@ class Productos
     private $slug;
 
     /**
-     * @var integer
+     * @var float
      *
      * @ORM\Column(name="precio", type="float")
      */
     private $precio;
 
     /**
-     * @var decimal
+     * @var float
      *
      * @ORM\Column(name="unidad_compra", type="float")
      */
