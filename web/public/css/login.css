@@ -10,7 +10,20 @@
   color: #404040;
   background: #0ca3d2;
 }  */
-
+.fondo {
+  position: absolute;
+  top:0;
+  left: 0px;
+  width: 100%;
+  min-height:100%;
+  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  color: #404040;
+  background: #0ca3d2;
+}  
+.fondo>.container {
+  margin: 2% auto;
+  width: 640px;
+}
 
 
 .login {

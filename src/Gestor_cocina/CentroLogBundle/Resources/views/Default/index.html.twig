@@ -86,10 +86,84 @@
 			<div class="row">
 				<div id="mod_pedidos" class="mod col-md-10">
 					<div id="accordion" class="panel-group">
+						<div class="panel panel-primary">
+							<div class="panel-heading complement-1-b">
+								<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse_1">
+									<strong>
+										<span class="glyphicon glyphicon-download-alt"> </span>
+										<span>  Solicitudes de productos</span>
+									</strong>
+								</a>
+								</h4>
+							</div>
+							<div id="collapse_1" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="col-md-3">Producto</th>
+															<th class="col-md-2">Cantidad</th>
+															<th class="col-md-3">Fecha</th>
+															<th class="col-md-3">Solicitante</th>
+															<th class="col-md-1">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr id="solicitud_1">
+															<td><a href="#" >
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit"> Producto 1</span>
+															</a></td>
+															<td>Producto 1</td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-plus"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																	</div>
+															</td>
+														</tr>
+														<tr id="solicitud_2">
+															<td><a href="#" >
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit"> Producto 2</span>
+															</a></td>
+															<td>Producto 1</td>
+															<td>22/04/2013</td>
+															<td>Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-plus"></span>
+																	</button>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-remove"></span>
+																	</button>
+																	</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="panel panel-danger">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse_2">
 									<strong>
 										<span class="glyphicon glyphicon-warning-sign"> </span>
 										<span>  Pedidos Pendientes</span>
@@ -97,7 +171,7 @@
 								</a>
 								</h4>
 							</div>
-							<div id="collapseOne" class="panel-collapse collapse in">
+							<div id="collapse_2" class="panel-collapse collapse">
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-12">
@@ -163,7 +237,7 @@
 						<div class="panel panel-warning">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse_3">
 										<strong>
 											<span class="glyphicon glyphicon-export"> </span>
 											<span>  Pedidos Enviados</span>
@@ -171,7 +245,7 @@
 									</a>
 								</h4>
 							</div>
-							<div id="collapseTwo" class="panel-collapse collapse">
+							<div id="collapse_3" class="panel-collapse collapse">
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-12">
@@ -324,19 +398,25 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="col-sm-6 col-md-3">Nombre</th>
+								<th class="col-sm-6 col-md-1">Nombre</th>
+								<th class="col-sm-6 col-md-2">Apellidos</th>
+								<th class="col-sm-6 col-md-1">Usuario</th>
 								<th class="col-sm-6 col-md-1">Email</th>
-								<th class="col-sm-6 col-md-3">Fecha registro</th>
+								<th class="col-sm-6 col-md-2">Fecha registro</th>
 								<th class="col-sm-6 col-md-1">Tipo</th>
 								<th class="col-sm-4 col-md-1">Opciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Usuario 1</td>
-								<td>correo@gmail.com</td>
-								<td>22/08/2013</td>
-								<td>Usuario</td>
+						{% for usuario in usuarios %}
+							<tr data-id="{{usuario.id}}">
+								<td>{{usuario.nombre}}</td>
+								<td>{{usuario.apellidos}}</td>
+								<td>{{usuario.username}}</td>
+								<td>{{usuario.email}}</td>
+								<td>{{usuario.fechaRegistro|date("d/m/Y")}}</td>
+								<td>tipo </td>
+								
 								<td> 
 									<div class="btn-group btn-group-sm">
 										<button data-href="" class="btn btn-primary">
@@ -348,6 +428,7 @@
 									</div>
 								</td>
 							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 					</div>

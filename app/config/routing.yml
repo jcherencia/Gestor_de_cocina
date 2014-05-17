@@ -10,8 +10,25 @@
 #     resource: "@CentroLogBundle/Resources/config/routing.yml"
 #     prefix:   /
 inicio:
-    pattern: /inicio
+    pattern: /
     defaults: { _controller: RecetasBundle:Default:index }
+
+login:
+    pattern: /login
+    defaults: { _controller:RecetasBundle:User:index }
+login_check:
+    pattern: /login_check
+    # defaults: { _controller:RecetasBundle:User:index }
+registro:
+    pattern: /registro
+    defaults: { _controller:RecetasBundle:User:registro }
+crear_usuario:
+    pattern: /crear_usuario
+    defaults: { _controller:RecetasBundle:User:crear_usuario }
+perfil:
+    pattern: /perfil
+    defaults: { _controller: RecetasBundle:User:perfil }
+
     # -----------------------------------------------------------
 recetas:
     pattern: /recetas
@@ -38,6 +55,9 @@ borrar_receta:
 centro_log:
     pattern: /centro_log
     defaults: { _controller: CentroLogBundle:Default:index }
+genSolicitud:
+    pattern: /centro_log/genSolicitud
+    defaults: { _controller: CentroLogBundle:Default:genSolicitud }
 # -------------------------------------------------------------------------#
 almacen:
     pattern: /almacen
@@ -59,7 +79,5 @@ borrar_producto:
     pattern: /almacen/borrar_producto/{producto}
     defaults: { _controller: AlmacenBundle:FormProductos:borrar_producto }
 # -------------------------------------------------------------------------#
-perfil:
-    pattern: /perfil
-    defaults: { _controller: RecetasBundle:User:index }
+
 

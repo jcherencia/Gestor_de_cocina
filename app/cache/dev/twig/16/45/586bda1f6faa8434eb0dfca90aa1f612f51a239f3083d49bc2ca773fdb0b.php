@@ -148,10 +148,84 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t<div class=\"row\">
 \t\t\t\t<div id=\"mod_pedidos\" class=\"mod col-md-10\">
 \t\t\t\t\t<div id=\"accordion\" class=\"panel-group\">
+\t\t\t\t\t\t<div class=\"panel panel-primary\">
+\t\t\t\t\t\t\t<div class=\"panel-heading complement-1-b\">
+\t\t\t\t\t\t\t\t<h4 class=\"panel-title\">
+\t\t\t\t\t\t\t\t<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse_1\">
+\t\t\t\t\t\t\t\t\t<strong>
+\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-download-alt\"> </span>
+\t\t\t\t\t\t\t\t\t\t<span>  Solicitudes de productos</span>
+\t\t\t\t\t\t\t\t\t</strong>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t</h4>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div id=\"collapse_1\" class=\"panel-collapse collapse in\">
+\t\t\t\t\t\t\t\t<div class=\"panel-body\">
+\t\t\t\t\t\t\t\t\t<div class=\"row\">
+\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-12\">
+\t\t\t\t\t\t\t\t\t\t\t<div class=\"table-responsive\">
+\t\t\t\t\t\t\t\t\t\t\t\t<table class=\"table\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<thead>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-3\">Producto</th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-2\">Cantidad</th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-3\">Fecha</th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-3\">Solicitante</th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th class=\"col-md-1\">Opciones</th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</thead>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr id=\"solicitud_1\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td><a href=\"#\" >
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-file\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"ped-tit\"> Producto 1</span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a></td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>Producto 1</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>22/04/2013</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>Usuario 1</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-plus\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-danger\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr id=\"solicitud_2\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td><a href=\"#\" >
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-file\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"ped-tit\"> Producto 2</span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a></td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>Producto 1</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>22/04/2013</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>Usuario 1</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-plus\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-danger\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>
+\t\t\t\t\t\t\t\t\t\t\t\t</table>
+\t\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t\t\t<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div>
 \t\t\t\t\t\t<div class=\"panel panel-danger\">
 \t\t\t\t\t\t\t<div class=\"panel-heading\">
 \t\t\t\t\t\t\t\t<h4 class=\"panel-title\">
-\t\t\t\t\t\t\t\t<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseOne\">
+\t\t\t\t\t\t\t\t<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse_2\">
 \t\t\t\t\t\t\t\t\t<strong>
 \t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-warning-sign\"> </span>
 \t\t\t\t\t\t\t\t\t\t<span>  Pedidos Pendientes</span>
@@ -159,7 +233,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t</h4>
 \t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t<div id=\"collapseOne\" class=\"panel-collapse collapse in\">
+\t\t\t\t\t\t\t<div id=\"collapse_2\" class=\"panel-collapse collapse\">
 \t\t\t\t\t\t\t\t<div class=\"panel-body\">
 \t\t\t\t\t\t\t\t\t<div class=\"row\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-12\">
@@ -225,7 +299,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t<div class=\"panel panel-warning\">
 \t\t\t\t\t\t\t<div class=\"panel-heading\">
 \t\t\t\t\t\t\t\t<h4 class=\"panel-title\">
-\t\t\t\t\t\t\t\t\t<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseTwo\">
+\t\t\t\t\t\t\t\t\t<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse_3\">
 \t\t\t\t\t\t\t\t\t\t<strong>
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-export\"> </span>
 \t\t\t\t\t\t\t\t\t\t\t<span>  Pedidos Enviados</span>
@@ -233,7 +307,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t\t</h4>
 \t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t<div id=\"collapseTwo\" class=\"panel-collapse collapse\">
+\t\t\t\t\t\t\t<div id=\"collapse_3\" class=\"panel-collapse collapse\">
 \t\t\t\t\t\t\t\t<div class=\"panel-body\">
 \t\t\t\t\t\t\t\t\t<div class=\"row\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"col-md-12\">
@@ -386,19 +460,47 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t<table class=\"table table-hover\">
 \t\t\t\t\t\t<thead>
 \t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-3\">Nombre</th>
+\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-1\">Nombre</th>
+\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-2\">Apellidos</th>
+\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-1\">Usuario</th>
 \t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-1\">Email</th>
-\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-3\">Fecha registro</th>
+\t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-2\">Fecha registro</th>
 \t\t\t\t\t\t\t\t<th class=\"col-sm-6 col-md-1\">Tipo</th>
 \t\t\t\t\t\t\t\t<th class=\"col-sm-4 col-md-1\">Opciones</th>
 \t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t</thead>
 \t\t\t\t\t\t<tbody>
-\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t<td>Usuario 1</td>
-\t\t\t\t\t\t\t\t<td>correo@gmail.com</td>
-\t\t\t\t\t\t\t\t<td>22/08/2013</td>
-\t\t\t\t\t\t\t\t<td>Usuario</td>
+\t\t\t\t\t\t";
+        // line 411
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["usuarios"]) ? $context["usuarios"] : $this->getContext($context, "usuarios")));
+        foreach ($context['_seq'] as $context["_key"] => $context["usuario"]) {
+            // line 412
+            echo "\t\t\t\t\t\t\t<tr data-id=\"";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "id"), "html", null, true);
+            echo "\">
+\t\t\t\t\t\t\t\t<td>";
+            // line 413
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "nombre"), "html", null, true);
+            echo "</td>
+\t\t\t\t\t\t\t\t<td>";
+            // line 414
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "apellidos"), "html", null, true);
+            echo "</td>
+\t\t\t\t\t\t\t\t<td>";
+            // line 415
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "username"), "html", null, true);
+            echo "</td>
+\t\t\t\t\t\t\t\t<td>";
+            // line 416
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "email"), "html", null, true);
+            echo "</td>
+\t\t\t\t\t\t\t\t<td>";
+            // line 417
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "fechaRegistro"), "d/m/Y"), "html", null, true);
+            echo "</td>
+\t\t\t\t\t\t\t\t<td>tipo </td>
+\t\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t<td> 
 \t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
 \t\t\t\t\t\t\t\t\t\t<button data-href=\"\" class=\"btn btn-primary\">
@@ -410,7 +512,13 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t</tbody>
+\t\t\t\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['usuario'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 432
+        echo "\t\t\t\t\t\t</tbody>
 \t\t\t\t\t</table>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
@@ -434,19 +542,19 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t";
     }
 
-    // line 373
+    // line 454
     public function block_javascript($context, array $blocks = array())
     {
-        // line 374
+        // line 455
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 375
+        // line 456
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 376
+        // line 457
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -464,6 +572,6 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 
     public function getDebugInfo()
     {
-        return array (  450 => 376,  446 => 375,  441 => 374,  438 => 373,  104 => 43,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  558 => 457,  554 => 456,  549 => 455,  546 => 454,  521 => 432,  500 => 417,  496 => 416,  492 => 415,  488 => 414,  484 => 413,  479 => 412,  475 => 411,  104 => 43,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

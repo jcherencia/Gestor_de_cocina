@@ -195,9 +195,7 @@ function  generateSelect() {
 	});
 
 }
-function prepare_rec(){
-	$("#modal-prepare").modal('show');
-}
+
 
 
 

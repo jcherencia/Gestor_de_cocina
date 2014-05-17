@@ -1,3 +1,12 @@
+# security:
+#     firewalls:
+#         secured_area:
+#             pattern:    ^/centro_log
+#             anonymous:  ~
+#             form_login:
+#                 login_path:  login
+#                 check_path:  login_check
+
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
@@ -36,3 +45,4 @@ security:
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+

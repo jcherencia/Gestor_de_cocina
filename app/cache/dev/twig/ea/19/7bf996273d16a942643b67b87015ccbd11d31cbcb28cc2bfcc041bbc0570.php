@@ -192,17 +192,11 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
             // line 114
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["ingredientes"]) ? $context["ingredientes"] : $this->getContext($context, "ingredientes")));
-            $context['loop'] = array(
-              'parent' => $context['_parent'],
-              'index0' => 0,
-              'index'  => 1,
-              'first'  => true,
-            );
             foreach ($context['_seq'] as $context["key"] => $context["ingre"]) {
                 if (($this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "receta"), "id") == $this->getAttribute((isset($context["receta_edit"]) ? $context["receta_edit"] : $this->getContext($context, "receta_edit")), "id"))) {
                     // line 115
                     echo "\t\t\t\t\t\t\t\t\t\t\t\t<tr class=\"ingr_";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo " ingredientes\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"nombre\" 
 \t\t\t\t\t\t\t\t\t\t\t\t\tdata-undCompra=\"";
@@ -219,7 +213,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
                     echo "\">";
                     echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "nombre"), "html", null, true);
                     echo "<input type=\"hidden\" name=\"id_ing[";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo "]\" value=\"";
                     echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo "\"></td>
@@ -227,11 +221,11 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"cantidad_";
                     // line 122
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo "\" name=\"cantidad[";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo "]\" class=\"form-control input-sm\" onchange=\"modCantIng(";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo ")\" value=\"";
                     echo twig_escape_filter($this->env, $this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "cantidad"), "html", null, true);
                     echo "\">
@@ -243,7 +237,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"eliminarIng(";
                     // line 126
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["ingre"]) ? $context["ingre"] : $this->getContext($context, "ingre")), "producto"), "id"), "html", null, true);
                     echo ")\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
@@ -251,9 +245,6 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t\t\t\t</tr>
 
 \t\t\t\t\t\t\t\t\t\t\t";
-                    ++$context['loop']['index0'];
-                    ++$context['loop']['index'];
-                    $context['loop']['first'] = false;
                 }
             }
             $_parent = $context['_parent'];
@@ -517,6 +508,6 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 
     public function getDebugInfo()
     {
-        return array (  503 => 295,  499 => 294,  494 => 293,  491 => 292,  473 => 277,  451 => 273,  445 => 272,  441 => 271,  437 => 270,  432 => 269,  415 => 268,  390 => 245,  377 => 235,  342 => 203,  307 => 171,  300 => 166,  286 => 154,  263 => 133,  246 => 126,  240 => 123,  230 => 122,  218 => 119,  214 => 118,  210 => 117,  204 => 115,  193 => 114,  176 => 100,  167 => 94,  162 => 92,  152 => 85,  143 => 79,  132 => 71,  125 => 67,  121 => 66,  113 => 60,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
+        return array (  494 => 295,  490 => 294,  485 => 293,  482 => 292,  464 => 277,  442 => 273,  436 => 272,  432 => 271,  428 => 270,  423 => 269,  406 => 268,  381 => 245,  368 => 235,  333 => 203,  298 => 171,  291 => 166,  277 => 154,  254 => 133,  240 => 126,  234 => 123,  224 => 122,  212 => 119,  208 => 118,  204 => 117,  198 => 115,  193 => 114,  176 => 100,  167 => 94,  162 => 92,  152 => 85,  143 => 79,  132 => 71,  125 => 67,  121 => 66,  113 => 60,  111 => 59,  88 => 39,  73 => 27,  67 => 24,  61 => 21,  55 => 18,  39 => 4,  36 => 3,  30 => 2,);
     }
 }

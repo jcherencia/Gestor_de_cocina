@@ -136,8 +136,40 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // inicio
-        if ($pathinfo === '/inicio') {
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'inicio');
+            }
+
             return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::indexAction',  '_route' => 'inicio',);
+        }
+
+        if (0 === strpos($pathinfo, '/login')) {
+            // login
+            if ($pathinfo === '/login') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::indexAction',  '_route' => 'login',);
+            }
+
+            // login_check
+            if ($pathinfo === '/login_check') {
+                return array('_route' => 'login_check');
+            }
+
+        }
+
+        // registro
+        if ($pathinfo === '/registro') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::registroAction',  '_route' => 'registro',);
+        }
+
+        // crear_usuario
+        if ($pathinfo === '/crear_usuario') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::crear_usuarioAction',  '_route' => 'crear_usuario',);
+        }
+
+        // perfil
+        if ($pathinfo === '/perfil') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::perfilAction',  '_route' => 'perfil',);
         }
 
         if (0 === strpos($pathinfo, '/recetas')) {
@@ -187,9 +219,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // centro_log
-        if ($pathinfo === '/centro_log') {
-            return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
+        if (0 === strpos($pathinfo, '/centro_log')) {
+            // centro_log
+            if ($pathinfo === '/centro_log') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
+            }
+
+            // genSolicitud
+            if ($pathinfo === '/centro_log/genSolicitud') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/almacen')) {
@@ -226,11 +266,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\FormProductosController::borrar_productoAction',));
             }
 
-        }
-
-        // perfil
-        if ($pathinfo === '/perfil') {
-            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::indexAction',  '_route' => 'perfil',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

@@ -278,7 +278,7 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 \t\t\t\t\t\t\t</table>
 \t\t\t\t\t\t</div>\t\t\t\t\t\t
 \t\t\t\t\t\t<div class='modal-footer'>
-\t\t\t\t\t\t\t<button type='button' class='btn btn-primary complement-1-b'> Preparar</button>
+\t\t\t\t\t\t\t<button type='button' class='btn btn-primary complement-1-b' onclick=\"prepare_rec('1')\"> Preparar</button>
 \t\t\t\t\t\t\t<button class='btn btn-danger' type='button', data-dismiss='modal' > Cancelar</button>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>

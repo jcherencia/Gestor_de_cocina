@@ -112,18 +112,18 @@
 										<tbody id="listado_ingr">
 
 											{% for key, ingre in ingredientes if ingre.receta.id == receta_edit.id %}
-												<tr class="ingr_{{loop.index0}} ingredientes">
+												<tr class="ingr_{{ingre.producto.id}} ingredientes">
 													<td class="nombre" 
 													data-undCompra="{{ingre.producto.unidadCompra}}" 
 													data-precio="{{ingre.producto.precio}}" 
-													data-unidad="{{ingre.producto.unidad}}">{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{loop.index0}}]" value="{{ingre.producto.id}}"></td>
+													data-unidad="{{ingre.producto.unidad}}">{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{ingre.producto.id}}]" value="{{ingre.producto.id}}"></td>
 													<td>
 														<div class="input-group">
-															<input type="text" id="cantidad_{{loop.index0}}" name="cantidad[{{loop.index0}}]" class="form-control input-sm" onchange="modCantIng({{loop.index0}})" value="{{ingre.cantidad}}">
+															<input type="text" id="cantidad_{{ingre.producto.id}}" name="cantidad[{{ingre.producto.id}}]" class="form-control input-sm" onchange="modCantIng({{ingre.producto.id}})" value="{{ingre.cantidad}}">
 															<span class="input-group-addon">{{ingre.producto.unidad}}</span>
 													</td>
 													<td>
-														<button type="button" class="btn btn-danger btn-sm" onclick="eliminarIng({{loop.index0}})">
+														<button type="button" class="btn btn-danger btn-sm" onclick="eliminarIng({{ingre.producto.id}})">
 															<span class="glyphicon glyphicon-remove"></span>
 														</button>
 													</td>

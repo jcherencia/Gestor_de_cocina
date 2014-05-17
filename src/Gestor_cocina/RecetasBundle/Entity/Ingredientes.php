@@ -1,7 +1,9 @@
 <?php
 namespace Gestor_cocina\RecetasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-/** @ORM\Entity */
+/** @ORM\Entity(repositoryClass="Gestor_cocina\RecetasBundle\Entity\IngredienteRepository")
+*/
+
 class Ingredientes
 {
 	/**

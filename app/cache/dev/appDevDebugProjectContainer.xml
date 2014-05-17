@@ -2299,6 +2299,7 @@
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
             <argument type="collection">
+              <argument key="CentroLogBundle">Gestor_cocina\CentroLogBundle\Entity</argument>
               <argument key="AlmacenBundle">Gestor_cocina\AlmacenBundle\Entity</argument>
               <argument key="RecetasBundle">Gestor_cocina\RecetasBundle\Entity</argument>
             </argument>
@@ -2338,6 +2339,20 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
+                        <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\CentroLogBundle\Entity</argument>
+                        <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\AlmacenBundle\Entity</argument>
+                        <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\RecetasBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gestor_cocina\CentroLogBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\CentroLogBundle\Entity</argument>
                         <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\AlmacenBundle\Entity</argument>
                         <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\RecetasBundle\Entity</argument>
                       </argument>
@@ -2350,6 +2365,7 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
+                        <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\CentroLogBundle\Entity</argument>
                         <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\AlmacenBundle\Entity</argument>
                         <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\RecetasBundle\Entity</argument>
                       </argument>

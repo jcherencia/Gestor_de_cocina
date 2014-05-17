@@ -1,7 +1,7 @@
 <?php
 
 namespace Gestor_cocina\RecetasBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,42 +10,38 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Usuarios
+class Usuarios implements UserInterface
 {
-    /**
-     * @var integer
+     /**
+     * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+    /**
+    * @ORM\Column(type="string", length=255)
+    */
+    protected $nombre;
+    /**
+    * @ORM\Column(type="string", length=255)
+    */
+    protected $apellidos;
+    /**
+    * @ORM\Column(type="string", length=255)
+    */
+    protected $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=150)
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $nombre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="usuario", type="string", length=150)
-     */
-    private $usuario;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pass", type="string", length=150)
-     */
-    private $pass;
+    protected $password;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_nac", type="date")
+     * @ORM\Column(name="fecha_nac", type="datetime")
      */
     private $fechaNac;
 
@@ -59,7 +55,7 @@ class Usuarios
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_registro", type="date")
+     * @ORM\Column(name="fecha_registro", type="datetime")
      */
     private $fechaRegistro;
 
@@ -86,91 +82,168 @@ class Usuarios
 
 
     /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    protected $salt;
+
+    /**
+     * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
+     * @ORM\ManyToMany(targetEntity="Roles")
+     * @ORM\JoinTable(name="user_role",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     */
+    protected $user_roles;
+
+    public function __construct()
+    {
+        $this->user_roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
     /**
      * Set nombre
      *
-     * @param string $nombre
-     * @return Usuarios
+     * @param string $usuario
      */
-    public function setNombre($nombre)
+   public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
-        return $this;
     }
 
     /**
-     * Get nombre
+     * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
         return $this->nombre;
     }
+     /**
+     * Set apellidos
+     *
+     * @param string $usuario
+     */
+   public function setApellidos($apellidos)
+    {
+        $this->apellidos = $apellidos;
+    }
 
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
     /**
      * Set usuario
      *
      * @param string $usuario
-     * @return Usuarios
      */
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
 
-        return $this;
+   public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
     /**
-     * Get usuario
+     * Get username
      *
-     * @return string 
+     * @return string
      */
-    public function getUsuario()
+    public function getUsername()
     {
-        return $this->usuario;
+        return $this->username;
     }
 
     /**
-     * Set pass
+     * Set password
      *
-     * @param string $pass
-     * @return Usuarios
+     * @param string $password
      */
-    public function setPass($pass)
+    public function setPassword($password)
     {
-        $this->pass = $pass;
-
-        return $this;
+        $this->password = $password;
     }
 
     /**
-     * Get pass
+     * Get password
      *
-     * @return string 
+     * @return string
      */
-    public function getPass()
+    public function getPassword()
     {
-        return $this->pass;
+        return $this->password;
     }
 
     /**
-     * Set fechaNac
+     * Set salt
      *
-     * @param \DateTime $fechaNac
-     * @return Usuarios
+     * @param string $salt
      */
-    public function setFechaNac($fechaNac)
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Add user_roles
+     *
+     * @param Maycol\BlogBundle\Entity\Role $userRoles
+     */
+    public function addRole(\Gestor_cocina\RecetasBundle\Entity\Roles $userRoles)
+    {
+        $this->user_roles[] = $userRoles;
+    }
+
+    public function setUserRoles($roles) {
+        $this->user_roles = $roles;
+    }
+
+    /**
+     * Get user_roles
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUserRoles()
+    {
+        return $this->user_roles;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->user_roles->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
+    }
+    //***************************************//
+public function setFechaNac($fechaNac)
     {
         $this->fechaNac = $fechaNac;
 
@@ -300,5 +373,24 @@ class Usuarios
     public function getActivo()
     {
         return $this->activo;
+    }
+
+    //******************************************//
+    /**
+     * Compares this user to another to determine if they are the same.
+     *
+     * @param UserInterface $user The user
+     * @return boolean True if equal, false othwerwise.
+     */
+    public function equals(UserInterface $user) {
+        return md5($this->getUsuario()) == md5($user->getUsuario());
+
+    }
+
+    /**
+     * Erases the user credentials.
+     */
+    public function eraseCredentials() {
+
     }
 }

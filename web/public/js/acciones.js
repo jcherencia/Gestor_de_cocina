@@ -62,7 +62,7 @@ function anadirIngre(){
           	precio=$(element).children("td").children('.precio').text();
           	und_comp=$(element).children("td").children('.und_comp').text();
            var ingr = new Ingrediente(id, nombre, unidad,precio,und_comp);
-           ingredientes[key]=ingr;
+           ingredientes["'"+id+"'"]=ingr;
           
         } 
 	});
@@ -73,18 +73,20 @@ function anadirIngre(){
 function genInterfaz(){
 	interfaz="";
 	for(var i in ingredientes) {
-		
-    	if( comprobarExistIng(i)== false){
+		// alert("i -"+i);
+		index=i.replace(/'/g,'');
+		// alert("index "+index);
+    	if( comprobarExistIng(index)== false){
     		interfaz=[
-			'<tr class="ingr_'+i+' ingredientes">'+
-				'<td>'+ingredientes[i].nombre+'<input type="hidden" name="id_ing['+i+']" value="'+ingredientes[i].id+'"></td>'+
+			'<tr class="ingr_'+index+' ingredientes">'+
+				'<td>'+ingredientes[i].nombre+'<input type="hidden" name="id_ing['+index+']" value="'+ingredientes[i].id+'"></td>'+
 				'<td>'+
 					'<div class="input-group">'+
-						'<input type="text" id="cantidad_'+i+'" name="cantidad['+i+']" class="form-control input-sm" onchange="modCantIng('+i+')">'+
+						'<input type="text" id="cantidad_'+index+'" name="cantidad['+index+']" class="form-control input-sm" onchange="modCantIng('+index+')">'+
 						'<span class="input-group-addon">'+ingredientes[i].unidad+'</span>'+
 				'</td>'+
 				'<td>'+
-					'<button type="button" class="btn btn-danger btn-sm" onclick="eliminarIng('+i+')">'+
+					'<button type="button" class="btn btn-danger btn-sm" onclick="eliminarIng('+index+')">'+
 						'<span class="glyphicon glyphicon-remove"></span>'+
 					'</button>'+
 				'</td>'+
@@ -98,7 +100,10 @@ function genInterfaz(){
 		
 }
 function eliminarIng(id){
+	// alert("id->"+id);
+	// alert(ingredientes.indexOf(ingredientes["'"+id+"'"]));
 	ingredientes.splice(id,1);
+	// alert(removido);
 	calcPrecioTotal();
 	
 	$(".ingr_"+id).remove();
@@ -106,21 +111,21 @@ function eliminarIng(id){
 function modCantIng(key){
 	cantidad=parseFloat($("#cantidad_"+key).val());
 	if(cantidad!=""){
+		key="'"+key+"'";
+		// alert(key);
+		// alert("ingredientes["+key+"]");
 		ingredientes[key].cantidad=cantidad;
-		// for (var i = 0; i < ingredientes.length; i++) {
-		// 	alert("prueba33 "+ingredientes[i].nombre);
-		// }
 		calcPrecioTotal();
 	}
-	
 }
 function calcPrecioTotal(){
 	precioTotal=0;
-	for (var i = 0; i < ingredientes.length; i++) {
-		// alert("prueba33 "+ingredientes[i].nombre);
-		precioTotal+=(parseFloat(ingredientes[i].cantidad) * parseFloat(ingredientes[i].precio) ) / parseFloat(ingredientes[i].und_comp);
-	};
+	for( var ingr in ingredientes){
+		// alert(ingredientes[ingr].nombre);
+		precioTotal+=(parseFloat(ingredientes[ingr].cantidad) * parseFloat(ingredientes[ingr].precio) ) / parseFloat(ingredientes[ingr].und_comp);
+	}
 	precioTotal=Math.round(precioTotal * 100) / 100;
+	// alert(precioTotal);
 	$(".precioTotal").val(precioTotal);
 	
 }
@@ -170,9 +175,42 @@ function editarIng () {
 			ingred.cantidad=$("#cantidad_"+index).val();
 			// if( comprobarExistIng(i)== false){
 				ingredientes[index]=ingred;
+				alert(ingredientes[index].nombre);
            	// }	
 		});
 		
 		calcPrecioTotal();
 	}
+}
+function prepare_rec(id){
+	// $("#modal-prepare").modal('show');
+	// alert("ok");
+	$.ajax({
+		url: '/Gestor_de_cocina/web/app_dev.php/centro_log/genSolicitud',
+		type: 'POST',
+		async: true,
+		// 	data: 'id='+id+'&foo2=bar2' ,
+		data: {'id':"1",'ingr':{'pollo':500}},
+		success: function (response) {
+		alert("response "+response);
+		},
+		error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                // alert('Internal Server Error [500].');
+                alert(jqXHR.responseText);
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
+        }
+	});
 }

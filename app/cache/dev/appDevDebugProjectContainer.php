@@ -598,14 +598,15 @@ class appDevDebugProjectContainer extends Container
         $d = new \Doctrine\Common\Cache\ArrayCache();
         $d->setNamespace('sf2orm_default_07c3f3757868e8aef0b7585a86f0fef7035575e83cd7dc6c8c47a554a2a6146d');
 
-        $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle\\Entity', 1 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle\\Entity'));
+        $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\CentroLogBundle\\Entity', 1 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle\\Entity', 2 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle\\Entity'));
 
         $f = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        $f->addDriver($e, 'Gestor_cocina\\CentroLogBundle\\Entity');
         $f->addDriver($e, 'Gestor_cocina\\AlmacenBundle\\Entity');
         $f->addDriver($e, 'Gestor_cocina\\RecetasBundle\\Entity');
 
         $g = new \Doctrine\ORM\Configuration();
-        $g->setEntityNamespaces(array('AlmacenBundle' => 'Gestor_cocina\\AlmacenBundle\\Entity', 'RecetasBundle' => 'Gestor_cocina\\RecetasBundle\\Entity'));
+        $g->setEntityNamespaces(array('CentroLogBundle' => 'Gestor_cocina\\CentroLogBundle\\Entity', 'AlmacenBundle' => 'Gestor_cocina\\AlmacenBundle\\Entity', 'RecetasBundle' => 'Gestor_cocina\\RecetasBundle\\Entity'));
         $g->setMetadataCacheImpl($b);
         $g->setQueryCacheImpl($c);
         $g->setResultCacheImpl($d);
