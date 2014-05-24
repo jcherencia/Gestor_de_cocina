@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
-	{% block title %}Recetas - Gestor de cocina {% endblock %}
+	{% block title %}Mis recetas - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+		
+		
+	{% endblock %}
 		{% block body %}
 			<div class='content'>
 				<div class='navbar navbar-default complement-1-b'>
@@ -90,7 +95,7 @@
 						{% for receta in recetas %}
 							<div class='col-sm-6 col-md-3'>
 							
-								<figure class='receta'>
+								<figure class='receta' data-id="{{ receta.id }}">
 									<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
 									<figcaption>
 										<a class='nombre' href="">{{ receta.nombre }}</a>
@@ -102,7 +107,7 @@
 											<p class='desc'>{{ receta.descripcion }}</p>
 											<ul class='ingr list-group'>
 												{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
-														<li class="list-group-item">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+														<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
 
 												{% else %}
 													<li>Not found</li>
@@ -166,19 +171,30 @@
 									</tr>
 								</tbody>
 							</table>
+							
 						</div>						
 						<div class='modal-footer'>
-							<button type='button' class='btn btn-primary complement-1-b' onclick="prepare_rec('1')"> Preparar</button>
-							<button class='btn btn-danger' type='button', data-dismiss='modal' > Cancelar</button>
+							<div class="col-md-6">
+								<input class="col-md-4" name="comensales">
+							</div>
+
+							<button id="prepare_rec" type='button' class='btn btn-primary complement-1-b'> Preparar</button>
+							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
 						</div>
+
 					</div>
+					
 				</div>
 			</div>
+			<div id="notification"></div>
 		</div>
 	{% endblock %}
     {% block javascript %}
         {{ parent() }}
+        	<script type="text/javascript" src="{{ asset('public/js/bootstrap.touchspin.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+
     {% endblock %}
-	
+	 
+    

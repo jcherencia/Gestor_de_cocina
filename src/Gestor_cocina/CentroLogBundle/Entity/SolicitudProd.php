@@ -22,11 +22,15 @@ class SolicitudProd
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Producto", type="string", length=255)
-     */
-    private $producto;
+    * 
+    * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Recetas")
+    */
+    protected $receta;
+    /**
+    * 
+    * @ORM\ManyToOne(targetEntity="Gestor_cocina\AlmacenBundle\Entity\Productos")
+    */
+    protected $producto;
 
     /**
      * @var float
@@ -58,6 +62,28 @@ class SolicitudProd
     public function getId()
     {
         return $this->id;
+    }
+     /**
+     * Set producto
+     *
+     * @param string $producto
+     * @return SolicitudProd
+     */
+    public function setReceta($receta)
+    {
+        $this->receta = $receta;
+
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return string 
+     */
+    public function getReceta()
+    {
+        return $this->receta;
     }
 
     /**

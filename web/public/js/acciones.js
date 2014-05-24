@@ -13,10 +13,24 @@ $(document).ready(function(){
 		}
 		
 	});
+	if ($('#prepare_rec').length){
+
+		$('#prepare_rec').click(function(){
+			prepare_rec($(this).data('id'));
+		});
+
+		$("input[name='comensales']").TouchSpin({
+			min: 1
+	       , postfix: "Comensales"
+	    });
+	}
+
 	editarIng();
 	loadTextarea();
 	deshabilitar(0);
+
 });
+
 function loadTextarea(){
 	
 	if($("#hide_descrip").length){
@@ -26,6 +40,10 @@ function loadTextarea(){
 	}
 	
 }
+//**************************************************************//
+//****************** GESTION DE INGREDIENTES *******************//
+//**************************************************************//
+
 //CLASE INGREDIENTE
 var Ingrediente = function (id, nombre, unidad,precio,und_comp) {
     this.id = id;
@@ -93,27 +111,22 @@ function genInterfaz(){
 			'</tr>'
 			];
 			$('#listado_ingr').html($('#listado_ingr').html()+interfaz);
-			// alert($('#listado_ingr').html());
+			
     	}
 			
 	}
 		
 }
 function eliminarIng(id){
-	// alert("id->"+id);
-	// alert(ingredientes.indexOf(ingredientes["'"+id+"'"]));
-	ingredientes.splice(id,1);
-	// alert(removido);
-	calcPrecioTotal();
 	
+	ingredientes.splice(id,1);
+	calcPrecioTotal();
 	$(".ingr_"+id).remove();
 }
 function modCantIng(key){
 	cantidad=parseFloat($("#cantidad_"+key).val());
 	if(cantidad!=""){
 		key="'"+key+"'";
-		// alert(key);
-		// alert("ingredientes["+key+"]");
 		ingredientes[key].cantidad=cantidad;
 		calcPrecioTotal();
 	}
@@ -121,11 +134,10 @@ function modCantIng(key){
 function calcPrecioTotal(){
 	precioTotal=0;
 	for( var ingr in ingredientes){
-		// alert(ingredientes[ingr].nombre);
 		precioTotal+=(parseFloat(ingredientes[ingr].cantidad) * parseFloat(ingredientes[ingr].precio) ) / parseFloat(ingredientes[ingr].und_comp);
 	}
 	precioTotal=Math.round(precioTotal * 100) / 100;
-	// alert(precioTotal);
+	
 	$(".precioTotal").val(precioTotal);
 	
 }
@@ -182,17 +194,36 @@ function editarIng () {
 		calcPrecioTotal();
 	}
 }
-function prepare_rec(id){
-	// $("#modal-prepare").modal('show');
-	// alert("ok");
+//**************************************************************//
+//****************** FIN GESTION DE INGREDIENTES *******************//
+//**************************************************************//
+
+//**************************************************************//
+//******************* PREPARACION RECETAS***********************//
+//**************************************************************//
+
+function prepare_rec(id_receta){
+	var ingredientes={};
+	comensales=$("input[name='comensales']").val();
+	com_rec=$("#modal-prepare .comensales").data('comensales');
+	$("#modal-prepare .ingr li").each(function(key, element){
+		cantidad=$(this).children('.badge').html();
+		cantidad=cantidad.split(' ');
+		cantidad=(parseFloat(comensales)*parseFloat(cantidad))/parseFloat(com_rec);
+		cantidad=Math.round(cantidad * 100) / 100;
+		ingredientes[$(this).data('id')]=parseFloat(cantidad);
+	});
+		$("#modal-prepare").modal('hide');
+		
+	// alert(comensales +" --- "+com_rec);
 	$.ajax({
 		url: '/Gestor_de_cocina/web/app_dev.php/centro_log/genSolicitud',
 		type: 'POST',
 		async: true,
-		// 	data: 'id='+id+'&foo2=bar2' ,
-		data: {'id':"1",'ingr':{'pollo':500}},
+		data: {'id':id_receta,'ingr':ingredientes},
 		success: function (response) {
-		alert("response "+response);
+			notificacion ("Receta preparada: <strong>"+response+"</strong>",0,"show");
+			
 		},
 		error: function(jqXHR, exception) {
             if (jqXHR.status === 0) {
@@ -200,8 +231,7 @@ function prepare_rec(id){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                // alert('Internal Server Error [500].');
-                alert(jqXHR.responseText);
+                         $('#respose').html(jqXHR.responseText); 
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -213,4 +243,42 @@ function prepare_rec(id){
             }
         }
 	});
+}
+
+function notificacion (contenido,tipo,accion) {
+	if(accion=="show"){
+		switch (tipo) {
+		case 0:
+	    	$('#notification').addClass( "success" );
+	    break;
+		case 1:
+	    	$('#notification').addClass( "danger" );
+	    break;
+		case 2:
+	    	$('#notification').addClass( "warming" );
+	    break;
+	    default:
+	    	$('#notification').addClass( "primary" );
+
+		}
+		$('#notification').animate({
+	      width: "show",
+	      opacity:"show"
+	    }, 500, "swing",function (argument) {
+	    	$('#notification').html(contenido);
+	    	setTimeout("notificacion ('','','hide')",5000);
+	    	
+	    });
+
+	}
+	if(accion=="hide")
+	{
+		$('#notification').html(contenido);
+		$('#notification').animate({
+	      width: "hide",
+	      opacity:"hide"
+	    }, 500, "swing");
+	}
+	
+
 }

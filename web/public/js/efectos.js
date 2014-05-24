@@ -15,9 +15,6 @@ $(document).ready(function(){
 
        cargarUnidades();
      //------------------------------//
- //     $("#open-wizard").click(function () {    
-	// 	$('#wizzard').modal('show');
-	// });
  	//-----------------------//
      showInfoCreate();
      //-----------------------//
@@ -34,6 +31,7 @@ $(document).ready(function(){
   		panel_control("mod_pedidos");
   		$(".side-nav > li > a").click(function(){
   			panel_control("mod_" + $(this).attr('id'));
+  			return false;
   		});
   	}
  	$('figure').hover(function(){
@@ -106,6 +104,7 @@ function toggle_class_active(visible,hidden){
 /***********************/
 function view_receta(){
 	$("figure.receta").click(function () {
+		id=$(this).data('id');
 		nombre=$(this).children().children("a.nombre").text();
 		img=$(this).children("img").clone();
 		info=$(this).children().children(".info-rec");
@@ -115,19 +114,27 @@ function view_receta(){
 		comens=info.children(".comensales").text();
 		precio=info.children(".precio").text();
 		ingr=info.children(".ingr").html();
-		/************/
+		/**********************************************/
 
 		$("#modal-prepare #img-rec").html(img);
 		$("#modal-prepare #edit").attr("data-href",slug_edit);
 		$("#modal-prepare #delete").attr("data-href",slug_del);
 		/************/
-		$("#modal-prepare .precio").html(precio/comens+" € / persona");
+
+		precio_pers=parseFloat(precio/comens);
+		precio_pers=Math.round(precio_pers * 100) / 100;
+		$("#modal-prepare .precio").html(precio_pers+" € / persona");
 		$("#modal-prepare .comensales").html(comens+" comensal/es");
+		$("#modal-prepare .comensales").data('comensales',comens);
 		$("#modal-prepare .pr-total").html("<strong>"+precio+" €</strong>");
 
 		$("#modal-prepare .modal-title span#ModalLabel").html(nombre);
 		$("#modal-prepare p.desc").html(desc);
 		$("#modal-prepare .ingr").html(ingr);
+		$("#modal-prepare #prepare_rec").data( "id", id );
+		//******************************************//
+		$("#modal-prepare input[name='comensales']").val(comens);
+
 		/*********SHOW MODAL********/
 		$("#modal-prepare").modal('show');
 	});

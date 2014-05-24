@@ -74,7 +74,7 @@
 						</a>
 					</li>
 					<li class="active">
-						<a href="#" id="info">
+						<a href="#" id="informacion">
 							<span class="glyphicon glyphicon-dashboard"></span>
 							<span> Info</span>
 						</a>
@@ -105,56 +105,47 @@
 												<table class="table">
 													<thead>
 														<tr>
-															<th class="col-md-3">Producto</th>
+															<th class="col-md-4">Producto</th>
 															<th class="col-md-2">Cantidad</th>
-															<th class="col-md-3">Fecha</th>
+															<th class="col-md-2">Fecha</th>
 															<th class="col-md-3">Solicitante</th>
 															<th class="col-md-1">Opciones</th>
 														</tr>
 													</thead>
 													<tbody>
-														<tr id="solicitud_1">
-															<td><a href="#" >
-																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit"> Producto 1</span>
+													<div>	
+													{% for solicitud in solicitudes %}
+														<tr id="solicitud_{{solicitud.id}}" class="solicitud">
+															<td class="nombre" data-nombre='{{solicitud.producto.nombre}}'
+															data-id="{{solicitud.producto.id}}"><a href="#" >
+																	<span class="glyphicon glyphicon-file"></span>
+																	<span class="ped-tit"> {{solicitud.producto.nombre}}</span>
 															</a></td>
-															<td>Producto 1</td>
-															<td>22/04/2013</td>
+															<td class="cantidad" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.cantidad}} {{solicitud.producto.unidad}}</td>
+															<td>{{solicitud.fecha|date("d/m/Y")}}</td>
 															<td>Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
+																	<button id="button_{{solicitud.id}}" data-id="{{solicitud.id}}" type="button" class="agregarProd btn btn-primary">
 																		<span class="glyphicon glyphicon-plus"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
+																	<button data-id="{{solicitud.id}}" type="button" class="btn btn-danger">
+																		<span class="elim_pro glyphicon glyphicon-remove"></span>
 																	</button>
-																	</div>
+																</div>
 															</td>
 														</tr>
-														<tr id="solicitud_2">
-															<td><a href="#" >
-																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit"> Producto 2</span>
-															</a></td>
-															<td>Producto 1</td>
-															<td>22/04/2013</td>
-															<td>Usuario 1</td>
-															<td>
-																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
-																		<span class="glyphicon glyphicon-plus"></span>
-																	</button>
-																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
-																	</button>
-																	</div>
-															</td>
-														</tr>
+													{% endfor %}
+													</div>
+														
 													</tbody>
 												</table>
 											</div>
-											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+											<div>
+												<button type="button" class="btn btn-primary complement-1-b" onclick="genPedido()">Generar Pedido</button>
+												<button type="button" onclick="agrTodos()" class="btn btn-primary complement-1-b pull-right">Agregar Todos</button>
+											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -228,7 +219,7 @@
 													</tbody>
 												</table>
 											</div>
-											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+											
 										</div>
 									</div>
 								</div>
@@ -303,7 +294,7 @@
 													</tbody>
 												</table>
 											</div>
-											<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+											
 										</div>
 									</div>
 								</div>
@@ -438,12 +429,77 @@
 	</div>
 
 		<div class="row">
-			<div id="mod_info" style="display:none" class="mod col-md-10">
+			<div id="mod_informacion" style="display:none" class="mod col-md-10">
 			
 			</div>
 		</div>
 </div><!--fin_div_admin-->
+<div id='modal-pedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
+				<div class="modal-dialog">
+					<div class='modal-content'>
+						<div class='modal-header complement-1-b'>
+							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
+							<div class='modal-title'>
+								Generar pedido
+							</div>
+						</div>
+						<div class='modal-body'>
+							
+							<div class='row'>
+								<div class='col-md-6'>
+									<div class="list-group scrollable-y">
+										{% for producto in productos%}
+											  <a href="#" data-idprod='{{producto.id}}' data-nombre='{{producto.nombre}}' data-unid='{{producto.unidad}}' class="list-group-item">
+											    {{producto.nombre}}
+											  </a>
+									  {% endfor %}
+									 
+									</div>
+								    <div class="input-group">
+							    	  <span id="formtag_nombre" class="input-group-addon"></span>
+								      <input id="formtag_cantidad" type="text" class="form-control">
+								      <span id="formtag_unid" class="input-group-addon "></span>
+								      <span class="input-group-btn">
+								        <button class="btn btn-primary complement-1-b" type="button">
+								        	<span class="glyphicon glyphicon-plus"></span>
+								        </button>
+								      </span>
+								    </div><!-- /input-group -->
 
+								</div>
+								<div class='col-md-6 '>
+										<div class='scrollable-y'>
+											<table class="table">
+											<tbody id="tags" class="list-group "></tbody>
+										</table>
+									</div>
+									
+									 <div class="input-group">
+							    	  <span id="edit_nombre" class="input-group-addon"></span>
+								      <input id="edit_cantidad" type="text" class="form-control">
+								      <span id="edit_unid" class="input-group-addon "></span>
+								      <span class="input-group-btn">
+								        <button class="btn btn-primary complement-1-b" type="button">
+								        	<span class="glyphicon glyphicon-plus"></span>
+								        </button>
+								      </span>
+								    </div><!-- /input-group -->
+									
+
+
+								</div>
+							</div>
+							
+						</div>						
+						<div class='modal-footer'>
+							<button type="button" class="btn btn-primary complement-1-b" onclick="">Crear Pedido</button>
+							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
 
 	
 </div>
@@ -455,4 +511,5 @@
         {{ parent() }}
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/centro_log.js') }}"></script>
     {% endblock %}
