@@ -97,7 +97,7 @@
 								</a>
 								</h4>
 							</div>
-							<div id="collapse_1" class="panel-collapse collapse in">
+							<div id="collapse_1" class="panel-collapse collapse">
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-12">
@@ -126,24 +126,31 @@
 															<td>Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button id="button_{{solicitud.id}}" data-id="{{solicitud.id}}" type="button" class="agregarProd btn btn-primary">
+																	<button id="button_{{solicitud.id}}" data-id="{{solicitud.id}}" data-agregado="false"data-idprod="{{solicitud.producto.id}}" type="button" class="agregarProd btn btn-primary">
 																		<span class="glyphicon glyphicon-plus"></span>
 																	</button>
-																	<button data-id="{{solicitud.id}}" type="button" class="btn btn-danger">
+																	<button data-id="{{solicitud.id}}" data-idprod="{{solicitud.producto.id}}" data-cant="{{solicitud.cantidad}}" data-und="{{solicitud.producto.unidad}}" type="button" class="elimProd btn btn-danger">
 																		<span class="elim_pro glyphicon glyphicon-remove"></span>
 																	</button>
 																</div>
 															</td>
 														</tr>
-													{% endfor %}
+													{% else %}
+															<tr>
+																<td colspan="4"><a href="#">No hay solicitudes pendientes.</a></td>
+															</tr>
+														{% endfor %}
 													</div>
 														
 													</tbody>
 												</table>
 											</div>
 											<div>
-												<button type="button" class="btn btn-primary complement-1-b" onclick="genPedido()">Generar Pedido</button>
-												<button type="button" onclick="agrTodos()" class="btn btn-primary complement-1-b pull-right">Agregar Todos</button>
+												<button type="button" id="generarPed" class="btn btn-primary complement-1-b" >Generar Pedido</button>
+												<div class="btn-group pull-right">
+													<button type="button" onclick="agrTodos()" class="btn btn-primary complement-1-b ">Agregar Todos</button>
+													<button type="button" onclick="borrarTodos()" class="btn btn-primary complement-1-b ">Borrar Todos</button>
+												</div>
 											</div>
 											
 										</div>
@@ -170,52 +177,38 @@
 												<table class="table">
 													<thead>
 														<tr>
-															<th class="col-md-5">Pedido</th>
+															<th class="col-md-4">Pedido</th>
 															<th class="col-md-3">Fecha</th>
 															<th class="col-md-3">Creador</th>
-															<th class="col-md-1">Opciones</th>
+															<th class="col-md-2">Opciones</th>
 														</tr>
 													</thead>
-													<tbody>
-														<tr id="ped_pend-1">
+													<tbody id="ped_pendientes">
+													{% for pedido in pedidos if pedido.estado == "pendiente" %}
+														<tr id="pedPend_{{pedido.id}}">
 															<td>
-															<a href="#" onclick="show_pedido(1,'pendiente')">
+															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
 																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit"> Pedido pendiente 1</span>
+																<span class="ped-tit"> Pedido pendiente {{pedido.id}}</span>
 															</a></td>
-															<td>22/04/2013</td>
-															<td>Usuario 1</td>
+															<td class="fecha_pend">{{pedido.fecha|date("d/m/Y")}}</td>
+															<td class="usu_pend">Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
+																	<button type="button" class="btn btn-primary edit_pend" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
 																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
+																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
 																	</div>
 															</td>
 														</tr>
-														<tr id="ped_pend-2">
-															<td>
-															<a href="#" onclick="show_pedido(2,'pendiente')">
-																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit"> Pedido pendiente 2</span>
-															</a>
-															</td>
-															<td>22/04/2013</td>
-															<td>Usuario 1</td>
-															<td>
-																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
-																		<span class="glyphicon glyphicon-edit"></span>
-																	</button>
-																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
-																	</button>
-																</div>
-															</td>
-														</tr>
+														{% else %}
+															<tr>
+																<td colspan="4"><a href="#">No hay pedidos pendientes</a></td>
+															</tr>
+														{% endfor %}	
 													</tbody>
 												</table>
 											</div>
@@ -244,53 +237,39 @@
 												<table class="table">
 													<thead>
 														<tr>
-															<th class="col-md-5">Pedido</th>
+															<th class="col-md-4">Pedido</th>
 															<th class="col-md-3">Fecha</th>
 															<th class="col-md-3">Creador</th>
-															<th class="col-md-1">Opciones</th>
+															<th class="col-md-2">Opciones</th>
 														</tr>
 													</thead>
-													<tbody>
-														<tr id="ped_pend-1">
+													<tbody id="ped_enviado">
+													{% for pedido in pedidos if pedido.estado == "enviado" %}
+														<tr id="pedEnv_{{pedido.id}}">
 															<td>
-																<a href="#" onclick="show_pedido(1,'enviado')">
-																	<span class="glyphicon glyphicon-file"></span>
-																	<span class="ped-tit">  Pedido enviado 1</span>
-																</a>
-															</td>
-															<td>22/04/2013</td>
-															<td>Usuario 1</td>
-															<td>
-																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
-																		<span class="glyphicon glyphicon-edit"></span>
-																	</button>
-																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
-																	</button>
-																</div>
-															</td>
-														</tr>
-														<tr id="ped_pend-2">
-															<td>
-																<a href="#" onclick="show_pedido(2,'enviado')">
-																	<span class="glyphicon glyphicon-file"></span>
-																	<span class="ped-tit">  Pedido enviado 2</span>
-																</a>
-															</td>
-															<td>22/04/2013</td>
-															<td>Usuario 1</td>
+															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
+																<span class="glyphicon glyphicon-file"></span>
+																<span class="ped-tit"> Pedido enviado {{pedido.id}}</span>
+															</a></td>
+															<td class="fecha_env">{{pedido.fecha|date("d/m/Y")}}</td>
+															<td class="usu_env">Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
 																	<button type="button" class="btn btn-primary">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
 																	<button type="button" class="btn btn-danger">
-																		<span class="glyphicon glyphicon-remove"></span>
+																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
-																</div>
+																	</div>
 															</td>
 														</tr>
+														{% else %}
+															<tr>
+																<td colspan="4"><a href="#">No hay pedidos enviados</a></td>
+															</tr>
+														{% endfor %}	
+													
 													</tbody>
 												</table>
 											</div>
@@ -318,57 +297,42 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th class="col-md-5">Pedido</th>
+														<th class="col-md-4">Pedido</th>
 														<th class="col-md-3">Fecha</th>
 														<th class="col-md-3">Creador</th>
-														<th class="col-md-1">Opciones</th>
+														<th class="col-md-2">Opciones</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr id="ped_pend-1">
-														<td>
-															<a href="#" onclick="show_pedido(1,'enviado')">
+													{% for pedido in pedidos if pedido.estado == "recibido" %}
+														<tr id="pedRecb_{{pedido.id}}">
+															<td>
+															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
 																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit">  Pedido recibido 1</span>
-															</a>
-														</td>
-														<td>22/04/2013</td>
-														<td>Usuario 1</td>
-														<td>
-															<div class="btn-group btn-group-sm">
-																<button type="button" class="btn btn-primary">
-																	<span class="glyphicon glyphicon-edit"></span>
-																</button>
-																<button type="button" class="btn btn-danger">
-																	<span class="glyphicon glyphicon-remove"></span>
+																<span class="ped-tit"> Pedido recibido {{pedido.id}}</span>
+															</a></td>
+															<td class="fecha_recib">{{pedido.fecha|date("d/m/Y")}}</td>
+															<td class="usu_recib">Usuario 1</td>
+															<td>
+																<div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary">
+																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-															</div>
-														</td>
-													</tr>
-													<tr id="ped_pend-2">
-														<td>
-															<a href="#" onclick="show_pedido(2,'enviado')">
-																<span class="glyphicon glyphicon-file"></span>
-																<span class="ped-tit">  Pedido recibido 2</span>
-															</a>
-														</td>
-														<td>22/04/2013</td>
-														<td>Usuario 1</td>
-														<td>
-															<div class="btn-group btn-group-sm">
-																<button type="button" class="btn btn-primary">
-																	<span class="glyphicon glyphicon-edit"></span>
-																</button>
-																<button type="button" class="btn btn-danger">
-																	<span class="glyphicon glyphicon-remove"></span>
-																</button>
-															</div>
-														</td>
-													</tr>
+																	<button type="button" class="btn btn-danger">
+																		<span class="glyphicon glyphicon-trash"></span>
+																	</button>
+																	</div>
+															</td>
+														</tr>
+														{% else %}
+															<tr>
+																<td colspan="4"><a href="#">No hay pedidos recibidos</a></td>
+															</tr>
+														{% endfor %}	
 												</tbody>
 											</table>
 										</div>
-										<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+										
 									</div>
 								</div>
 							</div>
@@ -434,76 +398,109 @@
 			</div>
 		</div>
 </div><!--fin_div_admin-->
-<div id='modal-pedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
+	<div id='modal-pedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
 				<div class="modal-dialog">
 					<div class='modal-content'>
 						<div class='modal-header complement-1-b'>
 							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
-							<div class='modal-title'>
-								Generar pedido
+							<div id='modal-pedido-title' class='modal-title'>
+								
 							</div>
 						</div>
 						<div class='modal-body'>
-							
 							<div class='row'>
-								<div class='col-md-6'>
+								<div class='col-md-5 bloques'>
+									<div class="bloque_titulo">
+									   <span>Añadir Producto</span>
+									</div>
 									<div class="list-group scrollable-y">
 										{% for producto in productos%}
 											  <a href="#" data-idprod='{{producto.id}}' data-nombre='{{producto.nombre}}' data-unid='{{producto.unidad}}' class="list-group-item">
 											    {{producto.nombre}}
+											    <span class="glyphicon glyphicon-plus-sign pull-right"></span>
 											  </a>
 									  {% endfor %}
-									 
 									</div>
-								    <div class="input-group">
-							    	  <span id="formtag_nombre" class="input-group-addon"></span>
-								      <input id="formtag_cantidad" type="text" class="form-control">
-								      <span id="formtag_unid" class="input-group-addon "></span>
-								      <span class="input-group-btn">
-								        <button class="btn btn-primary complement-1-b" type="button">
-								        	<span class="glyphicon glyphicon-plus"></span>
-								        </button>
-								      </span>
-								    </div><!-- /input-group -->
-
 								</div>
-								<div class='col-md-6 '>
+								<div class='col-md-7 '>
+									<div class="bloque_titulo">
+									  <span>Pedido</span>
+									</div>
+
 										<div class='scrollable-y'>
 											<table class="table">
 											<tbody id="tags" class="list-group "></tbody>
 										</table>
 									</div>
 									
-									 <div class="input-group">
-							    	  <span id="edit_nombre" class="input-group-addon"></span>
-								      <input id="edit_cantidad" type="text" class="form-control">
-								      <span id="edit_unid" class="input-group-addon "></span>
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-md-5">
+								Agregar Ingredientes
+								</label>
+								<div class="col-md-7">
+									<div class="input-group">
+							    	  <span id="formtag_nombre" class="input-group-addon"></span>
+								      <input id="formtag_cantidad" type="text" class="form-control">
+								      <span id="formtag_unid" class="input-group-addon "></span>
 								      <span class="input-group-btn">
-								        <button class="btn btn-primary complement-1-b" type="button">
+								        <button class="btn btn-primary complement-1-b" type="button" onclick="agregarNuevoProd()">
 								        	<span class="glyphicon glyphicon-plus"></span>
 								        </button>
 								      </span>
 								    </div><!-- /input-group -->
-									
-
-
-								</div>
+							   </div>
 							</div>
-							
+							{# <div id="response"></div> #}
 						</div>						
 						<div class='modal-footer'>
-							<button type="button" class="btn btn-primary complement-1-b" onclick="">Crear Pedido</button>
+							<button type="button" id="crearPed" class="btn btn-primary complement-1-b" data-url="{{path('genPedido')}}">Crear Pedido</button>
 							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
 						</div>
 
 					</div>
 					
 				</div>
+	</div>
+	<div id='modal-showpedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
+				<div class="modal-dialog" style="width:400px">
+					<div class='modal-content'>
+						<div class='modal-header complement-1-b'>
+							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
+							<div class='modal-title'>
+							<strong>Nº pedido: </strong><span id="showIdPed"></span>
+							</div>
+						</div>
+						<div class='modal-body'>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="bloque_titulo2">
+										<strong>Fecha: </strong><span id="showFechPed"> </span>
+										<span class="pull-right">
+											<strong>Creador: </strong>
+											<span id="showUsuPed"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div id="list_prod" class="list-group scrollable-y"></div>
+								</div>
+							</div>
+							
+						</div>						
+						<div class='modal-footer'>
+							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>
+						</div>
+					
+				</div>
 			</div>
 
 	
-</div>
-
+	</div>
+	<div id="response"></div>
 
 	<a href="#" class="scrollup">Scroll</a>
 	{% endblock %}

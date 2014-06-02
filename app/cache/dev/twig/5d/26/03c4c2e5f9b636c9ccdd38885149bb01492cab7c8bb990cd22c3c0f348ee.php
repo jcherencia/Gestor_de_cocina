@@ -311,27 +311,28 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t\t<div id=\"notification\"></div>
+\t\t\t
 \t\t</div>
 \t";
     }
 
-    // line 192
+    // line 193
     public function block_javascript($context, array $blocks = array())
     {
-        // line 193
+        // line 194
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
         \t<script type=\"text/javascript\" src=\"";
-        // line 194
+        // line 195
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/bootstrap.touchspin.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 195
+        // line 196
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 196
+        // line 197
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 
@@ -350,6 +351,6 @@ class __TwigTemplate_5d2603c4c2e5f9b636c9ccdd38885149bb01492cab7c8bb990cd22c3c0f
 
     public function getDebugInfo()
     {
-        return array (  335 => 196,  331 => 195,  327 => 194,  322 => 193,  319 => 192,  248 => 124,  235 => 117,  231 => 116,  228 => 115,  221 => 113,  205 => 110,  199 => 109,  193 => 107,  189 => 105,  185 => 104,  180 => 102,  176 => 101,  171 => 99,  167 => 98,  163 => 96,  159 => 95,  125 => 64,  102 => 44,  87 => 32,  81 => 29,  75 => 26,  69 => 23,  53 => 9,  50 => 8,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  336 => 197,  332 => 196,  328 => 195,  323 => 194,  320 => 193,  248 => 124,  235 => 117,  231 => 116,  228 => 115,  221 => 113,  205 => 110,  199 => 109,  193 => 107,  189 => 105,  185 => 104,  180 => 102,  176 => 101,  171 => 99,  167 => 98,  163 => 96,  159 => 95,  125 => 64,  102 => 44,  87 => 32,  81 => 29,  75 => 26,  69 => 23,  53 => 9,  50 => 8,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

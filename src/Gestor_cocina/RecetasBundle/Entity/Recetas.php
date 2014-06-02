@@ -26,11 +26,11 @@ class Recetas{
 	protected $descripcion;
 	/** @ORM\Column(type="integer") */	
 	protected $comensales;
-	/** @ORM\Column(type="integer") */
+	/** @ORM\Column(type="integer",nullable=true) */
 	protected $tiempo;
-	/** @ORM\Column(type="string", length=150) */
+	/** @ORM\Column(type="string", length=150,nullable=true) */
 	protected $foto;
-	/** @ORM\Column(type="array") */
+	/** @ORM\Column(type="array",nullable=true) */
 	protected $tags;
 	/** @ORM\Column(type="float") */
 	protected $precio;

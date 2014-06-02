@@ -3,6 +3,8 @@
 namespace Gestor_cocina\CentroLogBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Gestor_cocina\CentroLogBundle\Entity\Pedido;
+use Gestor_cocina\CentroLogBundle\Entity\PedidoProducto;
 use Gestor_cocina\CentroLogBundle\Entity\SolicitudProd;
 class DefaultController extends Controller
 {
@@ -11,8 +13,10 @@ class DefaultController extends Controller
     	$em = $this->getDoctrine()->getManager();
         $usuarios = $em->getRepository('RecetasBundle:Usuarios')->findAll();
         $solicitudes = $em->getRepository('CentroLogBundle:SolicitudProd')->findAll();
+        $pedidos = $em->getRepository('CentroLogBundle:Pedido')->findAll();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
-        return $this->render('CentroLogBundle:Default:index.html.twig' , array('usuarios' => $usuarios, 'solicitudes' => $solicitudes,'productos'=>$productos));
+        return $this->render('CentroLogBundle:Default:index.html.twig' , 
+        	array('usuarios' => $usuarios, 'solicitudes' => $solicitudes, 'productos'=>$productos , 'pedidos'=>$pedidos));
     }
 
     public function genSolicitudAction()
@@ -72,4 +76,71 @@ class DefaultController extends Controller
     	return $solicitud;
 
     }
+    public function genPedidoAction()
+    {
+    	$peticion=$this->container->get('request');
+		$campos= $peticion->request->all();
+		$prod_pedido=$campos['pedido'];
+		$borrar_solicit=$campos['solicitudes']; 
+		$em = $this->getDoctrine()->getManager();
+		$pedido = new Pedido();
+		$pedido->setFecha(new \DateTime("now"));
+		$pedido->setEstado('pendiente');
+		$em->persist($pedido);
+        $em->flush();
+        //*********************************************//
+        
+        if ($borrar_solicit !="false") {
+        	
+			foreach ($borrar_solicit as $key => $solic) {
+				$solicitud= $em->getRepository('CentroLogBundle:SolicitudProd')->find($solic);
+				$em->remove($solicitud);
+			} 
+			$em->flush();
+		}
+		
+        //**********************************************//
+        foreach ($prod_pedido as $key => $value) {
+        	$ped_prod = new PedidoProducto();
+        	$prod= $em->getRepository('AlmacenBundle:Productos')->find($key);
+        	$ped_prod->setPedido($pedido);
+        	$ped_prod->setProducto($prod);
+        	$ped_prod->setCantidad($value);
+        	$em->persist($ped_prod);
+
+        }
+        $em->flush();
+		$response="ok";
+		return new Response($response, Response::HTTP_OK);
+    }
+    public function findPedidoAction()
+     {
+     	$peticion=$this->container->get('request');
+     	$response="false";
+		$campos= $peticion->request->all();
+		$em = $this->getDoctrine()->getManager();
+		$id=$campos['id'];
+		// $pedidos = $em->getRepository('CentroLogBundle:PedidoProducto')->findAll();
+		$pedidos = $em->getRepository('CentroLogBundle:PedidoProducto')->findBy(array(
+            'pedido'  => $id));
+		
+		// print_r($pedidos);
+		foreach ($pedidos as $key => $ped) {
+
+			if ($ped->getPedido()->getId()==$id) {
+				// echo $key;
+				if($key==0){
+					$response=$ped->getProducto()->getId().":".$ped->getProducto()->getNombre().":".$ped->getCantidad().":".$ped->getProducto()->getUnidad();
+				}else{
+					$response.="&".$ped->getProducto()->getId().":".$ped->getProducto()->getNombre().":".$ped->getCantidad().":".$ped->getProducto()->getUnidad();
+				}
+			}
+			
+		}
+		
+		
+        // print_r($response);
+       // id:valor&id:valor
+		return new Response($response, Response::HTTP_OK);
+     } 
 }

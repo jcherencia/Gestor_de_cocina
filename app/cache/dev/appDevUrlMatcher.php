@@ -225,9 +225,22 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
             }
 
-            // genSolicitud
-            if ($pathinfo === '/centro_log/genSolicitud') {
-                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+            if (0 === strpos($pathinfo, '/centro_log/gen')) {
+                // genSolicitud
+                if ($pathinfo === '/centro_log/genSolicitud') {
+                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+                }
+
+                // genPedido
+                if ($pathinfo === '/centro_log/genPedido') {
+                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genPedidoAction',  '_route' => 'genPedido',);
+                }
+
+            }
+
+            // findPedido
+            if ($pathinfo === '/centro_log/findPedido') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::findPedidoAction',  '_route' => 'findPedido',);
             }
 
         }

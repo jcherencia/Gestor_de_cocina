@@ -58,6 +58,12 @@ centro_log:
 genSolicitud:
     pattern: /centro_log/genSolicitud
     defaults: { _controller: CentroLogBundle:Default:genSolicitud }
+genPedido:
+    pattern: /centro_log/genPedido
+    defaults: { _controller: CentroLogBundle:Default:genPedido }
+findPedido:
+    pattern: /centro_log/findPedido
+    defaults: { _controller: CentroLogBundle:Default:findPedido }
 # -------------------------------------------------------------------------#
 almacen:
     pattern: /almacen

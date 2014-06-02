@@ -223,7 +223,7 @@ function prepare_rec(id_receta){
 		data: {'id':id_receta,'ingr':ingredientes},
 		success: function (response) {
 			notificacion ("Receta preparada: <strong>"+response+"</strong>",0,"show");
-			
+			// alert("notificacion");
 		},
 		error: function(jqXHR, exception) {
             if (jqXHR.status === 0) {
@@ -232,6 +232,7 @@ function prepare_rec(id_receta){
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
                          $('#respose').html(jqXHR.responseText); 
+                         alert(jqXHR.responseText);
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {

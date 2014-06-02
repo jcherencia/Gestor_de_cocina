@@ -42,7 +42,7 @@ class SolicitudProd
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario", type="string", length=255)
+     * @ORM\Column(name="usuario", type="string", length=255, nullable=true)
      */
     private $usuario;
 

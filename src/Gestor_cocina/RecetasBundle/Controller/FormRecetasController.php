@@ -119,31 +119,7 @@ class FormRecetasController extends Controller
        return $this->redirect($this->generateUrl('recetas')); 
        // return $this->render('RecetasBundle:Default:recetas.html.twig');
     }
-    //  public function addIngr($receta,$producto,$cantidad)
-    // {
-    //     $ingr= new Ingredientes();
-    //     $ingr->setReceta($receta);
-    //     $ingr->setCantidad($cantidad);
-    //     $ingr->setProducto($producto);
-    //     // echo $ingr->getCantidad();
-    //     $em = $this->getDoctrine()->getManager();
-    //     $em->persist($ingr);
-    //     $em->flush();
-    // }
-    // public function actualizarIng($ingre,$cantidad)
-    // {
-    //     $em = $this->getDoctrine()->getManager();
-    //     $ingr= $em->getRepository('RecetasBundle:Ingredientes')->findOneByProducto($ingre->getProducto());
-    //     $ingr->setCantidad($cantidad);
-    //      // echo $ingr->getCantidad();
-    //     $em->persist($ingr);
-    //     $em->flush();
-    // }
-
-    // public function borrarIng($ingre)
-    // {
-    //     # code...
-    // }
+  
     public function findByReceta($receta)
    {
        $em = $this->getDoctrine()->getManager();
