@@ -1,105 +1,148 @@
 <?php
 
+/*
+
+ */
+
 namespace Gestor_cocina\RecetasBundle\Entity;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * Usuarios
+ * namespace Gestor_cocina\RecetasBundle\Entity;
  *
- * @ORM\Table()
+ * @ORM\Table(name="usuarios")
  * @ORM\Entity
  */
 class Usuarios implements UserInterface
 {
-     /**
+    /**
+     * Método requerido por la interfaz UserInterface
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface
+     */
+    public function getRoles()
+    {
+        // return array('ROLE_ADMIN');
+        $rol= $this->roles;
+       return  array($rol);
+    }
+   public function setRoles($roles)
+    {
+       $this->roles = $roles;
+    }
+
+    // public function isGranted($role)
+    // {
+    //     return in_array($role, $this->getRoles());
+    // }
+    /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
-    /**
-    * @ORM\Column(type="string", length=255)
-    */
-    protected $nombre;
-    /**
-    * @ORM\Column(type="string", length=255)
-    */
-    protected $apellidos;
-    /**
-    * @ORM\Column(type="string", length=255)
-    */
-    protected $username;
+    private $id;
 
     /**
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    protected $password;
-
-    /**
-     * @var \DateTime
+     * @var string $nombre
      *
-     * @ORM\Column(name="fecha_nac", type="datetime")
+     * @ORM\Column(name="nombre", type="string", length=100)
+     * @Assert\NotBlank()
      */
-    private $fechaNac;
+    private $nombre;
 
     /**
-     * @var string
+     * @var string $apellidos
      *
-     * @ORM\Column(name="email", type="string", length=150)
+     * @ORM\Column(name="apellidos", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $apellidos;
+
+    /**
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
+    /**
+     * @var string $username
+     *
+     * @ORM\Column(name="username", type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @var string $password
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string salt
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    protected $salt;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_registro", type="datetime")
      */
     private $fechaRegistro;
-
     /**
-     * @var string
+     * @var \array
      *
-     * @ORM\Column(name="sexo", type="string", length=10)
+     * @ORM\Column(name="roles", type="string")
      */
-    private $sexo;
-
+    private $roles;
     /**
-     * @var string
+     * @var \array
      *
-     * @ORM\Column(name="foto", type="string", length=150)
+     * @ORM\Column(name="foto", type="string",nullable=true)
      */
     private $foto;
-
     /**
-     * @var boolean
+     * @var \array
      *
-     * @ORM\Column(name="activo", type="boolean")
+     * @ORM\Column(name="activo", type="boolean",nullable=true)
      */
     private $activo;
 
 
-    /**
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    protected $salt;
-
-    /**
-     * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
-     * @ORM\ManyToMany(targetEntity="Roles")
-     * @ORM\JoinTable(name="user_role",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
-     * )
-     */
-    protected $user_roles;
-
     public function __construct()
     {
-        $this->user_roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fecha_alta = new \DateTime();
     }
+
+    public function __toString()
+    {
+        return $this->getNombre().' '.$this->getApellidos();
+    }
+
+    // public function getRole()
+    // {
+    //    $rol= $this->roles;
+    //    return  array($rol);
+    // }
+    // public function getRole()
+    // {
+    //    return $this-> $roles->toArray();
+    // }
 
     /**
      * Get id
@@ -110,18 +153,19 @@ class Usuarios implements UserInterface
     {
         return $this->id;
     }
+
     /**
      * Set nombre
      *
-     * @param string $usuario
+     * @param string $nombre
      */
-   public function setNombre($nombre)
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }
 
     /**
-     * Get username
+     * Get nombre
      *
      * @return string
      */
@@ -129,18 +173,19 @@ class Usuarios implements UserInterface
     {
         return $this->nombre;
     }
-     /**
+
+    /**
      * Set apellidos
      *
-     * @param string $usuario
+     * @param string $apellidos
      */
-   public function setApellidos($apellidos)
+    public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
     }
 
     /**
-     * Get username
+     * Get apellidos
      *
      * @return string
      */
@@ -148,25 +193,41 @@ class Usuarios implements UserInterface
     {
         return $this->apellidos;
     }
-    /**
-     * Set usuario
-     *
-     * @param string $usuario
-     */
 
-   public function setUsername($username)
+    /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
     }
 
     /**
-     * Get username
+     * Get email
      *
      * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface
      */
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
     /**
@@ -198,6 +259,25 @@ class Usuarios implements UserInterface
     {
         $this->salt = $salt;
     }
+     /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
 
     /**
      * Get salt
@@ -208,82 +288,7 @@ class Usuarios implements UserInterface
     {
         return $this->salt;
     }
-
-    /**
-     * Add user_roles
-     *
-     * @param Maycol\BlogBundle\Entity\Role $userRoles
-     */
-    public function addRole(\Gestor_cocina\RecetasBundle\Entity\Roles $userRoles)
-    {
-        $this->user_roles[] = $userRoles;
-    }
-
-    public function setUserRoles($roles) {
-        $this->user_roles = $roles;
-    }
-
-    /**
-     * Get user_roles
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getUserRoles()
-    {
-        return $this->user_roles;
-    }
-
-    /**
-     * Get roles
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return $this->user_roles->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
-    }
-    //***************************************//
-public function setFechaNac($fechaNac)
-    {
-        $this->fechaNac = $fechaNac;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaNac
-     *
-     * @return \DateTime 
-     */
-    public function getFechaNac()
-    {
-        return $this->fechaNac;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Usuarios
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
+     /**
      * Set fechaRegistro
      *
      * @param \DateTime $fechaRegistro
@@ -304,93 +309,5 @@ public function setFechaNac($fechaNac)
     public function getFechaRegistro()
     {
         return $this->fechaRegistro;
-    }
-
-    /**
-     * Set sexo
-     *
-     * @param string $sexo
-     * @return Usuarios
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
-
-        return $this;
-    }
-
-    /**
-     * Get sexo
-     *
-     * @return string 
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
-    }
-
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     * @return Usuarios
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
-     *
-     * @return string 
-     */
-    public function getFoto()
-    {
-        return $this->foto;
-    }
-
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     * @return Usuarios
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-    //******************************************//
-    /**
-     * Compares this user to another to determine if they are the same.
-     *
-     * @param UserInterface $user The user
-     * @return boolean True if equal, false othwerwise.
-     */
-    public function equals(UserInterface $user) {
-        return md5($this->getUsuario()) == md5($user->getUsuario());
-
-    }
-
-    /**
-     * Erases the user credentials.
-     */
-    public function eraseCredentials() {
-
     }
 }

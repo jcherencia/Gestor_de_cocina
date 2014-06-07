@@ -31,7 +31,7 @@
 						<li class='dropdown'>
 							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 								<span class='glyphicon glyphicon-user'></span>  
-								<span>   Usuario 1</span>
+								<span><span>Usuario: <strong>{{ app.user.username }}</strong></span></span>
 								<span class='caret caret-white'></span>
 							</a>
 							<ul class='dropdown-menu complement-1-b'>

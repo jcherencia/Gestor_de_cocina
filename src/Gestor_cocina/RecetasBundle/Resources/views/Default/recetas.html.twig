@@ -23,20 +23,25 @@
 									<a href="{{ path('inicio') }}"> Inicio</a>
 								</li>
 								<li  class='active'>
-									<a href="{{ path('recetas') }}"> Recetas</a>
+									<a href="{{ path('recetas') }}"> Mis Recetas</a>
 								</li>
+								{# {% if app.user.granted("ROLE_ADMIN") %} #}
+								{% if is_granted('ROLE_ADMIN') %}
 								<li>
 									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
 								</li>
+								
 								<li>
 									<a href="{{ path('almacen') }}"> Almacén</a>
 								</li>
+								{% endif %}
 							</ul>
 							<ul class='nav navbar-nav navbar-right menu-user'>
+							{% if app.user %}
 								<li class='dropdown'>
 									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 										<span class='glyphicon glyphicon-user'></span>  
-										<span>   Usuario 1</span>
+										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
 										<span class='caret caret-white'></span>
 									</a>
 									<ul class='dropdown-menu complement-1-b'>
@@ -47,13 +52,18 @@
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="{{ path('logout') }}">
 												<span class='glyphicon glyphicon-off'></span>
 												<span>   Cerrar Sesión</span>
 											</a>
 										</li>
 									</ul>
 								</li>
+							{% else %}
+								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
+		        				<li><a href="">|</a></li>
+		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
+							{% endif %}
 							</ul>
 						</div>
 					</div>
@@ -92,7 +102,7 @@
 					</div>
 					<div class='panel-body'>
 						<div class='row row-grid'>
-						{% for receta in recetas %}
+						{% for receta in recetas if receta.creador.id == app.user.id %}
 							<div class='col-sm-6 col-md-3'>
 							
 								<figure class='receta' data-id="{{ receta.id }}">

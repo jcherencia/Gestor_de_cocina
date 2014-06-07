@@ -4,6 +4,7 @@ namespace Gestor_cocina\RecetasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\SecurityContext;
 
 use Gestor_cocina\RecetasBundle\Entity\Recetas;
 use Gestor_cocina\RecetasBundle\Entity\Ingredientes;
@@ -26,8 +27,13 @@ class FormRecetasController extends Controller
         $receta->setDescripcion($campos['descripcion']);
         $receta->setComensales($campos['comensales']);
         $receta->setFechaCreacion(new \DateTime("now"));
-        // echo "precio ".$campos['precio'];
         $receta->setPrecio($campos['precio']);
+        //--------------------------------------------//
+
+        $usr= $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $creador = $em->getRepository('RecetasBundle:Usuarios')->find($usr);
+        $receta->setCreador($creador);
         //--------------------------------------------//
         $em = $this->getDoctrine()->getManager();
         $em->persist($receta);
@@ -77,7 +83,7 @@ class FormRecetasController extends Controller
         $receta->setDescripcion($campos['descripcion']);
         $receta->setComensales($campos['comensales']);
         $receta->setPrecio($campos['precio']);
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
         $em->persist($receta);
         $em->flush();
         //*******Recogemos los ingredientes que se han añadido a la receta****//

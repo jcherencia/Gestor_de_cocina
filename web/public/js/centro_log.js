@@ -20,7 +20,10 @@ $(document).ready(function(){
 		delTag ($(this).data('idprod'),$(this).data('cant'),$(this).data('und'),button);  
 	});
 	$('#generarPed').click(function () {
-		$('#tags').html('');
+		// $('#tags').html('');
+		$('#crearPed').removeClass( "hidden" );
+		$('#editPed').addClass( "hidden" );
+		$('.estado').addClass( "hidden" );
 		$('#modal-pedido-title').html("Generar pedido");
 		$('#modal-pedido').modal('show');
 	});
@@ -29,6 +32,12 @@ $(document).ready(function(){
 	$('#crearPed').click(function () {
 		newPedido($(this).data('url'));
 		
+	});
+	$('#editPed').click(function () {
+		modPedido ($('#modal-pedido-title').data('id'),$(this).data('url'));
+	});
+	$('#editPed').click(function () {
+	modEnviado (id,url);
 	});
 //*****Agregar nuevo producto al pedido****//
 	$('.list-group-item').click(function (e) {
@@ -51,13 +60,54 @@ $('.showPedido').click(function () {
 		showPedido(id,url,fecha,usu);
 		return false;
 	});
+
+$('.del_ped').click(function () {
+	id=$(this).data('id');
+	url=$(this).data('url');
+	$.confirm({
+		title:"Alerta del sistema",
+	    text: "¿Está seguro que desea borrar el pedido <span class='label label-danger'> Nº "+id+"</span> definitivamente del sistema?",
+	    confirmButton: "Aceptar",
+    	cancelButton: "Cancelar",
+    	theme:"complement-1-b",
+	    confirm: function(button) {
+	        borrarPedido(id,url);
+	    },
+	    cancel: function(button) {
+	       // alert(" no borrar");
+	    }
+	});
+});
+
 $('.edit_pend').click(function () {
-	// alert("editar");
 	id = $(this).data('id');
 	url = $(this).data('url');
-	editPedido (id,url);
+	editPedido (id,url,"pendiente");
 
 });
+
+$('.edit_enviado').click(function () {
+	id = $(this).data('id');
+	url = $(this).data('url');
+	fecha = $(this).data('fecha');
+	usu = $(this).data('usu');
+	edit_enviado (id,url,fecha,usu,"enviado");
+
+});
+
+$('.edit_recibido').click(function () {
+	id = $(this).data('id');
+	url = $(this).data('url');
+	editPedido (id,url,"recibido");
+
+});
+
+
+$('.editarTag').click(function () {
+	alert("ok");
+});
+
+
 //************************************************//
 //**********INTERFAZ SOLICITUD PRODUCTO***********//
 //************************************************//
@@ -93,7 +143,7 @@ function addTag (tag,id_tag) {
 		  			cantidad=Math.round(cantidad * 100) / 100;
 		  			// alert($(this).html()+" - Actual: " +cant_prod+" + "+tag.cantidad+" = "+cantidad);
 		  			$(this).data('cant',cantidad);
-		  			$('#tag_cnt_'+id_pro).html("<span class='cantidad'>"+cantidad+" </span>"+unidad);
+		  			$('#tag_cnt_'+id_pro).html("<span class='cantidad'>"+cantidad+" </span>"+tag.unidad);
 			
 	  			}
 	  		
@@ -127,6 +177,12 @@ function delTag (id_pro,cant,unidad,button) {
 	button.html('<span class="glyphicon glyphicon-plus"></span>');
 	button.data('agregado',false);
 }
+function editarTag(id) {
+	alert("ok" +id);
+	$("#formtag_nombre").html($("#tag_"+id).html());
+	$("#formtag_unid").html($("#tag_"+id).data('unidad'));
+}
+
 function borrarProducto (id_pro) {
 	
 	$('.agregarProd').each(function(key, element){
@@ -140,10 +196,10 @@ function borrarProducto (id_pro) {
 }
 function generateTag (tag,id_tag) {
 	salida="<tr id='cnt_tag_"+tag.id_pro+"' class='content_tag'>";
-		salida+="<td id='tag_"+tag.id_pro+"' class='tag col-md-5' data-idprod='"+tag.id_pro+"' >"+tag.nombre+"</td>";  
+		salida+="<td id='tag_"+tag.id_pro+"' class='tag col-md-5' data-idprod='"+tag.id_pro+"' data-idunid='"+tag.unidad+"' >"+tag.nombre+"</td>";  
 		salida+="<td id='tag_cnt_"+tag.id_pro+"' class='tag_cnt col-md-3' data-idprod='"+tag.id_pro+"' > <span class='cantidad'> "+tag.cantidad+"</span> "+ tag.unidad+"</td>";
 		salida+="<td class='col-md-4'><div class='btn-group btn-group-sm'>";
-		salida+="<button id='' data-id='' type='button' class='agregarProd btn btn-primary'>";
+		salida+="<button id='' data-id='"+tag.id_pro+"' type='button' class='btn btn-primary editarTag'>";
 		salida+="<span class='glyphicon glyphicon-edit'></span></button>";
 		salida+="<button id='' data-id='' type='button' class='btn btn-danger' onclick='borrarProducto ("+tag.id_pro+")'>";
 		salida+="<span class='glyphicon glyphicon-remove'></span></button>";								
@@ -204,11 +260,12 @@ function agregarNuevoProd () {
 				$('#formtag_unid').html("");
 				$('#formtag_nombre').html("");
 				$('#formtag_cantidad').val('');
+				alertasPop ('formtag_cantidad',false,'bottom' );
 			} else{
-				alert("no es un numero");
+				alertasPop ('formtag_cantidad',"El valor no es un número",'bottom' );
 			};
 		} else{
-			alert("vacio");
+			alertasPop ('formtag_cantidad',"Campo vacío",'bottom' );
 		};	
 
 		
@@ -238,9 +295,10 @@ function newPedido(url) {
 		success: function (response) {
 			// notificacion ("Receta preparada: <strong>"+response+"</strong>",0,"show");
 			// $('#response').html(response);
-			alert(response);
-			$('#collapse_1').collapse('hide');
-			$('#collapse_2').collapse('show');
+			// alert(response);
+			// $('#collapse_1').collapse('hide');
+			// $('#collapse_2').collapse('show');
+			location.reload();
 		},
 		error: function(jqXHR, exception) {
             if (jqXHR.status === 0) {
@@ -271,11 +329,12 @@ function showPedido (id,url,fecha,usu) {
 		data: {'id':id},
 		success: function (response) {
 			if (response!="false") {
-				pedido=ProcesarRespusta (response);
+				pedido=ProcesarRespuesta (response);
 				listarPedido (pedido,"#list_prod");
 				$("#showIdPed").html(id);
 				$("#showUsuPed").html(usu);
 				$("#showFechPed").html(fecha);
+				
 				$('#modal-showpedido').modal('show');
 			}
 
@@ -301,7 +360,7 @@ function showPedido (id,url,fecha,usu) {
         }
 	});
 }
-function editPedido (id,url) {
+function editPedido (id,url,estado) {
 	// alert(id);
 	$.ajax({
 		url: url,
@@ -311,8 +370,11 @@ function editPedido (id,url) {
 		success: function (response) {
 			// alert(response);
 			if (response!="false") {
-				pedido=ProcesarRespusta (response);
-				cargarPedido (pedido,id);
+				pedido=ProcesarRespuesta (response);
+				cargarPedido (pedido,id,estado);
+				$("#"+estado).checked = true;
+				$(".btn-status").removeClass('active');
+				$("#est_"+estado).addClass('active');
 			}
 		},
 		error: function(jqXHR, exception) {
@@ -335,17 +397,134 @@ function editPedido (id,url) {
         }
 	});
 }
-function cargarPedido (pedido,id) {
+function modPedido (id,url) {
+	var pedido={};
+	$('.tag_cnt').each(function(key, element){
+		prod=$(this).data('idprod');
+		cantidad=$(this).children('.cantidad').text();
+		pedido[prod]=cantidad;
+	});
+	estado=$('input:radio[name=estado]:checked').val();
+		$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id,'estado':estado, 'pedido':pedido},
+			success: function (response) {
+				location.reload();
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                $('#response').html(jqXHR.responseText); 
+	                // alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+	// }
+	
+}
+function edit_enviado (id,url,fecha,usu,estado) {
+	$.ajax({
+		url: url,
+		type: 'POST',
+		async: true,
+		data: {'id':id},
+		success: function (response) {
+			// alert(response);
+			if (response!="false") {
+				pedido=ProcesarRespuesta (response);
+				listarPedido (pedido,"#list_prod",true,estado);
+				$("#showIdPed").html(id);
+				$("#showUsuPed").html(usu);
+				$("#showFechPed").html(fecha);
+				
+				$('#modal-showpedido').modal('show');
+			}
+		},
+		error: function(jqXHR, exception) {
+            if (jqXHR.status == 500) {
+                $('#response').html(jqXHR.responseText); 
+                // alert(jqXHR.responseText);
+            };
+        }
+	});	
+}
+function modEnviado (id,url) {
+	estado=$('input:radio[name=estado]:checked').val();
+	alert(estado);
+}
+function borrarPedido(id,url) {
+	
+	$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id},
+			success: function (response) {
+				location.reload();
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                $('#response').html(jqXHR.responseText); 
+	                // alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+
+}
+function cargarPedido (pedido,id,estado) {
+	$('#tags').html('');
 	for( index in pedido){
 		addTag(pedido[index],'#tags');
 		// alert(pedido[index].nombre);
 	}
 	$('#modal-pedido-title').html("Editar pedido Nº "+id);
-	$('#crearPed').html('Editar Pedido');
+	$('#modal-pedido-title').data('id',id);
+	//*******************************//
+	$('#editPed').removeClass( "hidden" );
+	$('#crearPed').addClass( "hidden" );
+	$('.estado').removeClass( "hidden" );
+	//*****************************//
+	// $("#pendiente").prop("checked", "checked");
+	$("#"+estado).checked = true;
+	$(".btn-status").removeClass('active');
+	$("#est_"+estado).addClass('active');
+	//**********************//
+
+	//**********************//
 	$('#modal-pedido').modal('show');
 }
-function ProcesarRespusta(response) {
+
+// function cargarPedidoEnv (pedido,id,estado) {
+// 	// body...
+// }
+function ProcesarRespuesta(response) {
 	var response = response.split("&");
+	var pedido={};
 	for (index in response) {
 		values=response[index].split(":");
 		// alert(index+" - "+values[0]+values[1]+values[2]+values[3]);
@@ -353,12 +532,46 @@ function ProcesarRespusta(response) {
 	};
 	return pedido;
 }
-function listarPedido (pedido,div_id) {
+function listarPedido (pedido,div_id,editable=false) {
 	salida="";
 	for (index in pedido) {
 		salida+="<a href='#' class='list-group-item' data-idprod='"+pedido[index].id_pro+"''>";
 		salida+=pedido[index].nombre+"<span class='badge'>"+pedido[index].cantidad+" "+pedido[index].unidad+"</span>";
 		salida+="</a>";
 	}
+	
 	$(div_id).html(salida);
+	if (editable) {
+		salida="<div class='col-md-4'>Editar estado</div>"+
+			"<div class='input-group col-md-8'>"+
+					"<div class='btn-group estado' data-toggle='buttons'>"+
+					  "<label class='btn btn-primary complement-1-b' disabled>Estado</label>"+
+					  "<label id='est_pendiente' class='btn btn-danger btn-status'>"+
+					    "<input type='radio' name='estado' id='pendiente' value='pendiente'>"+
+					    	"<span class='glyphicon glyphicon glyphicon-warning-sign'></span>"+
+					  "</label>"+
+					  "<label id='est_enviado' class='btn btn-warning btn-status'>"+
+					    "<input type='radio' name='estado' id='enviado' value='enviado'>"+
+					    	"<span class='glyphicon glyphicon glyphicon-export'></span>"+
+					  "</label>"+
+					  "<label id='est_recibido' class='btn btn-success btn-status'>"+
+					    "<input type='radio' name='estado' id='recibido' value='recibido'>"+
+					    	"<span class='glyphicon glyphicon glyphicon-import'></span>"+
+					  "</label>"+
+					"</div>"+
+
+				"</div>";
+
+		$('#control_estado').html(salida);
+
+		botonera="<button class='btn btn-primary complement-1-b' type='button'>Editar</button>"+
+		"<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";
+		$('#btn_showPed').html(botonera);
+	} else {
+		$('#control_estado').html('');
+		botonera="<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";
+		$('#btn_showPed').html(botonera);
+	}
 }
+
+//*******************************************/

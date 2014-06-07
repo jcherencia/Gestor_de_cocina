@@ -120,15 +120,11 @@ class DefaultController extends Controller
 		$campos= $peticion->request->all();
 		$em = $this->getDoctrine()->getManager();
 		$id=$campos['id'];
-		// $pedidos = $em->getRepository('CentroLogBundle:PedidoProducto')->findAll();
 		$pedidos = $em->getRepository('CentroLogBundle:PedidoProducto')->findBy(array(
             'pedido'  => $id));
-		
-		// print_r($pedidos);
 		foreach ($pedidos as $key => $ped) {
 
 			if ($ped->getPedido()->getId()==$id) {
-				// echo $key;
 				if($key==0){
 					$response=$ped->getProducto()->getId().":".$ped->getProducto()->getNombre().":".$ped->getCantidad().":".$ped->getProducto()->getUnidad();
 				}else{
@@ -137,10 +133,69 @@ class DefaultController extends Controller
 			}
 			
 		}
-		
-		
-        // print_r($response);
-       // id:valor&id:valor
 		return new Response($response, Response::HTTP_OK);
      } 
+	public function editPedidoAction(){
+			$peticion=$this->container->get('request');
+			$campos= $peticion->request->all();
+			$estado=$campos['estado'];
+			$petic_pedido=$campos['pedido'];
+			$idpedido=$campos['id'];
+			//*****************************************/
+			$em = $this->getDoctrine()->getManager();
+			$pedido = $em->getRepository('CentroLogBundle:Pedido')->find($idpedido);
+			$pedido->setEstado($estado);
+			$em->persist($pedido);
+        	$em->flush();
+
+			//****************************//
+			$pedidoproducto = $em->getRepository('CentroLogBundle:PedidoProducto')->findBy(array(
+	            'pedido'  => $idpedido));
+			foreach ($pedidoproducto as $key => $p_ped) {
+				foreach ($petic_pedido as $idprod => $cant) {
+					if ($p_ped->getProducto()->getId()==$idprod) {
+						$em->remove($p_ped);
+					}
+				}
+
+			}
+			 $em->flush();
+
+			 //**********************************************//
+		
+		// echo $pedido->getId();
+        foreach ($petic_pedido as $key => $value) {
+        	$ped_prod = new PedidoProducto();
+        	$prod= $em->getRepository('AlmacenBundle:Productos')->find($key);
+			
+        	$ped_prod->setPedido($pedido);
+        	$ped_prod->setProducto($prod);
+        	$ped_prod->setCantidad($value);
+        	$em->persist($ped_prod);
+
+        }
+        $em->flush();
+		$response="true";
+		return new Response($response, Response::HTTP_OK);
+	 
+	}
+	public function delPedidoAction()
+	{
+			$peticion=$this->container->get('request');
+			$campos= $peticion->request->all();
+			$idpedido=$campos['id'];
+			$em = $this->getDoctrine()->getManager();
+			$pedidoproducto = $em->getRepository('CentroLogBundle:PedidoProducto')->findBy(array(
+	            'pedido'  => $idpedido));
+			foreach ($pedidoproducto as $key => $p_ped) {
+				$em->remove($p_ped);
+			}
+			$em->flush();
+			$pedido = $em->getRepository('CentroLogBundle:Pedido')->find($idpedido);
+			$em->remove($pedido);
+			$em->flush();
+			$response="true";
+			return new Response($response, Response::HTTP_OK);
+	}
+
 }

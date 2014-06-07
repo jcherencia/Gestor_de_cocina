@@ -23,38 +23,49 @@
 						<li class='active'>
 							<a href="{{ path('inicio') }}"> Inicio</a>
 						</li>
+						{% if is_granted('ROLE_USER') %}
 						<li>
-							<a href="{{ path('recetas') }}"> Recetas</a>
+							<a href="{{ path('recetas') }}">Mis Recetas</a>
 						</li>
-						<li>
-							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-						</li>
-						<li>
-							<a href="{{ path('almacen') }}"> Almacén</a>
-						</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+								</li>
+								
+								<li>
+									<a href="{{ path('almacen') }}"> Almacén</a>
+								</li>
+						{% endif %}
 					</ul>
-					<ul class='nav navbar-nav navbar-right menu-user'>
-						<li class='dropdown'>
-							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-								<span class='glyphicon glyphicon-user'></span>  
-								<span>   Usuario 1</span>
-								<span class='caret caret-white'></span>
-							</a>
-							<ul class='dropdown-menu complement-1-b'>
-								<li>
-									<a href="{{ path('perfil') }}"> 
-										<span class='glyphicon glyphicon-user'></span>
-										<span>   Perfil</span>
+					<ul class="nav navbar-nav navbar-right menu-user">
+        				{% if app.user %}
+								<li class='dropdown'>
+									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+										<span class='glyphicon glyphicon-user'></span>  
+										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
+										<span class='caret caret-white'></span>
 									</a>
+									<ul class='dropdown-menu complement-1-b'>
+										<li>
+											<a href="{{ path('perfil') }}"> 
+												<span class='glyphicon glyphicon-user'></span>
+												<span>   Perfil</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('logout') }}">
+												<span class='glyphicon glyphicon-off'></span>
+												<span>   Cerrar Sesión</span>
+											</a>
+										</li>
+									</ul>
 								</li>
-								<li>
-									<a href="#">
-										<span class='glyphicon glyphicon-off'></span>
-										<span>   Cerrar Sesión</span>
-									</a>
-								</li>
-							</ul>
-						</li>
+							{% else %}
+								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
+		        				<li><a href="">|</a></li>
+		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
+							{% endif %}
 					</ul>
 				</div>
 			</div>

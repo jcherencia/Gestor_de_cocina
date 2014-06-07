@@ -246,6 +246,28 @@ function prepare_rec(id_receta){
 	});
 }
 
+//**************************************************************//
+//*********** SISTEMA DE NOTIFICACIONES Y ALERTAS***************//
+//**************************************************************//
+function alertasPop (id_cont,contenido,posicion,activador) {
+	if (activador != "click") {
+		evento=activador;
+	}else{
+		evento="click";
+	}
+	if(contenido!=false){
+		contenedor=$('#'+id_cont);
+		contenedor.popover('destroy');
+		options={'content':contenido,'placement':posicion,'trigger':evento};
+		contenedor.popover(options);
+		contenedor.popover('show');
+	}else{
+		$('#'+id_cont).popover('destroy');
+	}
+	
+}
+
+
 function notificacion (contenido,tipo,accion) {
 	if(accion=="show"){
 		switch (tipo) {

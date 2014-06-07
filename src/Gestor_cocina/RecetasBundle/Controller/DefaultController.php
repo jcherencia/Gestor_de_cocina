@@ -22,10 +22,7 @@ class DefaultController extends Controller
         return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes));
 
     }
-    public function perfilAction()
-    {
-    	return $this->render('RecetasBundle:Default:perfil.html.twig');
-    }
+   
     public function nueva_recetaAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
@@ -54,6 +51,10 @@ class DefaultController extends Controller
         $em->remove($receta);
         $em->flush();
         return $this->redirect($this->generateUrl('recetas')); 
+    }
+    public function upload_fileAction()
+    {
+       
     }
 
 } 

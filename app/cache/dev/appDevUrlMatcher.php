@@ -144,19 +144,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::indexAction',  '_route' => 'inicio',);
         }
 
-        if (0 === strpos($pathinfo, '/login')) {
-            // login
-            if ($pathinfo === '/login') {
-                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::indexAction',  '_route' => 'login',);
-            }
-
-            // login_check
-            if ($pathinfo === '/login_check') {
-                return array('_route' => 'login_check');
-            }
-
-        }
-
         // registro
         if ($pathinfo === '/registro') {
             return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::registroAction',  '_route' => 'registro',);
@@ -170,6 +157,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // perfil
         if ($pathinfo === '/perfil') {
             return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::perfilAction',  '_route' => 'perfil',);
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
+            }
+
+            // logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'logout');
+            }
+
+        }
+
+        // upload_file
+        if ($pathinfo === '/upload_file') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::upload_fileAction',  '_route' => 'upload_file',);
         }
 
         if (0 === strpos($pathinfo, '/recetas')) {
@@ -241,6 +254,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // findPedido
             if ($pathinfo === '/centro_log/findPedido') {
                 return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::findPedidoAction',  '_route' => 'findPedido',);
+            }
+
+            // editPedido
+            if ($pathinfo === '/centro_log/editPedido') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::editPedidoAction',  '_route' => 'editPedido',);
+            }
+
+            // delPedido
+            if ($pathinfo === '/centro_log/delPedido') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::delPedidoAction',  '_route' => 'delPedido',);
             }
 
         }

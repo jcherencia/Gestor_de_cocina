@@ -12,17 +12,22 @@
 	<div class="container">
 		<div class="login">
 			<h1>Acceso a Usuarios - Gestor de Cocina</h1>
-			<form role="form" class="form-horizontal">
+			{% if error %}
+				{% if error.message == "Bad credentials" %}
+					<h2>Error en el login</h2>
+				{% endif %}
+			{% endif %}
+			<form action="{{ path('login_check') }}" method="post" role="form" class="form-horizontal">
 				<div class="form-group">
 					<label for="inputEmail3" class="col-md-3 control-label">Usuario</label>
 					<div class="col-md-6">
-						<input type="text" placeholder="Usuario" class="form-control">
+						<input name="_username" value="{{ last_username }}" type="text" placeholder="Usuario" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputPassword3" class="col-md-3 control-label">Contraseña</label>
 					<div class="col-md-6">
-						<input type="password" placeholder="Contraseña" class="form-control">
+						<input name="_password" type="password" placeholder="Contraseña" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">

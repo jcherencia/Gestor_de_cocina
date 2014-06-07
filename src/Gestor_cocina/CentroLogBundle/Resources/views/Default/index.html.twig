@@ -32,28 +32,33 @@
 						</li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right menu-user'>
-						<li class='dropdown'>
-							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-								<span class='glyphicon glyphicon-user'></span>  
-								<span>   Usuario 1</span>
-								<span class='caret caret-white'></span>
-							</a>
-							<ul class='dropdown-menu complement-1-b'>
-								<li>
-									<a href="{{ path('perfil') }}"> 
-										<span class='glyphicon glyphicon-user'></span>
-										<span>   Perfil</span>
+						{% if app.user %}
+								<li class='dropdown'>
+									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+										<span class='glyphicon glyphicon-user'></span>  
+										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
+										<span class='caret caret-white'></span>
 									</a>
+									<ul class='dropdown-menu complement-1-b'>
+										<li>
+											<a href="{{ path('perfil') }}"> 
+												<span class='glyphicon glyphicon-user'></span>
+												<span>   Perfil</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('logout') }}">
+												<span class='glyphicon glyphicon-off'></span>
+												<span>   Cerrar Sesión</span>
+											</a>
+										</li>
+									</ul>
 								</li>
-								<li>
-									<a href="#">
-										<span class='glyphicon glyphicon-off'></span>
-										<span>   Cerrar Sesión</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
+						{% else %}
+							<li><a class="underline" href="{{ path('login') }}">Login</a></li>
+	        				<li><a href="">|</a></li>
+	        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
+						{% endif %}
 				</div>
 			</div>
 		</div>
@@ -198,10 +203,10 @@
 																	<button type="button" class="btn btn-primary edit_pend" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger">
+																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}">
 																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
-																	</div>
+																</div>
 															</td>
 														</tr>
 														{% else %}
@@ -255,13 +260,13 @@
 															<td class="usu_env">Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
+																	<button type="button" class="btn btn-primary edit_enviado" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger">
+																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
 																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
-																	</div>
+																</div>
 															</td>
 														</tr>
 														{% else %}
@@ -315,13 +320,13 @@
 															<td class="usu_recib">Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary">
+																	<button type="button" class="btn btn-primary edit_recibido" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger">
+																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}">
 																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
-																	</div>
+																</div>
 															</td>
 														</tr>
 														{% else %}
@@ -353,11 +358,11 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="col-sm-6 col-md-1">Nombre</th>
+								<th class="col-sm-6 col-md-2">Nombre</th>
 								<th class="col-sm-6 col-md-2">Apellidos</th>
 								<th class="col-sm-6 col-md-1">Usuario</th>
 								<th class="col-sm-6 col-md-1">Email</th>
-								<th class="col-sm-6 col-md-2">Fecha registro</th>
+								<th class="col-sm-6 col-md-1">Registro</th>
 								<th class="col-sm-6 col-md-1">Tipo</th>
 								<th class="col-sm-4 col-md-1">Opciones</th>
 							</tr>
@@ -370,7 +375,13 @@
 								<td>{{usuario.username}}</td>
 								<td>{{usuario.email}}</td>
 								<td>{{usuario.fechaRegistro|date("d/m/Y")}}</td>
-								<td>tipo </td>
+								{% for roles in usuario.roles %}
+									{% if roles == "ROLE_USER" %}
+									<td>Usuario</td>
+									{% elseif roles == "ROLE_ADMIN" %}
+									<td>Administrador</td>
+									{% endif %}
+								{% endfor %}
 								
 								<td> 
 									<div class="btn-group btn-group-sm">
@@ -382,6 +393,10 @@
 										</button>
 									</div>
 								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4"><a href="#">No hay usuarios.</a></td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -403,7 +418,26 @@
 					<div class='modal-content'>
 						<div class='modal-header complement-1-b'>
 							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
-							<div id='modal-pedido-title' class='modal-title'>
+							<div  class='modal-title row'>
+								<div id='modal-pedido-title' class="col-md-7"></div>
+								<div class="input-group col-md-4">
+									<div class="btn-group estado" data-toggle="buttons">
+									  <label class="btn btn-primary complement-1-b" disabled>Estado</label>
+									  <label id="est_pendiente" class="btn btn-danger btn-status">
+									    <input type="radio" name="estado" id="pendiente" value="pendiente">
+									    	<span class="glyphicon glyphicon glyphicon-warning-sign"></span>
+									  </label>
+									  <label id="est_enviado" class="btn btn-warning btn-status">
+									    <input type="radio" name="estado" id="enviado" value="enviado">
+									    	<span class="glyphicon glyphicon glyphicon-export"></span>
+									  </label>
+									  <label id="est_recibido" class="btn btn-success btn-status">
+									    <input type="radio" name="estado" id="recibido" value="recibido">
+									    	<span class="glyphicon glyphicon glyphicon-import"></span>
+									  </label>
+									</div>
+
+								</div>
 								
 							</div>
 						</div>
@@ -456,6 +490,7 @@
 						</div>						
 						<div class='modal-footer'>
 							<button type="button" id="crearPed" class="btn btn-primary complement-1-b" data-url="{{path('genPedido')}}">Crear Pedido</button>
+							<button type="button" id="editPed" class="btn btn-primary complement-1-b hidden" data-url="{{path('editPedido')}}">Editar Pedido</button>
 							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
 						</div>
 
@@ -469,8 +504,9 @@
 						<div class='modal-header complement-1-b'>
 							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
 							<div class='modal-title'>
-							<strong>Nº pedido: </strong><span id="showIdPed"></span>
+								<strong>Nº pedido: </strong><span id="showIdPed"></span>
 							</div>
+
 						</div>
 						<div class='modal-body'>
 							<div class="row">
@@ -489,10 +525,13 @@
 									<div id="list_prod" class="list-group scrollable-y"></div>
 								</div>
 							</div>
+							<div id="control_estado" class="row">
+
+							</div>
 							
 						</div>						
-						<div class='modal-footer'>
-							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>
+						<div id="btn_showPed" class='modal-footer'>
+							
 						</div>
 					
 				</div>
@@ -500,6 +539,7 @@
 
 	
 	</div>
+
 	<div id="response"></div>
 
 	<a href="#" class="scrollup">Scroll</a>
@@ -508,5 +548,6 @@
         {{ parent() }}
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/centro_log.js') }}"></script>
     {% endblock %}

@@ -348,6 +348,39 @@ label.error{
 .step{
 	display: none;
 }
+/******************************/
+.estado{
+	color: white;
+	border-color: #2D6CA2;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.25) inset, 0px 0px 1px rgba(0, 0, 0, 0.23);
+}
+.estado > .btn.active {
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4) inset, 0px 1px 7px rgba(0, 0, 0, 0.29);
+	border-bottom: 5px solid;
+}
+.estado.btn-group .btn + .btn{
+	margin-bottom: -4px;
+}
+
+#est_pendiente{
+	background: none repeat scroll 0% 0% #D9534F;
+	color: #9E0909;
+}
+#est_enviado{
+	background: none repeat scroll 0% 0% #F4DD73;
+	color: #C09853;
+}
+#est_recibido{
+	color:#1C591C;
+	background: none repeat scroll 0% 0% #468847;
+
+}
+.addon-estado{
+	color: white;
+	border-color: #2D6CA2;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.15) inset, 0px 0px 1px rgba(0, 0, 0, 0.23);
+}
+/*.btn.active*/
 /***************************/
 .scrollup{
     width:40px;

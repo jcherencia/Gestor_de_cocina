@@ -67,14 +67,24 @@
 <div id="modal-upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header complement-1-b">
 				<button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
 				<h4 id="myModalLabel" class="modal-title">¡Sube tu foto!</h4>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<input type="file">
-				</div>
+				<form role="form" class="form-horizontal" action="{{ path('upload_file') }}" method="POST">
+					<div class="col-md-10">
+						<div class="form-group">
+							<input name="foto" type="file">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Subir</button>
+						</div>
+					</div>
+				</form>
+				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary">Guardar</button>

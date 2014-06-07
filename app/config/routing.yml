@@ -13,12 +13,7 @@ inicio:
     pattern: /
     defaults: { _controller: RecetasBundle:Default:index }
 
-login:
-    pattern: /login
-    defaults: { _controller:RecetasBundle:User:index }
-login_check:
-    pattern: /login_check
-    # defaults: { _controller:RecetasBundle:User:index }
+  # -----------------------------------------------------------#
 registro:
     pattern: /registro
     defaults: { _controller:RecetasBundle:User:registro }
@@ -29,7 +24,19 @@ perfil:
     pattern: /perfil
     defaults: { _controller: RecetasBundle:User:perfil }
 
-    # -----------------------------------------------------------
+  # -----------------------------------------------------------#
+login:
+    pattern: /login
+    defaults: { _controller:RecetasBundle:Security:login }
+login_check:
+    pattern: /login_check
+logout:
+    pattern: /logout
+    # -----------------------------------------------------------#
+upload_file:
+    pattern: /upload_file
+    defaults: { _controller:RecetasBundle:Default:upload_file }
+# -----------------------------------------------------------#
 recetas:
     pattern: /recetas
     defaults: { _controller: RecetasBundle:Default:recetas }
@@ -64,6 +71,13 @@ genPedido:
 findPedido:
     pattern: /centro_log/findPedido
     defaults: { _controller: CentroLogBundle:Default:findPedido }
+editPedido:
+    pattern: /centro_log/editPedido
+    defaults: { _controller: CentroLogBundle:Default:editPedido }
+delPedido:
+    pattern: /centro_log/delPedido
+    defaults: { _controller: CentroLogBundle:Default:delPedido }
+
 # -------------------------------------------------------------------------#
 almacen:
     pattern: /almacen
@@ -85,5 +99,7 @@ borrar_producto:
     pattern: /almacen/borrar_producto/{producto}
     defaults: { _controller: AlmacenBundle:FormProductos:borrar_producto }
 # -------------------------------------------------------------------------#
+
+
 
 

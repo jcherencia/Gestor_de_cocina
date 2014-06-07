@@ -28,27 +28,33 @@
 						</li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right menu-user'>
-						<li class='dropdown'>
-							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-								<span class='glyphicon glyphicon-user'></span>  
-								<span>   Usuario 1</span>
-								<span class='caret caret-white'></span>
-							</a>
-							<ul class='dropdown-menu complement-1-b'>
-								<li>
-									<a href="{{ path('perfil') }}"> 
-										<span class='glyphicon glyphicon-user'></span>
-										<span>   Perfil</span>
+						{% if app.user %}
+								<li class='dropdown'>
+									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+										<span class='glyphicon glyphicon-user'></span>  
+										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
+										<span class='caret caret-white'></span>
 									</a>
+									<ul class='dropdown-menu complement-1-b'>
+										<li>
+											<a href="{{ path('perfil') }}"> 
+												<span class='glyphicon glyphicon-user'></span>
+												<span>   Perfil</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('logout') }}">
+												<span class='glyphicon glyphicon-off'></span>
+												<span>   Cerrar Sesión</span>
+											</a>
+										</li>
+									</ul>
 								</li>
-								<li>
-									<a href="#">
-										<span class='glyphicon glyphicon-off'></span>
-										<span>   Cerrar Sesión</span>
-									</a>
-								</li>
-							</ul>
-						</li>
+							{% else %}
+								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
+		        				<li><a href="">|</a></li>
+		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
+							{% endif %}
 					</ul>
 				</div>
 			</div>
@@ -67,17 +73,17 @@
 						<tr>
 							<td class="col-md-3">Nombre</td>
 							<td>
-								<span class="info">Juan Carlos Herencia</span></td>
+								<span class="info">{{usuario.nombre}}</span></td>
 							<td class="edit-info col-md-1"> 
 								<span class="glyphicon glyphicon-edit"></span></td>
 						</tr>
 						<tr>
 							<td class="col-md-3">Usuario</td>
-							<td><span class="info">juanca</span></td>
+							<td><span class="info">{{usuario.username}}</span></td>
 							<td class="edit-info"> <span class="glyphicon glyphicon-edit"></span></td>
 						</tr>
 						<tr>
-							<td class="col-md-3">Email</td><td><span class="info">juanca@gmail.com</span></td>
+							<td class="col-md-3">Email</td><td><span class="info">{{usuario.email}}</span></td>
 							<td class="edit-info"><span class="glyphicon glyphicon-edit"></span></td>
 						</tr>
 					</table>

@@ -1,64 +1,30 @@
 <?php
-
+ 
 namespace Gestor_cocina\RecetasBundle\Entity;
-
+ 
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+ 
 /**
- * Roles
- *
- * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Table(name="roles")
  */
-class Roles
+class Roles implements RoleInterface
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
+ 
     /**
-     * @var string
-     *
      * @ORM\Column(name="nombre", type="string", length=255)
      */
-    private $nombre;
+    protected $nombre;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
+    public function getRole()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Roles
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
+        return $this->role;
     }
 }
