@@ -180,9 +180,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // upload_file
-        if ($pathinfo === '/upload_file') {
-            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::upload_fileAction',  '_route' => 'upload_file',);
+        if (0 === strpos($pathinfo, '/upload')) {
+            // upload_file
+            if ($pathinfo === '/upload_file') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::upload_fileAction',  '_route' => 'upload_file',);
+            }
+
+            // upload
+            if ($pathinfo === '/upload') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::uploadAction',  '_route' => 'upload',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/recetas')) {
@@ -232,23 +240,20 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // centro_log
+        if ($pathinfo === '/centro_log') {
+            return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
+        }
+
+        // genSolicitud
+        if ($pathinfo === '/recetas/genSolicitud') {
+            return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+        }
+
         if (0 === strpos($pathinfo, '/centro_log')) {
-            // centro_log
-            if ($pathinfo === '/centro_log') {
-                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
-            }
-
-            if (0 === strpos($pathinfo, '/centro_log/gen')) {
-                // genSolicitud
-                if ($pathinfo === '/centro_log/genSolicitud') {
-                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
-                }
-
-                // genPedido
-                if ($pathinfo === '/centro_log/genPedido') {
-                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genPedidoAction',  '_route' => 'genPedido',);
-                }
-
+            // genPedido
+            if ($pathinfo === '/centro_log/genPedido') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genPedidoAction',  '_route' => 'genPedido',);
             }
 
             // findPedido

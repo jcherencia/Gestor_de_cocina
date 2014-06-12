@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 	{% block title %}Recetas - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+			<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jasny-bootstrap.css') }}">
+		
+	{% endblock %}
 		{% block body %}
 	<div class='content'>
 		<div class='navbar navbar-default complement-1-b'>
@@ -17,15 +22,21 @@
 						<li>
 							<a href="{{ path('inicio') }}"> Inicio</a>
 						</li>
+						{% if is_granted('ROLE_USER') %}
 						<li  class='active'>
-							<a href="{{ path('recetas') }}"> Recetas</a>
+							<a href="{{ path('recetas') }}"> Mis Recetas</a>
 						</li>
+						{% endif %}
+						{# {% if app.user.granted("ROLE_ADMIN") %} #}
+						{% if is_granted('ROLE_ADMIN') %}
 						<li>
 							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
 						</li>
+						
 						<li>
 							<a href="{{ path('almacen') }}"> Almacén</a>
 						</li>
+						{% endif %}
 					</ul>
 					<ul class='nav navbar-nav navbar-right menu-user'>
 						<li class='dropdown'>
@@ -42,7 +53,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a href="{{ path('logout') }}">
 										<span class='glyphicon glyphicon-off'></span>
 										<span>   Cerrar Sesión</span>
 									</a>
@@ -168,7 +179,32 @@
 						<strong>Crear Recetas</strong>
 					</div>
 					<div class="panel-body">
-						<form action ="{{ path('crear_receta') }}" id="form-recetas" method="post" role="form" class="form form-horizontal">
+						{# <form action ="{{ path('crear_receta') }}" id="form-recetas" method="post" role="form" class="form form-horizontal"> #}
+						<form id="form-recetas" class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_receta')}}">
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Foto</label>
+								<div class="col-md-6">
+									<div class="fileinput fileinput-new" data-provides="fileinput">
+									  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+									    <img alt="Pulsa para Subir tu foto"  src="{{ asset('public/img/no_user2.png') }}"  >
+									  </div>
+									  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+									  <div>
+									    <span class="btn btn-primary btn-file"><span class="fileinput-new">Selecciona imagen</span>
+									    <span class="fileinput-exists">Cambiar foto</span>
+									    <input type="file" name="img"/> </span>
+									    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+									  </div>
+									</div> 
+								</div>
+							
+								{% if message is defined%}
+									<div class="col-md-12">
+										<span>{{message}}</span>
+									</div>
+								{% endif %}
+							</div>
+							{# ---------------------------------------- #}
 							<div class="form-group">
 								<label for="" class="col-md-3 control-label">Nombre</label>
 								<div class="col-md-6">
@@ -291,6 +327,9 @@
 {% endblock %}
     {% block javascript %}
         {{ parent() }}
+        	<script type="text/javascript" src="{{ asset('public/js/jasny-bootstrap.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jquery.validate.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/validate.js') }}"></script>
     {% endblock %}

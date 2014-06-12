@@ -330,7 +330,7 @@ function showPedido (id,url,fecha,usu) {
 		success: function (response) {
 			if (response!="false") {
 				pedido=ProcesarRespuesta (response);
-				listarPedido (pedido,"#list_prod");
+				listarPedido (pedido,"#list_prod",false);
 				$("#showIdPed").html(id);
 				$("#showUsuPed").html(usu);
 				$("#showFechPed").html(fecha);
@@ -532,7 +532,10 @@ function ProcesarRespuesta(response) {
 	};
 	return pedido;
 }
-function listarPedido (pedido,div_id,editable=false) {
+function listarPedido (pedido,div_id,editable) {
+	if (editable==undefined) {
+		editable=false;
+	}
 	salida="";
 	for (index in pedido) {
 		salida+="<a href='#' class='list-group-item' data-idprod='"+pedido[index].id_pro+"''>";

@@ -73,7 +73,7 @@ class Productos
     /**
      * @var string
      *
-     * @ORM\Column(name="foto", type="string", length=150)
+     * @ORM\Column(name="foto", type="string", length=150,nullable=true)
      */
     private $foto;
 

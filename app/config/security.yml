@@ -36,3 +36,4 @@ security:
         - { path: /recetas, roles: ROLE_USER }
         - { path: /centro_log, roles: ROLE_ADMIN }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: /recetas/genSolicitud, roles: ROLE_USER }

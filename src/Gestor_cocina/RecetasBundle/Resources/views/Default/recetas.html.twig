@@ -22,9 +22,11 @@
 								<li>
 									<a href="{{ path('inicio') }}"> Inicio</a>
 								</li>
+								{% if is_granted('ROLE_USER') %}
 								<li  class='active'>
 									<a href="{{ path('recetas') }}"> Mis Recetas</a>
 								</li>
+								{% endif %}
 								{# {% if app.user.granted("ROLE_ADMIN") %} #}
 								{% if is_granted('ROLE_ADMIN') %}
 								<li>
@@ -106,7 +108,7 @@
 							<div class='col-sm-6 col-md-3'>
 							
 								<figure class='receta' data-id="{{ receta.id }}">
-									<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
+									<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
 									<figcaption>
 										<a class='nombre' href="">{{ receta.nombre }}</a>
 										<p class='description info_hide'>{{ receta.descripcion }}</p>
@@ -120,7 +122,7 @@
 														<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
 
 												{% else %}
-													<li>Not found</li>
+													<li>No hay ingredientes</li>
 												{% endfor %}
 											</ul>
 											<div class='precio'>{{ receta.precio }}</div>
@@ -147,7 +149,7 @@
 										<button data-href="" id='edit' class="btn btn-primary complement-1-b">
 											<span class='glyphicon glyphicon-edit'></span>
 										</button>
-										<button data-href="" id='delete' class='btn btn-danger'>
+										<button data-href="" data-type="delete" id='delete' class='btn btn-danger'>
 											<span class='glyphicon glyphicon-trash' ></span>
 										</button>
 								</div>

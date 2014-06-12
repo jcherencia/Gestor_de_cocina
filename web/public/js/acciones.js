@@ -6,7 +6,11 @@
 $(document).ready(function(){
 	$("button[data-href]").click(function(){
 		if($(this).data("type")=="delete"){
-			alert("delete");
+			// alert("delete");
+			if(confirm("¿Desea realmente borrar?") == true)
+			{
+				location.href = $(this).attr("data-href");
+			}
 		}else{
 			// alert("no");
 			location.href = $(this).attr("data-href");
@@ -187,7 +191,7 @@ function editarIng () {
 			ingred.cantidad=$("#cantidad_"+index).val();
 			// if( comprobarExistIng(i)== false){
 				ingredientes[index]=ingred;
-				alert(ingredientes[index].nombre);
+				// alert(ingredientes[index].nombre);
            	// }	
 		});
 		
@@ -217,7 +221,7 @@ function prepare_rec(id_receta){
 		
 	// alert(comensales +" --- "+com_rec);
 	$.ajax({
-		url: '/Gestor_de_cocina/web/app_dev.php/centro_log/genSolicitud',
+		url: '/Gestor_de_cocina/web/app_dev.php/recetas/genSolicitud',
 		type: 'POST',
 		async: true,
 		data: {'id':id_receta,'ingr':ingredientes},

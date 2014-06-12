@@ -2,7 +2,7 @@
 	{% block title %}Centro Logístico - Gestor de cocina {% endblock %}
 	{% block stylesheet %} 
 		{{ parent() }}
-		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/bootstrap-wizard.css') }}">
+			<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jasny-bootstrap.css') }}">
 		
 	{% endblock %}
 		{% block body %}
@@ -21,38 +21,50 @@
 						<li>
 							<a href="{{ path('inicio') }}"> Inicio</a>
 						</li>
-						<li>
-							<a href="{{ path('recetas') }}"> Recetas</a>
-						</li>
-						<li>
-							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-						</li>
-						<li class='active'>
-							<a href="{{ path('almacen') }}"> Almacén</a>
-						</li>
+						{% if is_granted('ROLE_USER') %}
+							<li>
+								<a href="{{ path('recetas') }}"> Mis Recetas</a>
+							</li>
+						{% endif %}
+						
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a href="{{ path('centro_log') }}"> Centro Logístico</a>
+							</li>
+						
+							<li  class='active'>
+								<a href="{{ path('almacen') }}"> Almacén</a>
+							</li>
+						{% endif %}
 					</ul>
 					<ul class='nav navbar-nav navbar-right menu-user'>
-						<li class='dropdown'>
-							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-								<span class='glyphicon glyphicon-user'></span>  
-								<span>   Usuario 1</span>
-								<span class='caret caret-white'></span>
-							</a>
-							<ul class='dropdown-menu complement-1-b'>
-								<li>
-									<a href="{{ path('perfil') }}"> 
-										<span class='glyphicon glyphicon-user'></span>
-										<span>   Perfil</span>
+					{% if app.user %}
+								<li class='dropdown'>
+									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+										<span class='glyphicon glyphicon-user'></span>  
+										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
+										<span class='caret caret-white'></span>
 									</a>
+									<ul class='dropdown-menu complement-1-b'>
+										<li>
+											<a href="{{ path('perfil') }}"> 
+												<span class='glyphicon glyphicon-user'></span>
+												<span>   Perfil</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('logout') }}">
+												<span class='glyphicon glyphicon-off'></span>
+												<span>   Cerrar Sesión</span>
+											</a>
+										</li>
+									</ul>
 								</li>
-								<li>
-									<a href="#">
-										<span class='glyphicon glyphicon-off'></span>
-										<span>   Cerrar Sesión</span>
-									</a>
-								</li>
-							</ul>
-						</li>
+							{% else %}
+								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
+		        				<li><a href="">|</a></li>
+		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
+							{% endif %}
 					</ul>
 				</div>
 			</div>
@@ -130,12 +142,32 @@
 
 								</div>
 								<div class="col-md-4">
-									<figure class="col-md-10">
-	 									<img src="{{ asset('public/img/no_image.png') }}">
-	 								</figure>
+										<div class="form-group">
+											{# <label for="" class="col-md-3 control-label">Foto</label> #}
+											<div class="col-md-6">
+												<div class="fileinput fileinput-new" data-provides="fileinput">
+												  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+												    <img alt="Pulsa para Subir tu foto"  src="{{ asset('public/img/no_user2.png') }}"  >
+												  </div>
+												  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+												  <div>
+												    <span class="btn btn-primary btn-file"><span class="fileinput-new">Selecciona imagen</span>
+												    <span class="fileinput-exists">Cambiar foto</span>
+												    <input type="file" name="img"/> </span>
+												    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+												  </div>
+												</div> 
+											</div>
+										
+											{% if message is defined%}
+												<div class="col-md-12">
+													<span>{{message}}</span>
+												</div>
+											{% endif %}
+										</div>
 									<div id="info" class="col-md-10 alert">
 									</div>
-								</div>
+								</div>{# fin colum 2#}
 								</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary complement-1-b" onclick="">Guardar</button>
@@ -153,8 +185,11 @@
 							<strong>Crear Producto</strong>
 						</div>
 						<div class="panel-body">
-							<div class="col-md-8">
-									<form action="{{path('crear_producto')}}" id="form-productos" method="post" role="form" class="form form-horizontal">
+							<div class="row">
+							<form class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_producto')}}">
+								<div class="col-md-8">
+									{# <form action="{{path('crear_producto')}}" id="form-productos" method="post" role="form" class="form form-horizontal"> #}
+									<form class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_producto')}}">
 
 									<div class="form-group ">
 										<label for="" class="col-md-4 control-label">Nombre</label>
@@ -214,22 +249,42 @@
 									</div>
 								{# </div>	 #}
 
-								</div>
+								</div> {# fin colum 1#}
 								<div class="col-md-4">
-									<figure class="col-md-10">
-	 									<img src="{{ asset('public/img/no_image.png') }}">
-	 								</figure>
+										<div class="form-group">
+											{# <label for="" class="col-md-3 control-label">Foto</label> #}
+											<div class="col-md-6">
+												<div class="fileinput fileinput-new" data-provides="fileinput">
+												  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+												    <img alt="Pulsa para Subir tu foto"  src="{{ asset('public/img/no_user2.png') }}"  >
+												  </div>
+												  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+												  <div>
+												    <span class="btn btn-primary btn-file"><span class="fileinput-new">Selecciona imagen</span>
+												    <span class="fileinput-exists">Cambiar foto</span>
+												    <input type="file" name="img"/> </span>
+												    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+												  </div>
+												</div> 
+											</div>
+										
+											{% if message is defined%}
+												<div class="col-md-12">
+													<span>{{message}}</span>
+												</div>
+											{% endif %}
+										</div>
 									<div id="info" class="col-md-10 alert">
 									</div>
-								</div>
-								</div>
+								</div>{# fin colum 2#}
+							</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary complement-1-b" onclick="">Guardar</button>
 									<button type="button" data-href="{{path('almacen')}}" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 
 								</div>
 							</form>
-							
+							</div>
 						</div>
 						
 					</div>
@@ -243,7 +298,7 @@
 {% endblock %}
     {% block javascript %}
         {{ parent() }}
-        	<script type="text/javascript" src="{{ asset('public/js/bootstrap-wizard.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/jasny-bootstrap.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/jquery.validate.js') }}"></script>

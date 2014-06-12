@@ -9,6 +9,10 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Gestor_cocina\RecetasBundle\Entity\Recetas;
 use Gestor_cocina\RecetasBundle\Entity\Ingredientes;
 use Gestor_cocina\RecetasBundle\Util\Util;
+
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gestor_cocina\RecetasBundle\Entity\Photo;
 class FormRecetasController extends Controller
 {
 
@@ -28,16 +32,66 @@ class FormRecetasController extends Controller
         $receta->setComensales($campos['comensales']);
         $receta->setFechaCreacion(new \DateTime("now"));
         $receta->setPrecio($campos['precio']);
-        //--------------------------------------------//
+     //    //--------------------------------------------//
 
         $usr= $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $creador = $em->getRepository('RecetasBundle:Usuarios')->find($usr);
         $receta->setCreador($creador);
         //--------------------------------------------//
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($receta);
-        $em->flush();
+        
+        // $em->persist($receta);
+        // $em->flush();
+
+    //---------------------------//
+        $image = $this->getRequest()->files->get('img');
+        $status = 'success';
+            $uploadedURL='';
+            $message='';
+        // print_r($image);
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+
+                    $originalName = $image->getClientOriginalName();
+                    $name_array = explode('.', $originalName);
+                    $file_type = $name_array[sizeof($name_array) - 1];
+                    $valid_filetypes = array('jpg', 'jpeg', 'bmp', 'png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        $em->persist($receta);
+                        $em->flush();
+
+
+                        $newName="receta".$receta->getId()."-".$receta->getSlug().".".$file_type;
+                        // $newName="receta.jpg";
+                        $dir="uploads/recetas/".$newName;
+                        $photo = new Photo();
+                        $photo->setFile($image);
+                        $photo->upload("/recetas",$newName);
+                        $receta->setFoto($dir);
+                        $em->persist($receta);
+                        $em->flush();
+                   } else {
+                        $status = 'failed';
+                        $message = 'Tipo de archivo inválido.';
+                        // return $this->render('RecetasBundle:Default:registro.html.twig',array('status'=>$status,'message'=>$message));
+                    }//FIN IN ARRAY
+                } else {
+                    $status = 'failed';
+                    $message = 'Tamaño de archivo excedido';
+                    // return $this->render('RecetasBundle:Default:registro.html.twig',array('status'=>$status,'message'=>$message));
+                }//FIN SIZE
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+                $dir="public/img/no_user2.png";
+                $receta->setFoto($dir);
+                $em->persist($receta);
+                $em->flush();                
+            }//FIN INSTANCEOF
+
+
+            // echo "<br>".$status;
+
         //---------------------------//
         
         $ingredientes[][]=array();
@@ -84,8 +138,9 @@ class FormRecetasController extends Controller
         $receta->setComensales($campos['comensales']);
         $receta->setPrecio($campos['precio']);
         // $em = $this->getDoctrine()->getManager();
-        $em->persist($receta);
-        $em->flush();
+        
+        /************************************************************/
+
         //*******Recogemos los ingredientes que se han añadido a la receta****//
         $ingredientes[][]=array();
         $i=0;

@@ -117,6 +117,7 @@ function view_receta(){
 		/**********************************************/
 
 		$("#modal-prepare #img-rec").html(img);
+		$("#modal-prepare #img-rec").children('img').addClass('img-xs'); //img-profile_xs
 		$("#modal-prepare #edit").attr("data-href",slug_edit);
 		$("#modal-prepare #delete").attr("data-href",slug_del);
 		/************/

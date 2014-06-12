@@ -95,7 +95,7 @@ class Usuarios implements UserInterface
     /**
      * @var string salt
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255,nullable=true)
      */
     protected $salt;
     /**
@@ -277,6 +277,27 @@ class Usuarios implements UserInterface
     public function setActivo($activo)
     {
         $this->activo = $activo;
+    }
+
+     /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+    
     }
 
     /**

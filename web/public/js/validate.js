@@ -1,5 +1,9 @@
 jQuery().ready(function() {
 
+	jQuery.validator.addMethod("ingredientes", function(value, element) {
+
+	}, "Añade un ingrediente");
+
 	$("#form-productos").validate({
 		rules: {
 			nombre: "required",
@@ -43,5 +47,80 @@ jQuery().ready(function() {
 			}
 		}
 	});
+	$("#form-recetas").validate({
+		rules: {
+			nombre: "required",
+			// img: "required",
+			descripcion:"required",
+			comensales: {
+				required: true,
+				number: true
+			},			
 
+		},
+		messages: {
+			nombre: "Obligatorio *",
+			// img: "Selecciona una foto *",
+			descripcion:"Obligatorio *",								
+			comensales:{								
+				required: "Obligatorio *",
+				number:"Introduce un número."
+			},
+			
+		}
+	});
+	$("#form-recetas").validate({
+		rules: {
+			nombre: "required",
+			// img: "required",
+			descripcion:"required",
+			comensales: {
+				required: true,
+				number: true
+			},			
+
+		},
+		messages: {
+			nombre: "Obligatorio *",
+			// img: "Selecciona una foto *",
+			descripcion:"Obligatorio *",								
+			comensales:{								
+				required: "Obligatorio *",
+				number:"Introduce un número."
+			},
+			
+		}
+	});
+	$("#form-registro").validate({
+		rules: {
+			nombre: "required",
+			apellidos: "required",
+			usuario: "required",
+			pass: "required",
+			repeat_pass: {
+				equalTo: "#pass"
+			},
+			 email: {
+			required: true,
+			email: true
+			},	
+
+		},
+		messages: {
+			nombre: "Obligatorio *",
+			apellidos: "Obligatorio *",
+			usuario: "Obligatorio *",
+			pass: "Obligatorio *",
+			repeat_pass:"Repite la contraseña",
+			email: {
+				required: "Obligatorio *",
+				email: "Email inválido."
+			},	
+			
+			// img: "Selecciona una foto *",
+			
+			
+		}
+	});
+	
 });

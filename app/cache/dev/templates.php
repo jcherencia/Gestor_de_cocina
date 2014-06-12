@@ -85,6 +85,7 @@
   'AlmacenBundle:Productos:index.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle/Resources/views/Productos/index.html.twig',
   'AlmacenBundle:Productos:new.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle/Resources/views/Productos/new.html.twig',
   'AlmacenBundle:Productos:show.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle/Resources/views/Productos/show.html.twig',
+  'RecetasBundle:Default:archivos.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle/Resources/views/Default/archivos.html.twig',
   'RecetasBundle:Default:index.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle/Resources/views/Default/index.html.twig',
   'RecetasBundle:Default:login.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle/Resources/views/Default/login.html.twig',
   'RecetasBundle:Default:nueva_receta.html.twig' => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle/Resources/views/Default/nueva_receta.html.twig',

@@ -36,6 +36,9 @@ logout:
 upload_file:
     pattern: /upload_file
     defaults: { _controller:RecetasBundle:Default:upload_file }
+upload:
+    pattern: /upload
+    defaults: { _controller:RecetasBundle:Default:upload }
 # -----------------------------------------------------------#
 recetas:
     pattern: /recetas
@@ -63,7 +66,7 @@ centro_log:
     pattern: /centro_log
     defaults: { _controller: CentroLogBundle:Default:index }
 genSolicitud:
-    pattern: /centro_log/genSolicitud
+    pattern: /recetas/genSolicitud
     defaults: { _controller: CentroLogBundle:Default:genSolicitud }
 genPedido:
     pattern: /centro_log/genPedido
