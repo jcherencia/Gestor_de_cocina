@@ -137,6 +137,7 @@ class DefaultController extends Controller
      } 
 	public function editPedidoAction(){
 			$peticion=$this->container->get('request');
+			// print_r($peticion);
 			$campos= $peticion->request->all();
 			$estado=$campos['estado'];
 			$petic_pedido=$campos['pedido'];
