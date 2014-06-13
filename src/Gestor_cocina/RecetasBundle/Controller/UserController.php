@@ -28,6 +28,7 @@ class UserController extends Controller
 
         return $this->render('RecetasBundle:Default:perfil.html.twig', array('usuario' => $usuario));
     }
+
      public function crear_usuarioAction()
     {
       	$campos= array();
@@ -98,5 +99,71 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('login'));
     }
     
-    
+    public function editPerfilAction($usuario)
+    {
+        $campos= array();
+        $peticion = $this->getRequest();
+        // print_r($peticion);
+        $campos= $peticion->request->all();
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('RecetasBundle:Usuarios')->find($usuario);
+        $user->setNombre($campos['nombre']);
+        $user->setApellidos($campos['apellidos']);
+        $user->setUsername($campos['usuario']);
+
+        if (!defined($campos['pass']) && $campos['pass']!="") {
+            $user->setPassword($campos['pass']);
+        }
+        $user->setEmail($campos['email']);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $image = $this->getRequest()->files->get('img');
+        $status = 'success';
+            $uploadedURL='';
+            $message='';
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+
+                    $originalName = $image->getClientOriginalName();
+                    $name_array = explode('.', $originalName);
+                    $file_type = $name_array[sizeof($name_array) - 1];
+                    $valid_filetypes = array('jpg', 'jpeg', 'bmp', 'png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        $newName="perfil".$user->getId()."-".$user->getUsername().".".$file_type;
+                        $dir="uploads/perfil/".$newName;
+                        $photo = new Photo();
+                        $photo->setFile($image);
+                        $photo->upload("/perfil",$newName);
+                        $user->setFoto($dir);
+                        $em->persist($user);
+                        $em->flush();
+                   } else {
+                        $status = 'failed';
+                        $message = 'Tipo de archivo inválido.';
+                        return $this->render('RecetasBundle:Default:registro.html.twig',array('status'=>$status,'message'=>$message));
+                    }//FIN IN ARRAY
+                } else {
+                    $status = 'failed';
+                    $message = 'Tamaño de archivo excedido';
+
+                    return $this->render('RecetasBundle:Default:registro.html.twig',array('status'=>$status,'message'=>$message));
+                }//FIN SIZE
+            } else {
+                // $status = 'failed';
+                // $message = 'File Error';
+                $dir="public/img/no_user2.png";
+                $user->setFoto($dir);
+                $em->persist($user);
+                $em->flush();                
+            }//FIN INSTANCEOF
+
+        
+        
+
+        return $this->redirect($this->generateUrl('perfil'));
+
+
+
+    }
 }

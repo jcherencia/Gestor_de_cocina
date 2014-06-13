@@ -77,7 +77,7 @@ class FormRecetasController extends Controller
         $peticion = $this->getRequest();
         $campos= $peticion->request->all();
         $em = $this->getDoctrine()->getManager();
-        $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+        $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
         $receta->setNombre($campos['nombre']);
         $receta->setSlug(Util::getSlug($campos['nombre']));
         $receta->setDescripcion($campos['descripcion']);

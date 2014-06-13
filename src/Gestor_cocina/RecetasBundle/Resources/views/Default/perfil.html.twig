@@ -1,6 +1,10 @@
 {% extends '::base.html.twig' %}
 	{% block title %}Mi Perfil - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+			<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jasny-bootstrap.css') }}">
 		
+	{% endblock %}	
 	{% block body %}
 	<div class='navbar navbar-default complement-1-b'>
 			<div class='container'> 
@@ -18,7 +22,7 @@
 									<a href="{{ path('inicio') }}"> Inicio</a>
 								</li>
 								{% if is_granted('ROLE_USER') %}
-								<li  class='active'>
+								<li>
 									<a href="{{ path('recetas') }}"> Mis Recetas</a>
 								</li>
 								{% endif %}
@@ -68,38 +72,125 @@
 	<div class="container">
 		<div class="row block-info">
 			<div class="col-md-3">
-				<img alt="Pulsa para Subir tu foto" src="{{ asset(usuario.foto) }}" id="user-photo" class="img-rounded img-profile">
+				<img id="user-photo" alt="Pulsa para Subir tu foto" src="{{ asset(usuario.foto) }}"  class="img-rounded img-profile">
 			</div>
 			<div class="col-md-8">
 				<div class="block-info-title">
 					<span>Informacion Personal</span>
+					<button id="editPerfil" class="btn btn-primary complement-1-b pull-right" data-toggle="modal">
+					  <span class="glyphicon glyphicon-edit"></span> Editar
+					</button>
 				</div>
 				<div class="block-info-content table-responsive col-md-8">	
 					<table class="table">
 						<tr>
 							<td class="col-md-3">Nombre</td>
-							<td>
-								<span class="info">{{usuario.nombre}}</span></td>
-							<td class="edit-info col-md-1"> 
-								<span class="glyphicon glyphicon-edit"></span></td>
+							<td><span id="perfilNombre" class="info">{{usuario.nombre}}</span></td>
+								{#<td class="edit-info col-md-1"><span class="glyphicon glyphicon-edit"></span></td> #}
+						</tr>
+						<tr>
+							<td class="col-md-3">Apellidos</td>
+							<td><span id="perfilApellidos" class="info">{{usuario.apellidos}}</span></td>
+								{#<td class="edit-info col-md-1"><span class="glyphicon glyphicon-edit"></span></td> #}
 						</tr>
 						<tr>
 							<td class="col-md-3">Usuario</td>
-							<td><span class="info">{{usuario.username}}</span></td>
-							<td class="edit-info"> <span class="glyphicon glyphicon-edit"></span></td>
+							<td><span id="perfilUsuario" class="info">{{usuario.username}}</span></td>
+							{# <td class="edit-info"> <span class="glyphicon glyphicon-edit"></span></td> #}
 						</tr>
 						<tr>
-							<td class="col-md-3">Email</td><td><span class="info">{{usuario.email}}</span></td>
-							<td class="edit-info"><span class="glyphicon glyphicon-edit"></span></td>
+							<td class="col-md-3">Email</td>
+							<td><span id="perfilEmail" class="info">{{usuario.email}}</span></td>
+							{# <td class="edit-info"><span class="glyphicon glyphicon-edit"></span></td> #}
 						</tr>
 					</table>
+					{# <button class="btn btn-primary complement-1-b" data-toggle="modal" data-target="#myModal">
+					  Editar
+					</button> #}
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modal-editPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header complement-1-b">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Editar Perfil</h4>
+	      </div>
+	      <form id="form-edituser" class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('edit_usuario', { 'usuario': usuario.id }) }}">
+	      <div class="modal-body">
+				
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Foto</label>
+						<div class="col-md-6">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+							    <img id="editImg" alt="Pulsa para Subir tu foto"  src="{{ asset('public/img/no_user2.png') }}"  >
+							  </div>
+							  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+							  <div>
+							    <span class="btn btn-primary btn-file"><span class="fileinput-new">Selecciona imagen</span>
+							    <span class="fileinput-exists">Cambiar foto</span>
+							    <input type="file" name="img"/> </span>
+							    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+							  </div>
+							</div> 
+						</div>
+					
+						{% if message is defined%}
+							<div class="col-md-12">
+								<span>{{message}}</span>
+							</div>
+						{% endif %}
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Nombre</label>
+						<div class="col-md-6">
+							<input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Apellidos</label>
+						<div class="col-md-6">
+							<input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Email</label>
+						<div class="col-md-6">
+							<input type="email" id="email" name="email" placeholder="Email" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Usuario</label>
+						<div class="col-md-6">
+							<input type="text" id="usuario" name="usuario" placeholder="Usuario" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">Cambiar contraseña</label>
+						<div class="col-md-6">
+							<input type="password" id="pass" name="pass" placeholder="Contraseña" class="form-control">
+						</div>
+					</div>
+					
+				
+		      </div>{#----FIN MODAL BODY-----#}
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-primary complement-1-b">Guardar cambios</button>
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>{#-----FIN MODAL------#}
 	{% endblock %}
     {% block javascript %}
         {{ parent() }}
+        	<script type="text/javascript" src="{{ asset('public/js/jasny-bootstrap.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jquery.validate.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/validate.js') }}"></script>
     {% endblock %}

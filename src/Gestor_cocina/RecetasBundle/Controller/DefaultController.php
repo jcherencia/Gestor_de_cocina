@@ -38,15 +38,15 @@ class DefaultController extends Controller
     public function editar_recetaAction($receta){
         $em = $this->getDoctrine()->getEntityManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
-        $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
-         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
+        $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
+        $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
         return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('receta_edit'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes));
     }
     /*******************/
     public function borrar_recetaAction($receta)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+        $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
         foreach ($ingredientes as $key => $ingre) {
            if ($receta->getId()== $ingre->getReceta()->getId()) {

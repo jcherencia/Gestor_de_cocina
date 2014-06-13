@@ -80,7 +80,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-md-8">
-									<form action="{{ path('editar_producto', { 'producto': producto_edit.slug }) }}" id="form-productos" method="post" role="form" class="form form-horizontal">
+									<form id="form-productos" class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{ path('editar_producto', { 'producto': producto_edit.id }) }}" id="form-productos" >
 									<div class="form-group ">
 										<label for="" class="col-md-4 control-label">Nombre</label>
 										<div class="col-md-6">
@@ -147,7 +147,7 @@
 											<div class="col-md-6">
 												<div class="fileinput fileinput-new" data-provides="fileinput">
 												  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-												    <img alt="Pulsa para Subir tu foto"  src="{{ asset('public/img/no_user2.png') }}"  >
+												    <img alt="Pulsa para Subir tu foto"  src="{{ asset(producto_edit.foto) }}"  >
 												  </div>
 												  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
 												  <div>
@@ -171,7 +171,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary complement-1-b" onclick="">Guardar</button>
-									<button type="button" data-href="{{path('almacen')}}" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" data-href="{{path('almacen')}}" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 
 								</div>
 							</form>
@@ -186,7 +186,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="row">
-							<form class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_producto')}}">
+							<form id="form-productos" class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_producto')}}">
 								<div class="col-md-8">
 									{# <form action="{{path('crear_producto')}}" id="form-productos" method="post" role="form" class="form form-horizontal"> #}
 									<form class="form-horizontal" method ="POST"  enctype="multipart/form-data" action="{{path('crear_producto')}}">
@@ -280,7 +280,7 @@
 							</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary complement-1-b" onclick="">Guardar</button>
-									<button type="button" data-href="{{path('almacen')}}" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" data-href="{{path('almacen')}}" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 
 								</div>
 							</form>

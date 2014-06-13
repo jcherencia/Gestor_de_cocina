@@ -260,12 +260,12 @@
 															<td class="usu_env">Usuario 1</td>
 															<td>
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary edit_enviado" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
+																	<button type="button" class="btn btn-primary edit_enviado" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
+																	{# <button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}" >
 																		<span class="glyphicon glyphicon-trash"></span>
-																	</button>
+																	</button> #}
 																</div>
 															</td>
 														</tr>
@@ -530,7 +530,7 @@
 							</div>
 							
 						</div>						
-						<div id="btn_showPed" class='modal-footer'>
+						<div id="btn_showPed" class='modal-footer' data-url='{{path('editEstado')}}'>
 							
 						</div>
 					

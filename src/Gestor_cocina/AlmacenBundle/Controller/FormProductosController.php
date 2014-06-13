@@ -79,7 +79,7 @@ class FormProductosController extends Controller
                 $em->persist($producto);
                 $em->flush();                
             }//FIN INSTANCEOF
-       // return $this->redirect($this->generateUrl('almacen')); 
+       return $this->redirect($this->generateUrl('almacen')); 
     }
      public function editar_productoAction($producto)
     {
@@ -87,7 +87,7 @@ class FormProductosController extends Controller
         $peticion = $this->getRequest();
         $campos= $peticion->request->all();
         $em = $this->getDoctrine()->getManager();
-        $producto = $em->getRepository('AlmacenBundle:Productos')->findOneBySlug($producto);
+        $producto = $em->getRepository('AlmacenBundle:Productos')->find($producto);
         $producto->setNombre($campos['nombre']);
         $producto->setSlug(Util::getSlug($campos['nombre']));
         $producto->setUnidadCompra($campos['und_compra']);
@@ -133,16 +133,16 @@ class FormProductosController extends Controller
                     // return $this->render('RecetasBundle:Default:registro.html.twig',array('status'=>$status,'message'=>$message));
                 }//FIN SIZE
             } else {
-                $status = 'failed';
-                $message = 'File Error';
-                $dir="public/img/no_image.png";
-                $producto->setFoto($dir);
-                $em->persist($producto);
-                $em->flush();                
+                // $status = 'failed';
+                // $message = 'File Error';
+                // $dir="public/img/no_image.png";
+                // $producto->setFoto($dir);
+                // $em->persist($producto);
+                // $em->flush();                
             }//FIN INSTANCEOF
        
-        // $this->recalculaPrecio($producto);
-        // return $this->redirect($this->generateUrl('almacen'));
+        $this->recalculaPrecio($producto);
+        return $this->redirect($this->generateUrl('almacen'));
     }
      public function borrar_productoAction($producto)
    {

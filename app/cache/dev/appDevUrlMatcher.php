@@ -159,6 +159,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::perfilAction',  '_route' => 'perfil',);
         }
 
+        // edit_usuario
+        if (0 === strpos($pathinfo, '/edit_usuario') && preg_match('#^/edit_usuario/(?P<usuario>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit_usuario')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::editPerfilAction',));
+        }
+
         if (0 === strpos($pathinfo, '/log')) {
             if (0 === strpos($pathinfo, '/login')) {
                 // login
@@ -269,6 +274,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // delPedido
             if ($pathinfo === '/centro_log/delPedido') {
                 return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::delPedidoAction',  '_route' => 'delPedido',);
+            }
+
+            // editEstado
+            if ($pathinfo === '/centro_log/editEstado') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::editEstadoAction',  '_route' => 'editEstado',);
             }
 
         }

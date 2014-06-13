@@ -179,6 +179,20 @@ class DefaultController extends Controller
 		return new Response($response, Response::HTTP_OK);
 	 
 	}
+	public function editEstadoAction()
+	{
+		$peticion=$this->container->get('request');
+		$campos= $peticion->request->all();
+		$estado=$campos['estado'];
+		$idpedido=$campos['id'];
+		$em = $this->getDoctrine()->getManager();
+		$pedido = $em->getRepository('CentroLogBundle:Pedido')->find($idpedido);
+		$pedido->setEstado($estado);
+		$em->persist($pedido);
+		$em->flush();
+		$response="true";
+		return new Response($response, Response::HTTP_OK);
+	}
 	public function delPedidoAction()
 	{
 			$peticion=$this->container->get('request');

@@ -122,5 +122,30 @@ jQuery().ready(function() {
 			
 		}
 	});
+	$("#form-edituser").validate({
+		rules: {
+			nombre: "required",
+			apellidos: "required",
+			usuario: "required",
+			email: {
+			required: true,
+			email: true
+			},	
+
+		},
+		messages: {
+			nombre: "Obligatorio *",
+			apellidos: "Obligatorio *",
+			usuario: "Obligatorio *",
+			email: {
+				required: "Obligatorio *",
+				email: "Email inválido."
+			},	
+			
+			// img: "Selecciona una foto *",
+			
+			
+		}
+	});
 	
 });

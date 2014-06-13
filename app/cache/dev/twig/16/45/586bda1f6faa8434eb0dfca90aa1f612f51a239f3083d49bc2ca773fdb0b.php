@@ -464,20 +464,14 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedido"]) ? $context["pedido"] : $this->getContext($context, "pedido")), "id"), "html", null, true);
                 echo "\" data-url=\"";
                 echo $this->env->getExtension('routing')->getPath("findPedido");
-                echo "\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\"></span>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-danger del_ped\" data-id=\"";
-                // line 266
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pedido"]) ? $context["pedido"] : $this->getContext($context, "pedido")), "id"), "html", null, true);
-                echo "\" data-url=\"";
-                echo $this->env->getExtension('routing')->getPath("delPedido");
                 echo "\" data-fecha=\"";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["pedido"]) ? $context["pedido"] : $this->getContext($context, "pedido")), "fecha"), "d/m/Y"), "html", null, true);
                 echo "\" data-usu=\"Usuario 1\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-trash\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\"></span>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+                // line 269
+                echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t";
@@ -869,7 +863,10 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t
 \t\t\t\t\t\t</div>\t\t\t\t\t\t
-\t\t\t\t\t\t<div id=\"btn_showPed\" class='modal-footer'>
+\t\t\t\t\t\t<div id=\"btn_showPed\" class='modal-footer' data-url='";
+        // line 533
+        echo $this->env->getExtension('routing')->getPath("editEstado");
+        echo "'>
 \t\t\t\t\t\t\t
 \t\t\t\t\t\t</div>
 \t\t\t\t\t
@@ -923,6 +920,6 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 
     public function getDebugInfo()
     {
-        return array (  909 => 552,  905 => 551,  901 => 550,  897 => 549,  892 => 548,  889 => 547,  831 => 493,  827 => 492,  823 => 490,  789 => 457,  779 => 453,  770 => 452,  766 => 451,  715 => 402,  706 => 398,  689 => 385,  683 => 384,  679 => 382,  675 => 380,  672 => 379,  668 => 378,  664 => 377,  660 => 376,  656 => 375,  652 => 374,  648 => 373,  643 => 372,  638 => 371,  601 => 336,  592 => 333,  577 => 326,  569 => 323,  562 => 319,  557 => 317,  548 => 315,  542 => 313,  536 => 312,  498 => 276,  489 => 273,  472 => 266,  464 => 263,  457 => 259,  452 => 257,  443 => 255,  437 => 253,  431 => 252,  393 => 216,  384 => 213,  369 => 206,  361 => 203,  354 => 199,  349 => 197,  340 => 195,  334 => 193,  328 => 192,  282 => 148,  273 => 144,  255 => 137,  245 => 134,  238 => 130,  228 => 129,  223 => 127,  218 => 125,  214 => 124,  209 => 123,  204 => 122,  142 => 62,  137 => 60,  131 => 58,  120 => 50,  111 => 44,  103 => 39,  98 => 36,  96 => 35,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  906 => 552,  902 => 551,  898 => 550,  894 => 549,  889 => 548,  886 => 547,  868 => 533,  825 => 493,  821 => 492,  817 => 490,  783 => 457,  773 => 453,  764 => 452,  760 => 451,  709 => 402,  700 => 398,  683 => 385,  677 => 384,  673 => 382,  669 => 380,  666 => 379,  662 => 378,  658 => 377,  654 => 376,  650 => 375,  646 => 374,  642 => 373,  637 => 372,  632 => 371,  595 => 336,  586 => 333,  571 => 326,  563 => 323,  556 => 319,  551 => 317,  542 => 315,  536 => 313,  530 => 312,  492 => 276,  483 => 273,  474 => 269,  464 => 263,  457 => 259,  452 => 257,  443 => 255,  437 => 253,  431 => 252,  393 => 216,  384 => 213,  369 => 206,  361 => 203,  354 => 199,  349 => 197,  340 => 195,  334 => 193,  328 => 192,  282 => 148,  273 => 144,  255 => 137,  245 => 134,  238 => 130,  228 => 129,  223 => 127,  218 => 125,  214 => 124,  209 => 123,  204 => 122,  142 => 62,  137 => 60,  131 => 58,  120 => 50,  111 => 44,  103 => 39,  98 => 36,  96 => 35,  89 => 31,  83 => 28,  77 => 25,  71 => 22,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

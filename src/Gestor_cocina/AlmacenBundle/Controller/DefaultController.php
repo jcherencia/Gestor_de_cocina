@@ -21,7 +21,7 @@ class DefaultController extends Controller
     public function mod_productoAction($producto)
     {
          $em = $this->getDoctrine()->getEntityManager();
-        $producto = $em->getRepository('AlmacenBundle:Productos')->findOneBySlug($producto);
+        $producto = $em->getRepository('AlmacenBundle:Productos')->find($producto);
         return $this->render('AlmacenBundle:Default:nuevo_producto.html.twig',array('producto_edit' => $producto));
     }
 }

@@ -8,9 +8,7 @@ $(document).ready(function(){
 	view_receta();
     	
 	show_limit_text(".description",45);
-	//Editar info usuario
-	edit_user_info();
-    //Boton de "Ir Arriba"
+	//Boton de "Ir Arriba"
        scrollUp();
 
        cargarUnidades();
@@ -39,7 +37,10 @@ $(document).ready(function(){
 		},function(){
 		  $(this).children("figcaption ").children(".info_hide").slideUp('fast');
 		});
-
+ 	$("#editPerfil").click(function(){
+ 			load_user_info();
+			$("#modal-editPerfil").modal('show');
+	});
 	//prepare_rec();
 	generateSelect();
 });//FIN DOCUMENT READY
@@ -158,25 +159,18 @@ function scrollUp(){
     }
 
 /********************USER INFO****************************/
-function edit_user_info(){
-	$(".edit-info").click(function(e){
-			var element=$(this).prev();
-			content=element.text();
-			element.html("<input type=\"text\" value=\""+content+"\">");
-			input=element.children();
-
-				input.focusout(function(){
-					if(input.val()!=""){
-						content=input.val();
-
-						//Aqui iria la llamada a la API para almacenar los datos
-						element.html("<span class=\"info\">"+content+"</span>");
-
-					}
-
-				});
-
-		});
+function load_user_info(){
+	nombre=$('#perfilNombre').html();
+	apellidos=$('#perfilApellidos').html();
+	usuario=$('#perfilUsuario').html();
+	email=$('#perfilEmail').html();
+	imgsrc=$('#user-photo').attr('src');
+	$('#editImg').attr('src',imgsrc); 
+	$('#nombre').val(nombre);
+	$('#apellidos').val(apellidos);
+	$('#usuario').val(usuario);
+	$('#email').val(email);
+	
 }
 /*********************************************/
 function show_limit_text(selector,limit){

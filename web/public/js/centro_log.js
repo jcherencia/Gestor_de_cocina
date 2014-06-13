@@ -36,9 +36,10 @@ $(document).ready(function(){
 	$('#editPed').click(function () {
 		modPedido ($('#modal-pedido-title').data('id'),$(this).data('url'));
 	});
-	$('#editPed').click(function () {
-	modEnviado (id,url);
-	});
+	// $('#prueba').click(function () {
+	// // modEnviado (id,url);
+	// alert("ok");
+	// });
 //*****Agregar nuevo producto al pedido****//
 	$('.list-group-item').click(function (e) {
 		prod=$(this).data('idprod');
@@ -91,6 +92,7 @@ $('.edit_enviado').click(function () {
 	url = $(this).data('url');
 	fecha = $(this).data('fecha');
 	usu = $(this).data('usu');
+
 	edit_enviado (id,url,fecha,usu,"enviado");
 
 });
@@ -444,8 +446,15 @@ function edit_enviado (id,url,fecha,usu,estado) {
 		success: function (response) {
 			// alert(response);
 			if (response!="false") {
+				// alert(response);
 				pedido=ProcesarRespuesta (response);
-				listarPedido (pedido,"#list_prod",true,estado);
+				listarPedido (pedido,"#list_prod",true);
+
+				//*********************/
+				botonera="<button id='prueba' data-id='"+id+"' class='btn btn-primary complement-1-b' type='button' onclick='modEnviado("+id+")'>Editar</button>"+
+				"<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";
+				$('#btn_showPed').html(botonera);
+				//*********************/
 				$("#showIdPed").html(id);
 				$("#showUsuPed").html(usu);
 				$("#showFechPed").html(fecha);
@@ -461,9 +470,39 @@ function edit_enviado (id,url,fecha,usu,estado) {
         }
 	});	
 }
-function modEnviado (id,url) {
+function modEnviado (id) {
 	estado=$('input:radio[name=estado]:checked').val();
-	alert(estado);
+	url=$('#btn_showPed').data('url');
+	// alert(url);
+	$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id,'estado':estado},
+			success: function (response) {
+				location.reload();
+				// alert(response);
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                // $('#response').html(jqXHR.responseText); 
+	                alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+
 }
 function borrarPedido(id,url) {
 	
@@ -553,8 +592,8 @@ function listarPedido (pedido,div_id,editable) {
 					    "<input type='radio' name='estado' id='pendiente' value='pendiente'>"+
 					    	"<span class='glyphicon glyphicon glyphicon-warning-sign'></span>"+
 					  "</label>"+
-					  "<label id='est_enviado' class='btn btn-warning btn-status'>"+
-					    "<input type='radio' name='estado' id='enviado' value='enviado'>"+
+					  "<label id='est_enviado' class='btn btn-warning btn-status active'>"+
+					    "<input type='radio' name='estado' id='enviado' value='enviado' checked>"+
 					    	"<span class='glyphicon glyphicon glyphicon-export'></span>"+
 					  "</label>"+
 					  "<label id='est_recibido' class='btn btn-success btn-status'>"+
@@ -566,10 +605,15 @@ function listarPedido (pedido,div_id,editable) {
 				"</div>";
 
 		$('#control_estado').html(salida);
-
-		botonera="<button class='btn btn-primary complement-1-b' type='button'>Editar</button>"+
-		"<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";
-		$('#btn_showPed').html(botonera);
+		// estado="enviado";
+		// $("#"+estado).checked = true;
+		// alert($("#"+estado).val());
+		// $(".btn-status").removeClass('active');
+		// $("#est_"+estado).addClass('active');
+		//-------------------------------------//
+		// botonera="<button id='editEnviado' class='btn btn-primary complement-1-b' type='button'>Editar</button>"+
+		// "<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";
+		// $('#btn_showPed').html(botonera);
 	} else {
 		$('#control_estado').html('');
 		botonera="<button class='btn btn-danger' type='button' data-dismiss='modal' > Cerrar</button>";

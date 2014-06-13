@@ -23,7 +23,9 @@ crear_usuario:
 perfil:
     pattern: /perfil
     defaults: { _controller: RecetasBundle:User:perfil }
-
+edit_usuario:
+    pattern: /edit_usuario/{usuario}
+    defaults: { _controller: RecetasBundle:User:editPerfil }
   # -----------------------------------------------------------#
 login:
     pattern: /login
@@ -80,6 +82,9 @@ editPedido:
 delPedido:
     pattern: /centro_log/delPedido
     defaults: { _controller: CentroLogBundle:Default:delPedido }
+editEstado:
+    pattern: /centro_log/editEstado
+    defaults: { _controller: CentroLogBundle:Default:editEstado }
 
 # -------------------------------------------------------------------------#
 almacen:

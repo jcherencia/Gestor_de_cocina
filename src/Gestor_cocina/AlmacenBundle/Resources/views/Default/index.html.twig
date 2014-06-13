@@ -123,11 +123,11 @@
 									<tr>
 										<td colspan="2">
 											<div class="btn-group btn-group-sm">
-												<button data-href="{{ path('mod_producto', { 'producto': producto.slug }) }}" class="btn btn-primary complement-1-b">
+												<button data-href="{{ path('mod_producto', { 'producto': producto.id }) }}" class="btn btn-primary complement-1-b">
 													<span class="glyphicon glyphicon-edit"></span>
 													<span class="visible_lg"> Editar</span>
 												</button>
-												<button data-href="{{ path('borrar_producto', { 'producto': producto.slug }) }}" data-type="delete" class="btn btn-danger">
+												<button data-href="{{ path('borrar_producto', { 'producto': producto.id }) }}" data-type="delete" class="btn btn-danger">
 													<span class="glyphicon glyphicon-trash"></span><span class="visible_lg"> Borrar</span>
 												</button>
 											</div>
@@ -148,7 +148,7 @@
 	{% endblock %}
     {% block javascript %}
         {{ parent() }}
-        	<script type="text/javascript" src="{{ asset('public/js/bootstrap-wizard.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 			

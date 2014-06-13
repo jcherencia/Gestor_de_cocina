@@ -6,11 +6,23 @@
 $(document).ready(function(){
 	$("button[data-href]").click(function(){
 		if($(this).data("type")=="delete"){
-			// alert("delete");
-			if(confirm("¿Desea realmente borrar?") == true)
-			{
-				location.href = $(this).attr("data-href");
-			}
+			$(".modal").modal('hide');
+			$.confirm({
+				title:"Alerta del sistema",
+		        text: "¿Desea realmente borrar el elemento seleccionado?",
+		        confirmButton: "Aceptar",
+    			cancelButton: "Cancelar",
+		        confirm: function(button) {
+		            alert("You just confirmed.");
+		        },
+		        cancel: function(button) {
+		            $(".modal").modal('show');
+		        }
+   			 });
+		// 	if(confirm("¿Desea realmente borrar?") == true)
+		// 	{
+		// 		location.href = $(this).attr("data-href");
+		// 	}
 		}else{
 			// alert("no");
 			location.href = $(this).attr("data-href");
@@ -28,7 +40,7 @@ $(document).ready(function(){
 	       , postfix: "Comensales"
 	    });
 	}
-
+	
 	editarIng();
 	loadTextarea();
 	deshabilitar(0);
@@ -84,7 +96,8 @@ function anadirIngre(){
           	precio=$(element).children("td").children('.precio').text();
           	und_comp=$(element).children("td").children('.und_comp').text();
            var ingr = new Ingrediente(id, nombre, unidad,precio,und_comp);
-           ingredientes["'"+id+"'"]=ingr;
+           // ingredientes["'"+id+"'"]=ingr;
+           ingredientes[id]=ingr;
           
         } 
 	});
@@ -130,18 +143,20 @@ function eliminarIng(id){
 function modCantIng(key){
 	cantidad=parseFloat($("#cantidad_"+key).val());
 	if(cantidad!=""){
-		key="'"+key+"'";
+		// key="'"+key+"'";
+		// alert(ingredientes[key].nombre);
 		ingredientes[key].cantidad=cantidad;
 		calcPrecioTotal();
 	}
 }
 function calcPrecioTotal(){
 	precioTotal=0;
-	for( var ingr in ingredientes){
-		precioTotal+=(parseFloat(ingredientes[ingr].cantidad) * parseFloat(ingredientes[ingr].precio) ) / parseFloat(ingredientes[ingr].und_comp);
+	for( var key in ingredientes){
+		// alert(key+" - "+ingredientes[key].nombre)
+		precioTotal+=(parseFloat(ingredientes[key].cantidad) * parseFloat(ingredientes[key].precio) ) / parseFloat(ingredientes[key].und_comp);
 	}
 	precioTotal=Math.round(precioTotal * 100) / 100;
-	
+	// alert(precioTotal);
 	$(".precioTotal").val(precioTotal);
 	
 }
@@ -179,7 +194,7 @@ function editarIng () {
 		// alert("no vacío");
 		$(".ingredientes").each(function(key, element){
 			clase=$(this).attr('class').split(" ");
-			index=clase[0].split("_")[1];
+			key=clase[0].split("_")[1];
 			ing=$(this).children('.nombre');
 			var ingred = new Ingrediente(
 				ing.children('input[type="hidden"]'), 
@@ -188,12 +203,16 @@ function editarIng () {
 				ing.data('precio'),
 				ing.data('undcompra')
 			);
-			ingred.cantidad=$("#cantidad_"+index).val();
+			ingred.cantidad=$("#cantidad_"+key).val();
 			// if( comprobarExistIng(i)== false){
-				ingredientes[index]=ingred;
+				// key="'"+key+"'";
+				ingredientes[key]=ingred;
 				// alert(ingredientes[index].nombre);
            	// }	
 		});
+		// for(var i in ingredientes) {
+		// 	alert(i+" - "+ingredientes[i].nombre);
+		// }
 		
 		calcPrecioTotal();
 	}

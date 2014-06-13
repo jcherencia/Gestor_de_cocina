@@ -139,8 +139,52 @@ class FormRecetasController extends Controller
         $receta->setPrecio($campos['precio']);
         // $em = $this->getDoctrine()->getManager();
         
-        /************************************************************/
+        /**************************EDITAR IMAGENES**********************************/
+        $image = $this->getRequest()->files->get('img');
+        $status = 'success';
+            $uploadedURL='';
+            $message='';
+        // print_r($image);
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
 
+                    $originalName = $image->getClientOriginalName();
+                    $name_array = explode('.', $originalName);
+                    $file_type = $name_array[sizeof($name_array) - 1];
+                    $valid_filetypes = array('jpg', 'jpeg', 'bmp', 'png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        $em->persist($receta);
+                        $em->flush();
+
+
+                        $newName="receta".$receta->getId()."-".$receta->getSlug().".".$file_type;
+                        // $newName="receta.jpg";
+                        $dir="uploads/recetas/".$newName;
+                        $photo = new Photo();
+                        $photo->setFile($image);
+                        $photo->upload("/recetas",$newName);
+                        $receta->setFoto($dir);
+                        $em->persist($receta);
+                        $em->flush();
+                   } else {
+                        $status = 'failed';
+                        $message = 'Tipo de archivo inválido.';
+                        
+                    }//FIN IN ARRAY
+                } else {
+                    $status = 'failed';
+                    $message = 'Tamaño de archivo excedido';
+                    
+                }//FIN SIZE
+            } else {
+                // $status = 'failed';
+                // $message = 'File Error';
+                // $dir="public/img/no_user2.png";
+                // $receta->setFoto($dir);
+                // $em->persist($receta);
+                // $em->flush();                
+            }//FIN INSTANCEOF
+        /**************************FIN EDITAR IMAGENES**********************************/
         //*******Recogemos los ingredientes que se han añadido a la receta****//
         $ingredientes[][]=array();
         $i=0;

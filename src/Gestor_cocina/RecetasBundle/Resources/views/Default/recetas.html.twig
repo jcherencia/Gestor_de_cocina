@@ -113,8 +113,8 @@
 										<a class='nombre' href="">{{ receta.nombre }}</a>
 										<p class='description info_hide'>{{ receta.descripcion }}</p>
 										<div class='info-rec content-hide'>
-											<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.slug }) }}</div>
-											<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.slug }) }}</div>
+											<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
+											<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
 											{# {{ receta.slug }} #}
 											<p class='desc'>{{ receta.descripcion }}</p>
 											<ul class='ingr list-group'>
@@ -205,6 +205,7 @@
     {% block javascript %}
         {{ parent() }}
         	<script type="text/javascript" src="{{ asset('public/js/bootstrap.touchspin.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 
