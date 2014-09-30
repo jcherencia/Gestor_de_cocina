@@ -114,6 +114,8 @@ function view_receta(){
 		desc=info.children(".desc").text();
 		comens=info.children(".comensales").text();
 		precio=info.children(".precio").text();
+		tiempo=info.children(".tiempo").text();
+		// alert(tiempo);
 		ingr=info.children(".ingr").html();
 		/**********************************************/
 
@@ -126,6 +128,7 @@ function view_receta(){
 		precio_pers=parseFloat(precio/comens);
 		precio_pers=Math.round(precio_pers * 100) / 100;
 		$("#modal-prepare .precio").html(precio_pers+" € / persona");
+		$("#modal-prepare .tiempo").html(" ("+tiempo+" min )");
 		$("#modal-prepare .comensales").html(comens+" comensal/es");
 		$("#modal-prepare .comensales").data('comensales',comens);
 		$("#modal-prepare .pr-total").html("<strong>"+precio+" €</strong>");

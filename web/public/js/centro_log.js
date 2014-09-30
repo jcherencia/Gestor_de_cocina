@@ -36,10 +36,35 @@ $(document).ready(function(){
 	$('#editPed').click(function () {
 		modPedido ($('#modal-pedido-title').data('id'),$(this).data('url'));
 	});
-	// $('#prueba').click(function () {
-	// // modEnviado (id,url);
-	// alert("ok");
-	// });
+	$('.borrar_usuario').click(function () {
+		id=$(this).data('id');
+		url=$(this).data('url');
+		$.confirm({
+			title:"Alerta del sistema",
+		    text: "¿Está seguro que desea borrar el usuario <span class='label label-danger'> Nº "+id+"</span> definitivamente del sistema?",
+		    confirmButton: "Aceptar",
+	    	cancelButton: "Cancelar",
+	    	theme:"complement-1-b",
+		    confirm: function(button) {
+		        borrarUsuario(id,url);
+		    },
+		    cancel: function(button) {
+		       // alert(" no borrar");
+		    }
+		});
+	});
+	
+	$('.promocionar').click(function () {
+		id=$(this).data('id');
+		url=$(this).data('url');
+		editarRol(id,url,"promocionar");
+	});
+	$('.degradar').click(function () {
+		id=$(this).data('id');
+		url=$(this).data('url');
+		editarRol(id,url,"degradar");
+	});
+	
 //*****Agregar nuevo producto al pedido****//
 	$('.list-group-item').click(function (e) {
 		prod=$(this).data('idprod');
@@ -108,7 +133,35 @@ $('.edit_recibido').click(function () {
 $('.editarTag').click(function () {
 	alert("ok");
 });
+$('#validar_pedido').click(function () {
+	id = $(this).data('id');
+	url = $(this).data('url');
+	$.confirm({
+		title:"Alerta del sistema",
+	    text: "<h4>¿Está seguro que desea validar el pedido <span class='label label-danger'>Nº "+id+"?</span></h4><br><span class='label label-danger'><strong>Nota:</strong></span> Esta acción no se puede deshacer.",
+	    confirmButton: "Aceptar",
+    	cancelButton: "Cancelar",
+    	theme:"complement-1-b",
+	    confirm: function(button) {
+	    	// alert(id);
+	        validar_pedido(id,url);
+	    },
+	    cancel: function(button) {
+	       // alert(" no borrar");
+	    }
+	});
+	
+});
 
+$('#generarPDF').click(function () {
+	// alert();
+	id=$('#showIdPed').html();
+	fecha =$('#showFechPed').html();
+	creador =$('#showUsuPed').html(); 
+	url=$(this).data('url');
+	// alert(id+url);
+	generarPDF (id,url,fecha,creador);
+});
 
 //************************************************//
 //**********INTERFAZ SOLICITUD PRODUCTO***********//
@@ -622,3 +675,173 @@ function listarPedido (pedido,div_id,editable) {
 }
 
 //*******************************************/
+function validar_pedido(id,url) {
+	$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id},
+			success: function (response) {
+				location.reload();
+				// alert(response);
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                $('#response').html(jqXHR.responseText); 
+	                alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+}
+
+//****************************************************************************//
+function borrarUsuario(id,url){
+	$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id},
+			success: function (response) {
+				location.reload();
+				// alert(response);
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                // $('#response').html(jqXHR.responseText); 
+	                // alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+}
+function editarRol(id,url,accion){
+	$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'id':id,'accion':accion},
+			success: function (response) {
+				location.reload();
+				// alert(response);
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.\n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                $('#response').html(jqXHR.responseText); 
+	                alert(jqXHR.responseText);
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.\n' + jqXHR.responseText);
+	            }
+	        }
+		});
+}
+function generarPDF (id,url,fecha,creador) {
+	
+	//*******************generarPDF (id,info_ped,productos)
+	//*******************//
+		$.ajax({
+				url: url,
+				type: 'POST',
+				async: true,
+				data: {'id':id},
+				success: function (response) {
+					if (response!="false") {
+						// alert(response);
+						pedido=ProcesarRespuesta (response);
+						
+					}
+
+					
+				},
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.\n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                // $('#response').html(jqXHR.responseText); 
+		                // alert(jqXHR.responseText);
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.\n' + jqXHR.responseText);
+		            }
+		        }
+			});
+	var productos={};
+	for (p in pedido){
+		index=pedido[p].nombre;
+		content=pedido[p].cantidad+" "+pedido[p].unidad;
+		productos[index]=content;
+	}
+
+	file_name="pedido_"+fecha+".pdf";
+	//**************************************//
+	margin_x=20;
+	margin_y=20;
+	//********************************************//
+	var doc = new jsPDF();
+	//***********BLOQUE TITULO************//
+	doc.setFontSize(22);
+	doc.text(margin_x, margin_y, 'GESTOR DE COCINA');
+	doc.text(margin_x+100, margin_y, 'Pedido n: '+id);
+	doc.setLineWidth(1);
+	//***********BLOQUE SUBTITULO************//
+	doc.line(margin_x, margin_y+5, 180, margin_y+5);
+	doc.setFontSize(16);
+	doc.text(margin_x, margin_y+13,'Creador: '+creador);
+	doc.text(margin_x+100, margin_y+13,'Fecha: '+fecha);
+	doc.setLineWidth(0.5);
+	doc.line(margin_x, margin_y+18, margin_x+160, margin_y+18);
+	//***********BLOQUE PRODUCTOS************//
+	doc.setLineWidth(0.3);
+	doc.text(margin_x, margin_y+41,'Producto');
+	doc.text(margin_x+100, margin_y+41,'Cantidad');
+	doc.line(margin_x, margin_y+45, margin_x+160, margin_y+45);
+	y=53;
+	for (p in productos) {
+		
+		doc.text(margin_x, margin_y+y,p);
+		doc.text(margin_x+100, margin_y+y,productos[p]);
+		doc.setLineWidth(0.3);
+		y+=10;
+	};
+
+	doc.save(file_name);
+}

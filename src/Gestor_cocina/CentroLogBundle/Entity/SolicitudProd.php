@@ -21,11 +21,11 @@ class SolicitudProd
      */
     private $id;
 
-    /**
-    * 
-    * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Recetas")
-    */
-    protected $receta;
+    // *
+    // * 
+    // * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Recetas")
+    
+    // protected $receta;
     /**
     * 
     * @ORM\ManyToOne(targetEntity="Gestor_cocina\AlmacenBundle\Entity\Productos")
@@ -42,7 +42,7 @@ class SolicitudProd
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Usuarios")
      */
     private $usuario;
 
@@ -138,7 +138,7 @@ class SolicitudProd
      * @param string $usuario
      * @return SolicitudProd
      */
-    public function setUsuario($usuario)
+    public function setUsuario(\Gestor_cocina\RecetasBundle\Entity\Usuarios $usuario)
     {
         $this->usuario = $usuario;
 

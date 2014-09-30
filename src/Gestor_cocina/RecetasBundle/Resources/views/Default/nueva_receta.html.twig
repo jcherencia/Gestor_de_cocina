@@ -7,63 +7,7 @@
 	{% endblock %}
 		{% block body %}
 	<div class='content'>
-		<div class='navbar navbar-default complement-1-b'>
-			<div class='container'> 
-				<div class='navbar-header'>
-					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='navbar-collapse'>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-					</button>
-					<a class='navbar-brand' href='#'> Gestor de cocina</a>
-				</div>
-				<div class='navbar-collapse collapse'>
-					<ul class='nav navbar-nav menu'>
-						<li>
-							<a href="{{ path('inicio') }}"> Inicio</a>
-						</li>
-						{% if is_granted('ROLE_USER') %}
-						<li  class='active'>
-							<a href="{{ path('recetas') }}"> Mis Recetas</a>
-						</li>
-						{% endif %}
-						{# {% if app.user.granted("ROLE_ADMIN") %} #}
-						{% if is_granted('ROLE_ADMIN') %}
-						<li>
-							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-						</li>
-						
-						<li>
-							<a href="{{ path('almacen') }}"> Almacén</a>
-						</li>
-						{% endif %}
-					</ul>
-					<ul class='nav navbar-nav navbar-right menu-user'>
-						<li class='dropdown'>
-							<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-								<span class='glyphicon glyphicon-user'></span>  
-								<span>Usuario: <strong>{{ app.user.username }}</strong></span>
-								<span class='caret caret-white'></span>
-							</a>
-							<ul class='dropdown-menu complement-1-b'>
-								<li>
-									<a href="{{ path('perfil') }}"> 
-										<span class='glyphicon glyphicon-user'></span>
-										<span>   Perfil</span>
-									</a>
-								</li>
-								<li>
-									<a href="{{ path('logout') }}">
-										<span class='glyphicon glyphicon-off'></span>
-										<span>   Cerrar Sesión</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
@@ -110,7 +54,12 @@
 								<label for="" class="col-md-3 control-label">Preparación</label>
 								<div class="col-md-6">
 									<input id="hide_descrip" type="hidden">
-									<textarea id="descrip" name="descripcion" placeholder="Preparación de la receta..." resizable="false" class="form-control" value=""> {{receta_edit.descripcion}}</textarea>
+									{# <textarea id="descrip" name="descripcion" placeholder="Preparación de la receta..." resizable="false" class="form-control" value=""> {{receta_edit.descripcion}}</textarea> #}
+									{% set twig_content_variable= receta_edit.descripcion %}
+									{% set replace_value_var= '<br />' %}
+									{% set replace_with_value_var = '\n' %}
+									<textarea id="descrip" name="descripcion" placeholder="Preparación de la receta..." resizable="false" class="form-control" value="" rows="5">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</textarea>
+									
 								</div>
 							</div>
 							<div class="form-group">
@@ -119,6 +68,12 @@
 									<input type="text" name="comensales" class="form-control" value="{{receta_edit.comensales}}">
 								</div>
 							</div>
+						{# 	<div class="form-group">
+								<label for="" class="col-md-3 control-label">Tiempo</label>
+								<div class="col-md-2">
+									<input type="text" name="tiempo" class="form-control" value="{{receta_edit.comensales}}">
+								</div>
+							</div> #}
 							<div class="form-group">
 								<label for="precio" class="col-md-3 control-label">Precio</label>
 								<div class="col-md-2">
@@ -127,6 +82,26 @@
 										<span class="input-group-addon"> €</span>
 										<input type="hidden" name="precio"  class="precioTotal" value="{{receta_edit.precio}}">
 									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Tiempo</label>
+								<div class="col-md-2">
+									<div class="input-group">
+										<input type="text" id="tiempo" name="tiempo" class="form-control" value="{{receta_edit.tiempo}}">
+										<span class="input-group-addon"> min</span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Categoría</label>
+								<div class="col-md-2">
+									<select name="categoria" class="form-control">
+										<option value="">Selecciona...</option>
+										{% for categoria in categorias %}
+											<option value="{{ categoria.id}}">{{ categoria.categoria}}</option>
+										{% endfor %}
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -255,6 +230,25 @@
 										<span class="input-group-addon"> €</span>
 									</div>
 									<input type="hidden" name="precio"  class="precioTotal">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Tiempo</label>
+								<div class="col-md-2">
+									<div class="input-group">
+										<input type="text" id="tiempo" name="tiempo" class="form-control">
+										<span class="input-group-addon"> min</span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Categoría</label>
+								<div class="col-md-2">
+									<select class="form-control">
+										{% for categoria in categorias %}
+											<option value="{{ categoria.id}}"></option>
+										{% endfor %}
+									</select>
 								</div>
 							</div>
 							<div class="form-group">

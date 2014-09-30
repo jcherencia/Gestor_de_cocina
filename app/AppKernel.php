@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Gestor_cocina\CentroLogBundle\CentroLogBundle(),
             new Gestor_cocina\AlmacenBundle\AlmacenBundle(),
             new Gestor_cocina\RecetasBundle\RecetasBundle(),
+            new Fp\OpenIdBundle\FpOpenIdBundle(),
             // new FOS\UserBundle\FOSUserBundle(),
         );
 

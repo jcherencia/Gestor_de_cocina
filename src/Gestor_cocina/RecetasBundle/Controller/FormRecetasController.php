@@ -28,10 +28,11 @@ class FormRecetasController extends Controller
         $receta = new Recetas();
         $receta->setNombre($campos['nombre']);
         $receta->setSlug(Util::getSlug($campos['nombre']));
-        $receta->setDescripcion($campos['descripcion']);
+        $receta->setDescripcion(nl2br($campos['descripcion']));
         $receta->setComensales($campos['comensales']);
         $receta->setFechaCreacion(new \DateTime("now"));
         $receta->setPrecio($campos['precio']);
+        $receta->setTiempo($campos['tiempo']);
      //    //--------------------------------------------//
 
         $usr= $this->get('security.context')->getToken()->getUser();
@@ -134,9 +135,13 @@ class FormRecetasController extends Controller
         $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
         $receta->setNombre($campos['nombre']);
         $receta->setSlug(Util::getSlug($campos['nombre']));
-        $receta->setDescripcion($campos['descripcion']);
+        $receta->setDescripcion(nl2br($campos['descripcion']));
         $receta->setComensales($campos['comensales']);
         $receta->setPrecio($campos['precio']);
+        $receta->setTiempo($campos['tiempo']);
+        // $receta->setCategoria($campos['categoria']);
+        // $receta->setPrecio($campos['precio']);
+        // $receta->setPrecio($campos['precio']);
         // $em = $this->getDoctrine()->getManager();
         
         /**************************EDITAR IMAGENES**********************************/

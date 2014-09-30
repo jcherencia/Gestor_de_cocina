@@ -1,0 +1,3 @@
+[submodule "vendor/fp"]
+	path = vendor/fp
+	url = git://github.com/formapro/FpOpenIdBundle.git

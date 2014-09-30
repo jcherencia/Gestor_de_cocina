@@ -1,0 +1,191 @@
+{% extends '::base.html.twig' %}
+
+	{% block title %}Inicio - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+		
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/alertas.css') }}">
+		
+	{% endblock %}
+	{% block body %}
+		<div class='content'>
+		
+
+		<div class='container'>
+				<div class='row row-grid'>
+					<div class='col-md-12'>
+						<button id="showPedirProd" class='btn btn-primary complement-1-b'> Pedir productos</button>
+					</div>
+				</div>
+			<div class='row row-grid'>
+				<div class="col-md-8">
+					<div id='panel-grid' class='panel panel-primary panel-view'>
+						<div class='panel-heading complement-1-b'>
+							<span> 
+								<strong> Mis solicitudes pendientes</strong>
+							</span>
+							
+						</div>{# FIN PANEL HEAD#}
+						<div class='panel-body'>
+							<div class="row">
+											<div class="col-md-12">
+												<div class="table-responsive">
+													<table class="table">
+														<thead>
+															<tr>
+																<th class="col-md-4">Producto</th>
+																<th class="col-md-2">Cantidad</th>
+																<th class="col-md-2">Fecha</th>
+																<th class="col-md-1"></th>
+																														
+															</tr>
+														</thead>
+														<tbody>
+														<div>	
+														{% for solicitud in solicitudes if solicitud.usuario.id == app.user.id%}
+															<tr id="solicitud_{{solicitud.id}}" class="solicitud">
+																<td class="nombre" data-nombre='{{solicitud.producto.nombre}}'
+																data-id="{{solicitud.producto.id}}"><a href="#" >
+																		<span class="glyphicon glyphicon-file"></span>
+																		<span class="ped-tit"> {{solicitud.producto.nombre}}</span>
+																</a></td>
+																<td class="cantidad" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.cantidad}} {{solicitud.producto.unidad}}</td>
+																<td>{{solicitud.fecha|date("d/m/Y")}}</td>
+																{# <td>{{solicitud.usuario.nombre}}</td> #}
+																<td>
+																	<button type="button" class="btn btn-primary btn-sm">
+																	  <span class="glyphicon glyphicon-star"></span> Ver producto
+																	</button>	
+																</td>
+															</tr>
+														{% else %}
+																<tr>
+																	<td colspan="4"><a href="#">No tienes solicitudes pendientes de revisar.</a></td>
+																</tr>
+															{% endfor %}
+														</div>
+															
+														</tbody>
+													</table>
+												</div>
+												
+												
+											</div>
+										</div>
+						</div>{# FIN PANEL BODY#}
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class='panel-heading complement-1-b'>
+							<span> 
+								<strong> Producto seleccionado</strong>
+							</span>
+							
+						</div>{# FIN PANEL HEAD#}
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12 col-grid">
+									<img class="img-rounded" src="/Gestor_de_cocina/web/public/img/no_image.png">
+								</div>
+								<div class="col-md-12">
+									<table class="table">
+										<tr>
+											<td>Stock</td>
+											<td>30 kg</td>
+										</tr>
+										<tr>
+											<td>Stock min</td>
+											<td>3 kg</td>
+										</tr>
+										<tr>
+											<td>Precio</td>
+											<td>3 kg</td>
+										</tr>
+									</table>
+								</div>
+
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id='modal-peticiones' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
+				<div class="modal-dialog">
+					<div class='modal-content'>
+						<div class='modal-header complement-1-b'>
+							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
+							<div  class='modal-title row'>
+								<div id='modal-pedido-title' class="col-md-7">Solicitar productos</div>
+								
+								
+							</div>
+						</div>
+						<div class='modal-body'>
+							<div class='row'>
+								<div class='col-md-5 bloques'>
+									<div class="bloque_titulo">
+									   <span>Añadir Producto</span>
+									</div>
+									<div  id="contAddProd"  class="list-group scrollable-y">
+										{% for producto in productos %}
+											  <a href="#" data-idprod='{{producto.id}}' data-nombre='{{producto.nombre}}' data-unid='{{producto.unidad}}' class="list-group-item">
+											    {{producto.nombre}}
+											    <span class="glyphicon glyphicon-plus-sign pull-right"></span>
+											  </a>
+									  {% endfor %}
+									</div>
+								</div>
+								<div class='col-md-7 '>
+									<div class="bloque_titulo">
+									  <span>Solicitud</span>
+									</div>
+
+										<div id="solicitudes" class='scrollable-y'>
+											<table class="table">
+											<tbody id="tags" class="list-group "></tbody>
+										</table>
+									</div>
+									
+								</div>
+							</div>
+							<div class="row bloque-inferior">
+								<label class="col-md-5">
+								Agregar Ingredientes
+								</label>
+								<div class="col-md-7">
+									<div class="input-group">
+							    	  <span id="formtag_nombre" class="input-group-addon"></span>
+								      <input id="formtag_cantidad" type="text" class="form-control">
+								      <span id="formtag_unid" class="input-group-addon "></span>
+								      <span class="input-group-btn">
+								        <button id="newProd" class="btn btn-primary complement-1-b" type="button" >
+								        	<span class="glyphicon glyphicon-plus"></span>
+								        </button>
+								      </span>
+								    </div><!-- /input-group -->
+							   </div>
+							</div>
+							{# <div id="response"></div> #}
+						</div>						
+						<div class='modal-footer'>
+
+							<button type="button" id="solicitar" class="btn btn-primary complement-1-b" data-url="{{path('genSolicitud')}}" data-usu="{{ app.user.id }}">Solicitar</button>
+							
+							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
+						</div>
+
+					</div>
+					
+				</div>
+	</div>
+
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+        	<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/solicitudes.js') }}"></script>
+			
+    {% endblock %}

@@ -164,6 +164,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit_usuario')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::editPerfilAction',));
         }
 
+        // borrarUsuario
+        if ($pathinfo === '/borrarUsuario') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::borrarUsuarioAction',  '_route' => 'borrarUsuario',);
+        }
+
+        // editarRol
+        if ($pathinfo === '/editarRol') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\UserController::editarRolAction',  '_route' => 'editarRol',);
+        }
+
         if (0 === strpos($pathinfo, '/log')) {
             if (0 === strpos($pathinfo, '/login')) {
                 // login
@@ -245,6 +255,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/solicitudes')) {
+            // solicitudes
+            if ($pathinfo === '/solicitudes') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::solicitudesAction',  '_route' => 'solicitudes',);
+            }
+
+            // pedir_productos
+            if ($pathinfo === '/solicitudes/pedir_productos') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::pedir_productosAction',  '_route' => 'pedir_productos',);
+            }
+
+        }
+
         // centro_log
         if ($pathinfo === '/centro_log') {
             return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
@@ -279,6 +302,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // editEstado
             if ($pathinfo === '/centro_log/editEstado') {
                 return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::editEstadoAction',  '_route' => 'editEstado',);
+            }
+
+            // validarPedido
+            if ($pathinfo === '/centro_log/validarPedido') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::validarPedidoAction',  '_route' => 'validarPedido',);
             }
 
         }

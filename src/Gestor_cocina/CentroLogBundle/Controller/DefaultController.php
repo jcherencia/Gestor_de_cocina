@@ -12,12 +12,27 @@ class DefaultController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
         $usuarios = $em->getRepository('RecetasBundle:Usuarios')->findAll();
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
         $solicitudes = $em->getRepository('CentroLogBundle:SolicitudProd')->findAll();
         $pedidos = $em->getRepository('CentroLogBundle:Pedido')->findAll();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
         return $this->render('CentroLogBundle:Default:index.html.twig' , 
-        	array('usuarios' => $usuarios, 'solicitudes' => $solicitudes, 'productos'=>$productos , 'pedidos'=>$pedidos));
+        	array('usuarios' => $usuarios, 'solicitudes' => $solicitudes, 'productos'=>$productos , 'pedidos'=>$pedidos, 'categorias'=>$categorias ));
     }
+    public function solicitudesAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$solicitudes = $em->getRepository('CentroLogBundle:SolicitudProd')->findAll();
+    	$productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+    	return $this->render('CentroLogBundle:Default:solicitudes.html.twig', 
+        	array('solicitudes' => $solicitudes, 'productos'=>$productos ));
+    }
+     public function pedir_productosAction()
+    {
+    	return $this->render('CentroLogBundle:Default:pedir_productos.html.twig' );
+    }
+    
+    //************************************************************************************//
 
     public function genSolicitudAction()
     {
@@ -25,28 +40,41 @@ class DefaultController extends Controller
 		$campos= $peticion->request->all();
     	/***********************************/
     	$em = $this->getDoctrine()->getManager();
-    	$id= (int)$campos['id'];
-		$receta = $em->getRepository('RecetasBundle:Recetas')->find($id);
     	
+    	if (isset($campos['id'])) {
+    		$id= (int)$campos['id'];
+    		$receta = $em->getRepository('RecetasBundle:Recetas')->find($id);
+    		$response = $receta->getNombre();
+    	} else {
+    		$response="true";
+    	}
+    	
+    	
+    	
+    	$id_usuario= (int)$campos['id_usuario'];
+		
+    	$usuario = $em->getRepository('RecetasBundle:Usuarios')->find($id_usuario);
     	foreach ($campos['ingr'] as $key => $value) {
     		$index=(int)$key;
     		$producto = $em->getRepository('AlmacenBundle:Productos')->findOneBy(array(
             'id'  => $index));
     		$solicitud_cant=$this->comprobAlmacen($producto,$value);
+    		print_r($campos);
     		if($solicitud_cant != false){
 				$solicitud = new SolicitudProd();
-	    		$solicitud->setReceta($receta);
-	    		$index=(int)$key;
+	    		// $solicitud->setReceta($receta);
+	    		// $index=(int)$key;
 	    		$solicitud->setProducto($producto);
 	    		$solicitud->setCantidad($solicitud_cant);
 	    		$solicitud->setFecha(new \DateTime("now"));
+	    		$solicitud->setUsuario($usuario);
 	    	    $em->persist($solicitud);
-	        	$em->flush();  
+	        	
     		}
     		
     	}
-    	$response = $receta->getNombre();
-    	return new Response($response, Response::HTTP_OK);
+    	$em->flush();  
+    	// return new Response($response, Response::HTTP_OK);
     	
     }
     public function comprobAlmacen($producto,$cantidad)
@@ -86,10 +114,15 @@ class DefaultController extends Controller
 		$pedido = new Pedido();
 		$pedido->setFecha(new \DateTime("now"));
 		$pedido->setEstado('pendiente');
-		$em->persist($pedido);
-        $em->flush();
+		//********************************************/
+		$usr= $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $creador = $em->getRepository('RecetasBundle:Usuarios')->find($usr);
+        $pedido->setCreador($creador);
         //*********************************************//
-        
+        $em->persist($pedido);
+        $em->flush();
+		//*********************************************//
         if ($borrar_solicit !="false") {
         	
 			foreach ($borrar_solicit as $key => $solic) {
@@ -211,6 +244,35 @@ class DefaultController extends Controller
 			$em->flush();
 			$response="true";
 			return new Response($response, Response::HTTP_OK);
+	}
+	public function validarPedidoAction(){
+		$em = $this->getDoctrine()->getManager();
+		$peticion=$this->container->get('request');
+		$id= $peticion->request->get('id');
+		$pedido = $em->getRepository('CentroLogBundle:Pedido')->find($id);
+		$pedido->setEstado('validado');
+		$em->persist($pedido);
+		//*******************************************************************//
+		// $idpedido="6";
+		// print_r($id."-");
+			$pedidoproducto = $em->getRepository('CentroLogBundle:PedidoProducto')->findBy(array(
+	            'pedido'  => $id));
+			foreach ($pedidoproducto as $key => $p_ped) {
+				// print_r($p_ped->getCantidad()."".$p_ped->getProducto()->getNombre());
+				$producto=$p_ped->getProducto();
+				$cantidad=$p_ped->getCantidad();
+				$newStock=$producto->getStock()+$cantidad;
+				$producto->setStock($newStock);
+				$em->persist($producto);
+				// print_r($newStock."-");
+			}
+		//*******************************************************************//
+		// $em->persist($pedido);
+		$em->flush();
+		
+		$response="true";
+		return new Response($response, Response::HTTP_OK);
+			// print_r("expression");
 	}
 
 }

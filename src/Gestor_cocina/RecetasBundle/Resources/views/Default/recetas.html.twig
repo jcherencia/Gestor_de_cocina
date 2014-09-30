@@ -7,7 +7,7 @@
 	{% endblock %}
 		{% block body %}
 			<div class='content'>
-				<div class='navbar navbar-default complement-1-b'>
+				{# <div class='navbar navbar-default complement-1-b'>
 					<div class='container'> 
 						<div class='navbar-header'>
 							<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='navbar-collapse'>
@@ -26,8 +26,11 @@
 								<li  class='active'>
 									<a href="{{ path('recetas') }}"> Mis Recetas</a>
 								</li>
+								<li>
+									<a href="{{ path('solicitudes') }}">Mis solicitudes</a>
+								</li>
 								{% endif %}
-								{# {% if app.user.granted("ROLE_ADMIN") %} #}
+								
 								{% if is_granted('ROLE_ADMIN') %}
 								<li>
 									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
@@ -69,7 +72,7 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div> #}
 			<div class='container'>
 				<div class='row row-grid'>
 					<div class='col-md-12'>
@@ -80,17 +83,22 @@
 				</div>
 				<div id='panel-grid' class='panel panel-primary panel-view'>
 					<div class='panel-heading complement-1-b'>
-						<span> 
+						<a data-toggle="collapse" data-parent="#accordion" href="#misrecetas">
+							<strong>
+								<span>  Mis recetas</span>
+							</strong>
+						</a>
+						{# <span> 
 							<strong> Mis recetas</strong>
-						</span>
+						</span> #}
 						<div class='btn-group pull-right dropdown-head-panel'>
 							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
-								Ordenar  
+								Categorias  
 								<span class='caret'></span>
 							</button>
 							<ul class='dropdown-menu' role='menu'>
 								<li>
-									<a href='#'>  Ordenar por:</a>
+									<a href='#'>  Ver categoría:</a>
 								</li>
 								<li class='divider'></li>
 								<li>
@@ -102,40 +110,123 @@
 							</ul>
 						</div>
 					</div>
-					<div class='panel-body'>
-						<div class='row row-grid'>
-						{% for receta in recetas if receta.creador.id == app.user.id %}
-							<div class='col-sm-6 col-md-3'>
-							
-								<figure class='receta' data-id="{{ receta.id }}">
-									<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
-									<figcaption>
-										<a class='nombre' href="">{{ receta.nombre }}</a>
-										<p class='description info_hide'>{{ receta.descripcion }}</p>
-										<div class='info-rec content-hide'>
-											<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
-											<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
-											{# {{ receta.slug }} #}
-											<p class='desc'>{{ receta.descripcion }}</p>
-											<ul class='ingr list-group'>
-												{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
-														<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+					<div id="misrecetas" class="panel-collapse collapse in">
+						<div class='panel-body'>
+							<div class='row row-grid'>
+							{% for receta in recetas if receta.creador.id == app.user.id %}
+								<div class='col-sm-6 col-md-3'>
+								
+									<figure class='receta' data-id="{{ receta.id }}">
+										<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
+										<figcaption>
+											<a class='nombre' href="">{{ receta.nombre }}</a>
+											<p class='description info_hide'>{{ receta.descripcion }}</p>
+											<div class='info-rec content-hide'>
+												<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
+												<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
+												
+												{# {% set twig_content_variable= receta.descripcion %}
+												{% set replace_value_var= '<br />' %}
+												{% set replace_with_value_var = '\n' %}
 
-												{% else %}
-													<li>No hay ingredientes</li>
-												{% endfor %}
-											</ul>
-											<div class='precio'>{{ receta.precio }}</div>
-											<div class='comensales'>{{ receta.comensales }}</div>
-										</div>
-									</figcaption>
-								</figure>
-							
+
+												<p class='desc'>{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</p> #}
+												<p class='desc'>{{ receta.descripcion }}</p>
+												<ul class='ingr list-group'>
+													{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
+															<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+
+													{% else %}
+														<li>No hay ingredientes</li>
+													{% endfor %}
+												</ul>
+												<div class='precio'>{{ receta.precio }}</div>
+												<div class='tiempo'>{{ receta.tiempo }}</div>
+												<div class='comensales'>{{ receta.comensales }}</div>
+											</div>
+										</figcaption>
+									</figure>
+								
+								</div>
+								{% endfor %}
 							</div>
-							{% endfor %}
 						</div>
 					</div>
 				</div>
+				<div id='panel-grid' class='panel panel-primary panel-view'>
+					<div class='panel-heading complement-1-b'>
+						<a data-toggle="collapse" data-parent="#accordion" href="#recetas">
+							<strong>
+								<span>  Todas las recetas</span>
+							</strong>
+						</a>
+						{# <span> 
+							<strong> Mis recetas</strong>
+						</span> #}
+						<div class='btn-group pull-right dropdown-head-panel'>
+							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
+								Categorias  
+								<span class='caret'></span>
+							</button>
+							<ul class='dropdown-menu' role='menu'>
+								<li>
+									<a href='#'>  Ver categoría:</a>
+								</li>
+								<li class='divider'></li>
+								<li>
+									<a href='#'> Tipo</a>
+								</li>
+								<li>
+									<a href='#'> Fecha</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="recetas" class="panel-collapse collapse">
+						<div class='panel-body'>
+							<div class='row row-grid'>
+							{% for receta in recetas  %}
+								<div class='col-sm-6 col-md-3'>
+								
+									<figure class='receta' data-id="{{ receta.id }}">
+										<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
+										<figcaption>
+											<a class='nombre' href="">{{ receta.nombre }}</a>
+											<p class='description info_hide'>{{ receta.descripcion }}</p>
+											<p>{{ receta.creador.nombre }} {{ receta.creador.apellidos }}</p>
+											<div class='info-rec content-hide'>
+												<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
+												<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
+												
+												{# {% set twig_content_variable= receta.descripcion %}
+												{% set replace_value_var= '<br />' %}
+												{% set replace_with_value_var = '\n' %}
+
+
+												<p class='desc'>{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</p> #}
+												<p class='desc'>{{ receta.descripcion }}</p>
+												<ul class='ingr list-group'>
+													{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
+															<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+
+													{% else %}
+														<li>No hay ingredientes</li>
+													{% endfor %}
+												</ul>
+												<div class='precio'>{{ receta.precio }}</div>
+												<div class='tiempo'>{{ receta.tiempo }}</div>
+												<div class='comensales'>{{ receta.comensales }}</div>
+											</div>
+										</figcaption>
+									</figure>
+								
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 			<div id='modal-prepare' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
 				<div class="modal-dialog">
@@ -161,11 +252,11 @@
 									<div id='img-rec'></div>
 								</div>
 								<div class='col-md-6'>
-									<h4> Ingredientes</h4>
+									<h4> Ingredientes </h4>
 									<ul class='ingr'></ul>
 								</div>
 							</div>
-							<h4> Preparación</h4>
+							<h4> Preparación <span class='tiempo'></span></h4>
 							<p class='desc'></p>
 							<table class='info_pr_rec table'>
 								<thead>
@@ -190,7 +281,7 @@
 								<input class="col-md-4" name="comensales">
 							</div>
 
-							<button id="prepare_rec" type='button' class='btn btn-primary complement-1-b'> Preparar</button>
+							<button id="prepare_rec" data-userid="{{ app.user.id }}" data-url="{{path('genSolicitud')}}" type='button' class='btn btn-primary complement-1-b'> Preparar</button>
 							<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
 						</div>
 

@@ -19,6 +19,7 @@
       <parameter key="CentroLogBundle">Gestor_cocina\CentroLogBundle\CentroLogBundle</parameter>
       <parameter key="AlmacenBundle">Gestor_cocina\AlmacenBundle\AlmacenBundle</parameter>
       <parameter key="RecetasBundle">Gestor_cocina\RecetasBundle\RecetasBundle</parameter>
+      <parameter key="FpOpenIdBundle">Fp\OpenIdBundle\FpOpenIdBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -293,6 +294,10 @@
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
       </parameter>
+      <parameter key="ROLE_SUPER_ADMIN" type="collection">
+        <parameter>ROLE_ADMIN</parameter>
+        <parameter>ROLE_USER</parameter>
+      </parameter>
     </parameter>
     <parameter key="twig.class">Twig_Environment</parameter>
     <parameter key="twig.loader.filesystem.class">Symfony\Bundle\TwigBundle\Loader\FilesystemLoader</parameter>
@@ -509,6 +514,13 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="security.authentication.provider.fp_openid.class">Fp\OpenIdBundle\Security\Core\Authentication\Provider\OpenIdAuthenticationProvider</parameter>
+    <parameter key="security.authentication.listener.fp_openid.class">Fp\OpenIdBundle\Security\Http\Firewall\OpenIdAuthenticationListener</parameter>
+    <parameter key="security.access.fp_openid_authenticated_voter.class">Fp\OpenIdBundle\Security\Core\Authorization\Voter\OpenIdAuthenticatedVoter</parameter>
+    <parameter key="fp_openid.relying_party.light_open_id.class">Fp\OpenIdBundle\Bridge\RelyingParty\LightOpenIdRelyingParty</parameter>
+    <parameter key="fp_openid.relying_party.recovered_failure.class">Fp\OpenIdBundle\RelyingParty\RecoveredFailureRelyingParty</parameter>
+    <parameter key="fp_openid.relying_party.collection.class">Fp\OpenIdBundle\RelyingParty\RelyingPartyCollection</parameter>
+    <parameter key="fp_openid.template.engine">twig</parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -1667,7 +1679,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>539b16ffdd496</argument>
+            <argument>540dd015ed2d0</argument>
           </service>
         </argument>
       </argument>
@@ -1683,9 +1695,8 @@
     <service id="security.access.decision_manager" class="Symfony\Component\Security\Core\Authorization\AccessDecisionManager" public="false">
       <argument type="collection">
         <argument type="service">
-          <service class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
-            <tag name="security.voter" priority="245"/>
-            <argument type="service" id="security.role_hierarchy"/>
+          <service class="Fp\OpenIdBundle\Security\Core\Authorization\Voter\OpenIdAuthenticatedVoter" public="false">
+            <tag name="security.voter"/>
           </service>
         </argument>
         <argument type="service">
@@ -1696,6 +1707,12 @@
             </argument>
             <argument type="service" id="security.authentication.trust_resolver"/>
             <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
+            <tag name="security.voter" priority="245"/>
+            <argument type="service" id="security.role_hierarchy"/>
           </service>
         </argument>
         <argument type="service">
@@ -1712,6 +1729,10 @@
     <service id="security.role_hierarchy" class="Symfony\Component\Security\Core\Role\RoleHierarchy" public="false">
       <argument type="collection">
         <argument key="ROLE_ADMIN" type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument key="ROLE_SUPER_ADMIN" type="collection">
+          <argument>ROLE_ADMIN</argument>
           <argument>ROLE_USER</argument>
         </argument>
       </argument>
@@ -1784,6 +1805,17 @@
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
                       <argument>/recetas</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>/solicitudes</argument>
                     </service>
                   </argument>
                   <argument type="collection">
@@ -1935,7 +1967,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>539b16ffdd496</argument>
+            <argument>540dd015ed2d0</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -1961,6 +1993,17 @@
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
                       <argument>/recetas</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>/solicitudes</argument>
                     </service>
                   </argument>
                   <argument type="collection">
@@ -2389,6 +2432,7 @@
               <argument key="CentroLogBundle">Gestor_cocina\CentroLogBundle\Entity</argument>
               <argument key="AlmacenBundle">Gestor_cocina\AlmacenBundle\Entity</argument>
               <argument key="RecetasBundle">Gestor_cocina\RecetasBundle\Entity</argument>
+              <argument key="FpOpenIdBundle">Fp\OpenIdBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -2459,6 +2503,19 @@
                     </service>
                   </argument>
                   <argument>Gestor_cocina\RecetasBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver" public="false">
+                      <argument type="collection">
+                        <argument key="C:\xampp\htdocs\Gestor_de_cocina\vendor\fp\openid-bundle\Fp\OpenIdBundle\Resources\config\doctrine">Fp\OpenIdBundle\Entity</argument>
+                      </argument>
+                      <call method="setGlobalBasename">
+                        <argument>mapping</argument>
+                      </call>
+                    </service>
+                  </argument>
+                  <argument>Fp\OpenIdBundle\Entity</argument>
                 </call>
               </service>
             </argument>
@@ -2533,6 +2590,16 @@
       </argument>
       <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
+    </service>
+    <service id="fp_openid.relying_party.light_open_id" class="Fp\OpenIdBundle\Bridge\RelyingParty\LightOpenIdRelyingParty"/>
+    <service id="fp_openid.relying_party.recovered_failure" class="Fp\OpenIdBundle\RelyingParty\RecoveredFailureRelyingParty"/>
+    <service id="fp_openid.relying_party.default" class="Fp\OpenIdBundle\RelyingParty\RelyingPartyCollection">
+      <call method="append">
+        <argument type="service" id="fp_openid.relying_party.recovered_failure"/>
+      </call>
+      <call method="append">
+        <argument type="service" id="fp_openid.relying_party.light_open_id"/>
+      </call>
     </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>
@@ -2854,6 +2921,10 @@
       <call method="addPath">
         <argument>C:\xampp\htdocs\Gestor_de_cocina\src\Gestor_cocina\RecetasBundle/Resources/views</argument>
         <argument>Recetas</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\xampp\htdocs\Gestor_de_cocina\vendor\fp\openid-bundle\Fp\OpenIdBundle/Resources/views</argument>
+        <argument>FpOpenId</argument>
       </call>
       <call method="addPath">
         <argument>C:\xampp\htdocs\Gestor_de_cocina\vendor\symfony\symfony\src\Symfony\Bundle\WebProfilerBundle/Resources/views</argument>

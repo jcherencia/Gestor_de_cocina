@@ -1,12 +1,14 @@
 security:
     encoders:
         Gestor_cocina\RecetasBundle\Entity\Usuarios: plaintext
+        # Gestor_cocina\RecetasBundle\Entity\Usuarios:        { algorithm: sha512, iterations: 10 }
             # algorithm: sha512
             # encode-as-base64: true
             # iterations: 10
  
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_USER]
  
     providers:
         user_db:
@@ -34,5 +36,6 @@ security:
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /recetas, roles: ROLE_USER }
+        - { path: /solicitudes, roles: ROLE_USER }
         - { path: /centro_log, roles: ROLE_ADMIN }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

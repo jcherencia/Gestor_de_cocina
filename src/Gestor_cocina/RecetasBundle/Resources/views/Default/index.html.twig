@@ -8,68 +8,7 @@
 	{% endblock %}
 	{% block body %}
 		<div class='content'>
-		<div class='navbar navbar-default complement-1-b'>
-			<div class='container'> 
-				<div class='navbar-header'>
-					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-					</button>
-					<a class='navbar-brand' href='#'> Gestor de cocina</a>
-				</div>
-				<div class='navbar-collapse collapse'>
-					<ul class='nav navbar-nav menu'>
-						<li class='active'>
-							<a href="{{ path('inicio') }}"> Inicio</a>
-						</li>
-						{% if is_granted('ROLE_USER') %}
-						<li>
-							<a href="{{ path('recetas') }}">Mis Recetas</a>
-						</li>
-						{% endif %}
-						{% if is_granted('ROLE_ADMIN') %}
-								<li>
-									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-								</li>
-								
-								<li>
-									<a href="{{ path('almacen') }}"> Almacén</a>
-								</li>
-						{% endif %}
-					</ul>
-					<ul class="nav navbar-nav navbar-right menu-user">
-        				{% if app.user %}
-								<li class='dropdown'>
-									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-										<span class='glyphicon glyphicon-user'></span>  
-										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
-										<span class='caret caret-white'></span>
-									</a>
-									<ul class='dropdown-menu complement-1-b'>
-										<li>
-											<a href="{{ path('perfil') }}"> 
-												<span class='glyphicon glyphicon-user'></span>
-												<span>   Perfil</span>
-											</a>
-										</li>
-										<li>
-											<a href="{{ path('logout') }}">
-												<span class='glyphicon glyphicon-off'></span>
-												<span>   Cerrar Sesión</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-							{% else %}
-								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
-		        				<li><a href="">|</a></li>
-		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
-							{% endif %}
-					</ul>
-				</div>
-			</div>
-		</div>
+		
 					
 		<div class='container'>
 			<div class='row'>
@@ -101,32 +40,47 @@
 	      
 			<div class='row'>
 				<div class='col-md-6'>
-					<section class='notepad'>
-						<div class='notepad-heading complement-1-b'>
-							<h1> Añadidas recientemente</h1>
-						</div>
-						<p> The a essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.</p>
-					</section>
+
+					<div class="panel panel-primary">
+					  <div class="panel-heading complement-1-b">
+					  	<h4>Recetas recientes</h4>
+					  </div>
+					  <div class="panel-body notepad">
+					   		<div class="lines"></div>
+							<ul class="list">
+							{% for receta in rec_recientes if rec_recientes|length > 0 %}
+								<li><a href="">{{ receta.nombre }}</a></li>
+								{# <a href="">{{ receta.nombre }}</a> #}
+							{% else %}
+								<li>No hay recetas.</li>
+							{% endfor %}
+							</ul>
+						
+					  </div>
+					</div>
+						
 				</div>
 				<div class='col-md-6'>
-					<section class='notepad'>
-						<div class='notepad-heading complement-1-b'>
-							<h1>
-								<!--span.glyphicon.glyphicon-star-->
-								<span>  Mis recetas favoritas</span>
-							</h1>
-						</div>	
-						<table>
-							<tr>
-								<td> 1#</td>
-								<td> Receta favorita 1</td>
-							</tr>
-							<tr>
-								<td> 2#</td>
-								<td> Receta favorita 2</td>
-							</tr>
-						</table>
-					</section>
+					<div class="panel panel-primary">
+					  <div class="panel-heading complement-1-b">
+					  	<h4>Top 5 de recetas</h4>
+					  </div>
+					  <div class="panel-body notepad">
+					  	{% if is_granted('ROLE_USER') %}
+					   		<div class="lines"></div>
+							<ul class="list">
+							
+								{% for receta in rec_recientes %}
+									<li><a href="">{{ receta.nombre }}</a></li>
+									{# <a href="">{{ receta.nombre }}</a> #}
+								{% endfor %}
+							{% else %}
+								<h4><a href="">Accede a tu cuenta para ver las recetas favoritas.</a></h4>
+							{% endif %}
+							</ul>
+						
+					  </div>
+					</div>
 				</div>
 			</div><!--end row-->
 		</div><!--end container-->

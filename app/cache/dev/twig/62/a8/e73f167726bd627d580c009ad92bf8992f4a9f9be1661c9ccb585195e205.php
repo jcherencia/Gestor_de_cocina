@@ -54,117 +54,14 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
     {
         // line 10
         echo "\t\t<div class='content'>
-\t\t<div class='navbar navbar-default complement-1-b'>
-\t\t\t<div class='container'> 
-\t\t\t\t<div class='navbar-header'>
-\t\t\t\t\t<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
-\t\t\t\t\t\t<span class='icon-bar'></span>
-\t\t\t\t\t\t<span class='icon-bar'></span>
-\t\t\t\t\t\t<span class='icon-bar'></span>
-\t\t\t\t\t</button>
-\t\t\t\t\t<a class='navbar-brand' href='#'> Gestor de cocina</a>
-\t\t\t\t</div>
-\t\t\t\t<div class='navbar-collapse collapse'>
-\t\t\t\t\t<ul class='nav navbar-nav menu'>
-\t\t\t\t\t\t<li class='active'>
-\t\t\t\t\t\t\t<a href=\"";
-        // line 24
-        echo $this->env->getExtension('routing')->getPath("inicio");
-        echo "\"> Inicio</a>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t";
-        // line 26
-        if ($this->env->getExtension('security')->isGranted("ROLE_USER")) {
-            // line 27
-            echo "\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t<a href=\"";
-            // line 28
-            echo $this->env->getExtension('routing')->getPath("recetas");
-            echo "\">Mis Recetas</a>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t";
-        }
-        // line 31
-        echo "\t\t\t\t\t\t";
-        if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
-            // line 32
-            echo "\t\t\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 33
-            echo $this->env->getExtension('routing')->getPath("centro_log");
-            echo "\"> Centro Logístico</a>
-\t\t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t\t
-\t\t\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 37
-            echo $this->env->getExtension('routing')->getPath("almacen");
-            echo "\"> Almacén</a>
-\t\t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t";
-        }
-        // line 40
-        echo "\t\t\t\t\t</ul>
-\t\t\t\t\t<ul class=\"nav navbar-nav navbar-right menu-user\">
-        \t\t\t\t";
-        // line 42
-        if ($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user")) {
-            // line 43
-            echo "\t\t\t\t\t\t\t\t<li class='dropdown'>
-\t\t\t\t\t\t\t\t\t<a href=\"#\" data-toggle=\"dropdown\" class='dropdown-toggle'>
-\t\t\t\t\t\t\t\t\t\t<span class='glyphicon glyphicon-user'></span>  
-\t\t\t\t\t\t\t\t\t\t<span>Usuario: <strong>";
-            // line 46
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user"), "nombre"), "html", null, true);
-            echo "</strong></span>
-\t\t\t\t\t\t\t\t\t\t<span class='caret caret-white'></span>
-\t\t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t\t\t<ul class='dropdown-menu complement-1-b'>
-\t\t\t\t\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 51
-            echo $this->env->getExtension('routing')->getPath("perfil");
-            echo "\"> 
-\t\t\t\t\t\t\t\t\t\t\t\t<span class='glyphicon glyphicon-user'></span>
-\t\t\t\t\t\t\t\t\t\t\t\t<span>   Perfil</span>
-\t\t\t\t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 57
-            echo $this->env->getExtension('routing')->getPath("logout");
-            echo "\">
-\t\t\t\t\t\t\t\t\t\t\t\t<span class='glyphicon glyphicon-off'></span>
-\t\t\t\t\t\t\t\t\t\t\t\t<span>   Cerrar Sesión</span>
-\t\t\t\t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t\t\t</ul>
-\t\t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t";
-        } else {
-            // line 65
-            echo "\t\t\t\t\t\t\t\t<li><a class=\"underline\" href=\"";
-            echo $this->env->getExtension('routing')->getPath("login");
-            echo "\">Login</a></li>
-\t\t        \t\t\t\t<li><a href=\"\">|</a></li>
-\t\t        \t\t\t\t<li><a class=\"underline\" href=\"";
-            // line 67
-            echo $this->env->getExtension('routing')->getPath("registro");
-            echo "\">Registro</a></li>
-\t\t\t\t\t\t\t";
-        }
-        // line 69
-        echo "\t\t\t\t\t</ul>
-\t\t\t\t</div>
-\t\t\t</div>
-\t\t</div>
+\t\t
 \t\t\t\t\t
 \t\t<div class='container'>
 \t\t\t<div class='row'>
 \t\t\t\t<div class='col-md-12'>
 \t\t\t\t\t<div class='well note taupe'>
 \t\t\t\t\t\t<img class='fondo' src=\"";
-        // line 78
+        // line 17
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/photo/chef2.png"), "html", null, true);
         echo "\">
 \t\t\t\t\t\t<div class='row'>
@@ -192,32 +89,87 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t      
 \t\t\t<div class='row'>
 \t\t\t\t<div class='col-md-6'>
-\t\t\t\t\t<section class='notepad'>
-\t\t\t\t\t\t<div class='notepad-heading complement-1-b'>
-\t\t\t\t\t\t\t<h1> Añadidas recientemente</h1>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t\t<p> The a essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.The essence of the independent mind lies not in what it thinks, but in how it thinks.</p>
-\t\t\t\t\t</section>
+
+\t\t\t\t\t<div class=\"panel panel-primary\">
+\t\t\t\t\t  <div class=\"panel-heading complement-1-b\">
+\t\t\t\t\t  \t<h4>Recetas recientes</h4>
+\t\t\t\t\t  </div>
+\t\t\t\t\t  <div class=\"panel-body notepad\">
+\t\t\t\t\t   \t\t<div class=\"lines\"></div>
+\t\t\t\t\t\t\t<ul class=\"list\">
+\t\t\t\t\t\t\t";
+        // line 51
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes")));
+        $context['_iterated'] = false;
+        foreach ($context['_seq'] as $context["_key"] => $context["receta"]) {
+            if ((twig_length_filter($this->env, (isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes"))) > 0)) {
+                // line 52
+                echo "\t\t\t\t\t\t\t\t<li><a href=\"\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "nombre"), "html", null, true);
+                echo "</a></li>
+\t\t\t\t\t\t\t\t";
+                // line 54
+                echo "\t\t\t\t\t\t\t";
+                $context['_iterated'] = true;
+            }
+        }
+        if (!$context['_iterated']) {
+            // line 55
+            echo "\t\t\t\t\t\t\t\t<li>No hay recetas.</li>
+\t\t\t\t\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 57
+        echo "\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t
+\t\t\t\t\t  </div>
+\t\t\t\t\t</div>
+\t\t\t\t\t\t
 \t\t\t\t</div>
 \t\t\t\t<div class='col-md-6'>
-\t\t\t\t\t<section class='notepad'>
-\t\t\t\t\t\t<div class='notepad-heading complement-1-b'>
-\t\t\t\t\t\t\t<h1>
-\t\t\t\t\t\t\t\t<!--span.glyphicon.glyphicon-star-->
-\t\t\t\t\t\t\t\t<span>  Mis recetas favoritas</span>
-\t\t\t\t\t\t\t</h1>
-\t\t\t\t\t\t</div>\t
-\t\t\t\t\t\t<table>
-\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t<td> 1#</td>
-\t\t\t\t\t\t\t\t<td> Receta favorita 1</td>
-\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t<td> 2#</td>
-\t\t\t\t\t\t\t\t<td> Receta favorita 2</td>
-\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t</table>
-\t\t\t\t\t</section>
+\t\t\t\t\t<div class=\"panel panel-primary\">
+\t\t\t\t\t  <div class=\"panel-heading complement-1-b\">
+\t\t\t\t\t  \t<h4>Top 5 de recetas</h4>
+\t\t\t\t\t  </div>
+\t\t\t\t\t  <div class=\"panel-body notepad\">
+\t\t\t\t\t  \t";
+        // line 69
+        if ($this->env->getExtension('security')->isGranted("ROLE_USER")) {
+            // line 70
+            echo "\t\t\t\t\t   \t\t<div class=\"lines\"></div>
+\t\t\t\t\t\t\t<ul class=\"list\">
+\t\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t";
+            // line 73
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes")));
+            foreach ($context['_seq'] as $context["_key"] => $context["receta"]) {
+                // line 74
+                echo "\t\t\t\t\t\t\t\t\t<li><a href=\"\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "nombre"), "html", null, true);
+                echo "</a></li>
+\t\t\t\t\t\t\t\t\t";
+                // line 76
+                echo "\t\t\t\t\t\t\t\t";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 77
+            echo "\t\t\t\t\t\t\t";
+        } else {
+            // line 78
+            echo "\t\t\t\t\t\t\t\t<h4><a href=\"\">Accede a tu cuenta para ver las recetas favoritas.</a></h4>
+\t\t\t\t\t\t\t";
+        }
+        // line 80
+        echo "\t\t\t\t\t\t\t</ul>
+\t\t\t\t\t\t
+\t\t\t\t\t  </div>
+\t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div><!--end row-->
 \t\t</div><!--end container-->
@@ -225,19 +177,19 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t";
     }
 
-    // line 135
+    // line 89
     public function block_javascript($context, array $blocks = array())
     {
-        // line 136
+        // line 90
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 137
+        // line 91
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 138
+        // line 92
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -255,6 +207,6 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 
     public function getDebugInfo()
     {
-        return array (  241 => 138,  237 => 137,  232 => 136,  229 => 135,  168 => 78,  157 => 69,  152 => 67,  146 => 65,  135 => 57,  126 => 51,  118 => 46,  113 => 43,  111 => 42,  107 => 40,  101 => 37,  94 => 33,  91 => 32,  88 => 31,  82 => 28,  79 => 27,  77 => 26,  72 => 24,  56 => 10,  53 => 9,  46 => 6,  42 => 5,  37 => 4,  31 => 3,);
+        return array (  193 => 92,  189 => 91,  184 => 90,  181 => 89,  169 => 80,  165 => 78,  162 => 77,  156 => 76,  151 => 74,  147 => 73,  142 => 70,  140 => 69,  126 => 57,  119 => 55,  113 => 54,  108 => 52,  102 => 51,  65 => 17,  56 => 10,  53 => 9,  46 => 6,  42 => 5,  37 => 4,  31 => 3,);
     }
 }

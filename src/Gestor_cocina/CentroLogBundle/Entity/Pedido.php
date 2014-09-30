@@ -2,6 +2,7 @@
 
 namespace Gestor_cocina\CentroLogBundle\Entity;
 
+// use Gestor_cocina\RecetasBundle\Entity\Usuarios;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +35,10 @@ class Pedido
      * @ORM\Column(name="estado", type="string", length=255)
      */
     private $estado;
-
+    /** 
+    *@ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Usuarios") 
+    */
+    protected $creador;
 
     /**
      * Get id
@@ -90,5 +94,27 @@ class Pedido
     public function getEstado()
     {
         return $this->estado;
+    }
+    /**
+     * Set autor
+     *
+     * @param $autor
+     * @return Recetas
+     */
+    public function setCreador(\Gestor_cocina\RecetasBundle\Entity\Usuarios $creador)
+    {
+        $this->creador = $creador;
+
+        return $this;
+    }
+
+    /**
+     * Get autor
+     *
+     * @return integer 
+     */
+    public function getCreador()
+    {
+        return $this->creador;
     }
 }

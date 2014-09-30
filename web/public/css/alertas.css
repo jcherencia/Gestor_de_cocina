@@ -1,0 +1,65 @@
+
+
+/***************ALERTAS POPOVER*******************/
+.popover{
+	max-width: 550px;
+}
+.popover.large{
+	width: 250px;
+}
+/************************POPOVER INFO*************************/
+.popover.info{
+	background-color: rgba(132, 181, 206, 1);
+	color:white;
+}
+.popover.info.bottom > .arrow:after {
+    border-bottom-color: rgba(132, 181, 206, 1);
+}
+.popover.info.top > .arrow:after {
+    border-top-color: rgba(132, 181, 206, 1);
+}
+.popover.info.left > .arrow:after {
+    border-left-color: rgba(132, 181, 206, 1);
+}
+.popover.info.right > .arrow:after {
+    border-right-color: rgba(132, 181, 206, 1);
+}
+
+
+/************************POPOVER WARMING*************************/
+.popover.warming{
+	background-color::rgba(228, 207, 97, 1);
+
+}
+
+.popover.warming.bottom > .arrow:after {
+    border-bottom-color: rgba(228, 207, 97, 1);
+}
+.popover.warming.top > .arrow:after {
+    border-top-color: rgba(228, 207, 97, 1);
+}
+.popover.warming.left > .arrow:after {
+    border-left-color: rgba(228, 207, 97, 1);
+}
+.popover.warming.right > .arrow:after {
+    border-right-color: rgba(228, 207, 97, 1);
+}
+/********************POPOVER DANGER****************************/
+.popover.danger{
+	background-color: rgba(237, 114, 114, 1);
+	color:white;
+}
+.popover.danger.bottom > .arrow:after {
+    border-bottom-color: rgba(237, 114, 114, 1);
+}
+.popover.danger.top > .arrow:after {
+    border-top-color: rgba(237, 114, 114, 1);
+}
+.popover.danger.left > .arrow:after {
+    border-left-color: rgba(237, 114, 114, 1);
+}
+.popover.danger.right > .arrow:after {
+    border-right-color: rgba(237, 114, 114, 1);
+}
+
+

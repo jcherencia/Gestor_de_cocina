@@ -1,0 +1,113 @@
+# recetas:
+#     resource: "@RecetasBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+# almacen:
+#     resource: "@AlmacenBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+# centro_log:
+#     resource: "@CentroLogBundle/Resources/config/routing.yml"
+#     prefix:   /
+inicio:
+    pattern: /
+    defaults: { _controller: RecetasBundle:Default:index }
+
+  # -----------------------------------------------------------#
+registro:
+    pattern: /registro
+    defaults: { _controller:RecetasBundle:User:registro }
+crear_usuario:
+    pattern: /crear_usuario
+    defaults: { _controller:RecetasBundle:User:crear_usuario }
+perfil:
+    pattern: /perfil
+    defaults: { _controller: RecetasBundle:User:perfil }
+edit_usuario:
+    pattern: /edit_usuario/{usuario}
+    defaults: { _controller: RecetasBundle:User:editPerfil }
+  # -----------------------------------------------------------#
+login:
+    pattern: /login
+    defaults: { _controller:RecetasBundle:Security:login }
+login_check:
+    pattern: /login_check
+logout:
+    pattern: /logout
+    # -----------------------------------------------------------#
+upload_file:
+    pattern: /upload_file
+    defaults: { _controller:RecetasBundle:Default:upload_file }
+upload:
+    pattern: /upload
+    defaults: { _controller:RecetasBundle:Default:upload }
+# -----------------------------------------------------------#
+recetas:
+    pattern: /recetas
+    defaults: { _controller: RecetasBundle:Default:recetas }
+nueva_receta:
+    pattern: /recetas/nueva_receta
+    defaults: { _controller: RecetasBundle:Default:nueva_receta }
+crear_receta:
+    pattern: /recetas/nueva_receta/crear
+    defaults: { _controller: RecetasBundle:FormRecetas:crear_receta }
+listar_ing:
+    pattern: /recetas/nueva_receta/crear/listar_ing
+    defaults: { _controller: AlmacenBundle:Default:listarProductos }
+editar_receta:
+    pattern: /recetas/editar/{receta}
+    defaults: { _controller: RecetasBundle:Default:editar_receta }
+mod_receta:
+    pattern: /recetas/editar/mod/{receta}
+    defaults: { _controller: RecetasBundle:FormRecetas:editar_receta }
+borrar_receta:
+    pattern: /recetas/borrar/{receta}
+    defaults: { _controller: RecetasBundle:Default:borrar_receta }
+# -------------------------------------------------------------------------#
+centro_log:
+    pattern: /centro_log
+    defaults: { _controller: CentroLogBundle:Default:index }
+genSolicitud:
+    pattern: /recetas/genSolicitud
+    defaults: { _controller: CentroLogBundle:Default:genSolicitud }
+genPedido:
+    pattern: /centro_log/genPedido
+    defaults: { _controller: CentroLogBundle:Default:genPedido }
+findPedido:
+    pattern: /centro_log/findPedido
+    defaults: { _controller: CentroLogBundle:Default:findPedido }
+editPedido:
+    pattern: /centro_log/editPedido
+    defaults: { _controller: CentroLogBundle:Default:editPedido }
+delPedido:
+    pattern: /centro_log/delPedido
+    defaults: { _controller: CentroLogBundle:Default:delPedido }
+editEstado:
+    pattern: /centro_log/editEstado
+    defaults: { _controller: CentroLogBundle:Default:editEstado }
+
+# -------------------------------------------------------------------------#
+almacen:
+    pattern: /almacen
+    defaults: { _controller: AlmacenBundle:Default:index }
+nuevo_producto:
+    pattern: /almacen/nuevo_producto
+    defaults: { _controller: AlmacenBundle:Default:nuevo_producto }
+mod_producto:
+    pattern: /almacen/mod_producto/{producto}
+    defaults: { _controller: AlmacenBundle:Default:mod_producto }
+
+crear_producto:
+    pattern: /almacen/nuevo_producto/crear
+    defaults: { _controller: AlmacenBundle:FormProductos:crear_producto }
+editar_producto:
+    pattern: /almacen/nuevo_producto/editar/{producto}
+    defaults: { _controller: AlmacenBundle:FormProductos:editar_producto }
+borrar_producto:
+    pattern: /almacen/borrar_producto/{producto}
+    defaults: { _controller: AlmacenBundle:FormProductos:borrar_producto }
+# -------------------------------------------------------------------------#
+
+
+
+

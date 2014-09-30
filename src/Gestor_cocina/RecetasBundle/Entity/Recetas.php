@@ -3,10 +3,13 @@
 namespace Gestor_cocina\RecetasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gestor_cocina\RecetasBundle\Entity\Usuarios;
+use Gestor_cocina\RecetasBundle\Entity\Categoria;
 /**
 * @ORM\Entity
 * @ORM\Table(name="Recetas")
+* @ORM\Entity(repositoryClass="Gestor_cocina\RecetasBundle\Entity\RecetasRepository")
 */
+
 class Recetas{
 	/**
 	* @ORM\Id
@@ -28,6 +31,8 @@ class Recetas{
 	protected $comensales;
 	/** @ORM\Column(type="integer",nullable=true) */
 	protected $tiempo;
+    // * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Categoria") 
+    // protected $categoria;
 	/** @ORM\Column(type="string", length=150,nullable=true) */
 	protected $foto;
 	/** @ORM\Column(type="array",nullable=true) */
@@ -214,6 +219,28 @@ class Recetas{
     {
         return $this->tiempo;
     }
+  /**
+     * Set categoria
+     *
+     * @param $autor
+     * @return Categoria
+     */
+    // public function setCategoria(Categoria $categoria)
+    // {
+    //     $this->categoria = $categoria;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get categoria
+    //  *
+    //  * @return integer 
+    //  */
+    // public function getCategoria()
+    // {
+    //     return $this->categoria;
+    // }
 
     /**
      * Set foto
@@ -283,4 +310,6 @@ class Recetas{
     {
         return $this->precio;
     }
+
+   
 }

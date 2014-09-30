@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+	{% block title %}Inicio - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/notepad.css') }}">
+		
+	{% endblock %}
+	{% block body %}
+		<div class='content'>
+		
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<div id='panel-grid' class='panel panel-primary panel-view'>
+					<div class='panel-heading complement-1-b'>
+						<span> 
+							<strong> Mis solicitudes pendientes</strong>
+						</span>
+						
+					</div>{# FIN PANEL HEAD#}
+					<div class='panel-body'>
+						<form>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Nombre</label>
+								<div class="col-md-6">
+									<input type="text" name="nombre" placeholder="Nombre de la receta.." class="form-control" value="{{receta_edit.nombre}}">
+
+								</div>
+							</div>
+						</form>
+					</div>{# FIN PANEL BODY#}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+    {% endblock %}

@@ -86,6 +86,12 @@
 	background: rgba(7, 118, 160,0.15);
 }
 /****************************/
+.bloque-inferior{
+	border-top: 1px solid #CCC;
+	padding-top: 20px;
+	margin: 0px 10px;
+}
+/****************************/
 .btn-separated .btn:first-child{
 	margin-right: 30px;
 }
@@ -104,6 +110,11 @@
 	color:white;
 	
 }
+.boton-right{
+	position: relative;
+	left: 40%;
+}
+
 .bloques{
 	border-right: 1px solid #CCC;
 }
@@ -134,6 +145,9 @@
 	display: none;
 }
 .row-grid .col-md-3{
+	margin-bottom: 20px;
+}
+.col-grid{
 	margin-bottom: 20px;
 }
 /**********************/
@@ -235,6 +249,9 @@ input[type="checkbox"]{
 	font-weight: bold;
 	*background: linear-gradient(to bottom, rgb(34, 103, 151), rgb(12, 52, 82)) repeat scroll 0% 0% rgb(20, 70, 106);
 	background-color: #1C485D !important;
+}
+.panel-primary > .panel-heading a{
+	color:white !important;
 }
 
 /*********ERROR CSS*********/
@@ -362,6 +379,21 @@ label.error{
 	display: none;
 }
 /******************************/
+.editinput{
+	border-width: 1px 1px 3px;
+	border-style: solid;
+	-moz-border-top-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	border-image: none;
+	width: 50px;
+	padding: 1px 2px;
+	margin-right: 4px;
+	border-radius: 3px;
+	border-color: rgba(0, 7, 9, 0.2);
+}
+/******************************/
 .estado{
 	color: white;
 	border-color: #2D6CA2;
@@ -393,6 +425,13 @@ label.error{
 	border-color: #2D6CA2;
 	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.15) inset, 0px 0px 1px rgba(0, 0, 0, 0.23);
 }
+
+/*****************************************/
+
+/*ul.recientes{
+	
+}*/
+
 /*.btn.active*/
 /***************************/
 .scrollup{

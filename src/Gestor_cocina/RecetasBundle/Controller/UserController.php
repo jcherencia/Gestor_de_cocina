@@ -18,7 +18,7 @@ class UserController extends Controller
     }
     public function registroAction()
     {
-        return $this->render('RecetasBundle:Default:registro.html.twig');
+        return $this->render('RecetasBundle:User:registro.html.twig');
     }
     public function perfilAction()
     {
@@ -26,7 +26,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('RecetasBundle:Usuarios')->find($usr);
 
-        return $this->render('RecetasBundle:Default:perfil.html.twig', array('usuario' => $usuario));
+        return $this->render('RecetasBundle:User:perfil.html.twig', array('usuario' => $usuario));
     }
 
      public function crear_usuarioAction()
@@ -39,13 +39,27 @@ class UserController extends Controller
         $user->setNombre($campos['nombre']);
         $user->setApellidos($campos['apellidos']);
         $user->setUsername($campos['usuario']);
-        $user->setPassword($campos['pass']);
+        
         $user->setEmail($campos['email']);
         $user->setFechaRegistro(new \DateTime("now"));
         $user->setActivo(false);
         $user->setRoles("ROLE_USER");
+
+        $user->setPassword($campos['pass']);
         $user->setSalt('');
         $em = $this->getDoctrine()->getManager();
+        //********************************************************/
+        // $user->setSalt(md5(time()));
+
+        //     $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        //     $passwordCodificado = $encoder->encodePassword(
+        //         $user->getPassword(),
+        //         $user->getSalt()
+        //     );
+        //     $user->setPassword($passwordCodificado);
+
+            // echo $passwordCodificado;
+        //********************************************************/
         $em->persist($user);
         $em->flush();
         //***********************SUBIDA DE ARCHIVOS*********************************//
@@ -165,5 +179,34 @@ class UserController extends Controller
 
 
 
+    }
+    public function borrarUsuarioAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $this->getRequest()->request->get('id');
+        $user = $em->getRepository('RecetasBundle:Usuarios')->find($id);
+        $em->remove($user);
+        $em->flush();
+        $response="true";
+        return new Response($response, Response::HTTP_OK);
+
+    }
+    public function editarRolAction(){
+        $em = $this->getDoctrine()->getManager();
+        $id = $this->getRequest()->request->get('id');
+        $accion = $this->getRequest()->request->get('accion');
+        $user = $em->getRepository('RecetasBundle:Usuarios')->find($id);
+        if ($accion=="promocionar") {
+            $user->setRoles('ROLE_ADMIN');
+            $em->persist($user);
+        }
+        if ($accion=="degradar") {
+           $user->setRoles('ROLE_USER');
+           $em->persist($user);
+        }
+        $em->flush();
+        $response="true";
+        return new Response($response, Response::HTTP_OK);
+        // echo $id.$accion;
     }
 }

@@ -32,7 +32,12 @@ $(document).ready(function(){
 	if ($('#prepare_rec').length){
 
 		$('#prepare_rec').click(function(){
-			prepare_rec($(this).data('id'));
+			// alert($(this).data('userid'));
+			prepare_rec(
+				$(this).data('id'),
+				$(this).data('url'),
+				$(this).data('userid')
+				);
 		});
 
 		$("input[name='comensales']").TouchSpin({
@@ -218,14 +223,14 @@ function editarIng () {
 	}
 }
 //**************************************************************//
-//****************** FIN GESTION DE INGREDIENTES *******************//
+//*************** FIN GESTION DE INGREDIENTES ******************//
 //**************************************************************//
 
 //**************************************************************//
 //******************* PREPARACION RECETAS***********************//
 //**************************************************************//
 
-function prepare_rec(id_receta){
+function prepare_rec(id_receta,url,id_usuario){
 	var ingredientes={};
 	comensales=$("input[name='comensales']").val();
 	com_rec=$("#modal-prepare .comensales").data('comensales');
@@ -238,12 +243,13 @@ function prepare_rec(id_receta){
 	});
 		$("#modal-prepare").modal('hide');
 		
-	// alert(comensales +" --- "+com_rec);
+	
 	$.ajax({
-		url: '/Gestor_de_cocina/web/app_dev.php/recetas/genSolicitud',
+		// url: '/Gestor_de_cocina/web/app_dev.php/recetas/genSolicitud',
+		url: url,
 		type: 'POST',
 		async: true,
-		data: {'id':id_receta,'ingr':ingredientes},
+		data: {'ingr':ingredientes,'id_usuario':id_usuario},
 		success: function (response) {
 			notificacion ("Receta preparada: <strong>"+response+"</strong>",0,"show");
 			// alert("notificacion");
@@ -272,8 +278,23 @@ function prepare_rec(id_receta){
 //**************************************************************//
 //*********** SISTEMA DE NOTIFICACIONES Y ALERTAS***************//
 //**************************************************************//
-function alertasPop (id_cont,contenido,posicion,activador) {
-	if (activador != "click") {
+
+//***************************************************************//
+//***************** FUNCION ALERTAS POP**************************//
+//***************************************************************//
+/* Esta funcion se encarga de mostrar un cuadro de diálogo con  
+* información relevante para el usuario 
+* @args
+* @id_cont (string): id del elemento sobre el que mostrarmos al alerta
+* @contenido (string): mensaje a mostrar
+* @posicion (string):posicion del mensaje (valores: top,bottom,left,right)
+* @activador (string):elemento activador para el mensaje (hover,click)
+* @addClass (string): clases a añadir al div del mensaje (se usan para el tema)
+* @addId (string): id añadido al div del mensaje
+*/
+
+function alertasPop (id_cont,contenido,posicion,activador,addClass,addId) {
+	if (activador != "" && activador!=undefined && activador!=false) {
 		evento=activador;
 	}else{
 		evento="click";
@@ -284,6 +305,11 @@ function alertasPop (id_cont,contenido,posicion,activador) {
 		options={'content':contenido,'placement':posicion,'trigger':evento};
 		contenedor.popover(options);
 		contenedor.popover('show');
+		if (addClass != undefined && addClass != "") {
+			popover=contenedor.parent().children('.popover');
+			popover.addClass(addClass);
+		};
+		
 	}else{
 		$('#'+id_cont).popover('destroy');
 	}

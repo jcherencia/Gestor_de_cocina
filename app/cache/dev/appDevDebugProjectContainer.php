@@ -115,6 +115,9 @@ class appDevDebugProjectContainer extends Container
             'form.type_extension.submit.validator' => 'getForm_TypeExtension_Submit_ValidatorService',
             'form.type_guesser.doctrine' => 'getForm_TypeGuesser_DoctrineService',
             'form.type_guesser.validator' => 'getForm_TypeGuesser_ValidatorService',
+            'fp_openid.relying_party.default' => 'getFpOpenid_RelyingParty_DefaultService',
+            'fp_openid.relying_party.light_open_id' => 'getFpOpenid_RelyingParty_LightOpenIdService',
+            'fp_openid.relying_party.recovered_failure' => 'getFpOpenid_RelyingParty_RecoveredFailureService',
             'fragment.handler' => 'getFragment_HandlerService',
             'fragment.listener' => 'getFragment_ListenerService',
             'fragment.renderer.esi' => 'getFragment_Renderer_EsiService',
@@ -689,25 +692,29 @@ class appDevDebugProjectContainer extends Container
 
         $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\CentroLogBundle\\Entity', 1 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle\\Entity', 2 => 'C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle\\Entity'));
 
-        $f = new \Doctrine\ORM\Mapping\Driver\DriverChain();
-        $f->addDriver($e, 'Gestor_cocina\\CentroLogBundle\\Entity');
-        $f->addDriver($e, 'Gestor_cocina\\AlmacenBundle\\Entity');
-        $f->addDriver($e, 'Gestor_cocina\\RecetasBundle\\Entity');
+        $f = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('C:\\xampp\\htdocs\\Gestor_de_cocina\\vendor\\fp\\openid-bundle\\Fp\\OpenIdBundle\\Resources\\config\\doctrine' => 'Fp\\OpenIdBundle\\Entity'));
+        $f->setGlobalBasename('mapping');
 
-        $g = new \Doctrine\ORM\Configuration();
-        $g->setEntityNamespaces(array('CentroLogBundle' => 'Gestor_cocina\\CentroLogBundle\\Entity', 'AlmacenBundle' => 'Gestor_cocina\\AlmacenBundle\\Entity', 'RecetasBundle' => 'Gestor_cocina\\RecetasBundle\\Entity'));
-        $g->setMetadataCacheImpl($b);
-        $g->setQueryCacheImpl($c);
-        $g->setResultCacheImpl($d);
-        $g->setMetadataDriverImpl($f);
-        $g->setProxyDir('C:/xampp/htdocs/Gestor_de_cocina/app/cache/dev/doctrine/orm/Proxies');
-        $g->setProxyNamespace('Proxies');
-        $g->setAutoGenerateProxyClasses(true);
-        $g->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $g->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $g->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+        $g = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        $g->addDriver($e, 'Gestor_cocina\\CentroLogBundle\\Entity');
+        $g->addDriver($e, 'Gestor_cocina\\AlmacenBundle\\Entity');
+        $g->addDriver($e, 'Gestor_cocina\\RecetasBundle\\Entity');
+        $g->addDriver($f, 'Fp\\OpenIdBundle\\Entity');
 
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $g);
+        $h = new \Doctrine\ORM\Configuration();
+        $h->setEntityNamespaces(array('CentroLogBundle' => 'Gestor_cocina\\CentroLogBundle\\Entity', 'AlmacenBundle' => 'Gestor_cocina\\AlmacenBundle\\Entity', 'RecetasBundle' => 'Gestor_cocina\\RecetasBundle\\Entity', 'FpOpenIdBundle' => 'Fp\\OpenIdBundle\\Entity'));
+        $h->setMetadataCacheImpl($b);
+        $h->setQueryCacheImpl($c);
+        $h->setResultCacheImpl($d);
+        $h->setMetadataDriverImpl($g);
+        $h->setProxyDir('C:/xampp/htdocs/Gestor_de_cocina/app/cache/dev/doctrine/orm/Proxies');
+        $h->setProxyNamespace('Proxies');
+        $h->setAutoGenerateProxyClasses(true);
+        $h->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $h->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $h->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $h);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -1339,6 +1346,50 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'fp_openid.relying_party.default' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Fp\OpenIdBundle\RelyingParty\RelyingPartyCollection A Fp\OpenIdBundle\RelyingParty\RelyingPartyCollection instance.
+     */
+    protected function getFpOpenid_RelyingParty_DefaultService()
+    {
+        $this->services['fp_openid.relying_party.default'] = $instance = new \Fp\OpenIdBundle\RelyingParty\RelyingPartyCollection();
+
+        $instance->append($this->get('fp_openid.relying_party.recovered_failure'));
+        $instance->append($this->get('fp_openid.relying_party.light_open_id'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'fp_openid.relying_party.light_open_id' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Fp\OpenIdBundle\Bridge\RelyingParty\LightOpenIdRelyingParty A Fp\OpenIdBundle\Bridge\RelyingParty\LightOpenIdRelyingParty instance.
+     */
+    protected function getFpOpenid_RelyingParty_LightOpenIdService()
+    {
+        return $this->services['fp_openid.relying_party.light_open_id'] = new \Fp\OpenIdBundle\Bridge\RelyingParty\LightOpenIdRelyingParty();
+    }
+
+    /**
+     * Gets the 'fp_openid.relying_party.recovered_failure' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Fp\OpenIdBundle\RelyingParty\RecoveredFailureRelyingParty A Fp\OpenIdBundle\RelyingParty\RecoveredFailureRelyingParty instance.
+     */
+    protected function getFpOpenid_RelyingParty_RecoveredFailureService()
+    {
+        return $this->services['fp_openid.relying_party.recovered_failure'] = new \Fp\OpenIdBundle\RelyingParty\RecoveredFailureRelyingParty();
+    }
+
+    /**
      * Gets the 'fragment.handler' service.
      *
      * This service is shared.
@@ -1943,22 +1994,25 @@ class appDevDebugProjectContainer extends Container
 
         $h = new \Symfony\Component\HttpFoundation\RequestMatcher('/recetas');
 
-        $i = new \Symfony\Component\HttpFoundation\RequestMatcher('/centro_log');
+        $i = new \Symfony\Component\HttpFoundation\RequestMatcher('/solicitudes');
 
-        $j = new \Symfony\Component\HttpFoundation\RequestMatcher('/.*');
+        $j = new \Symfony\Component\HttpFoundation\RequestMatcher('/centro_log');
 
-        $k = new \Symfony\Component\Security\Http\AccessMap();
-        $k->add($g, array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
-        $k->add($h, array(0 => 'ROLE_USER'), NULL);
-        $k->add($i, array(0 => 'ROLE_ADMIN'), NULL);
-        $k->add($j, array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
+        $k = new \Symfony\Component\HttpFoundation\RequestMatcher('/.*');
 
-        $l = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
+        $l = new \Symfony\Component\Security\Http\AccessMap();
+        $l->add($g, array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
+        $l->add($h, array(0 => 'ROLE_USER'), NULL);
+        $l->add($i, array(0 => 'ROLE_USER'), NULL);
+        $l->add($j, array(0 => 'ROLE_ADMIN'), NULL);
+        $l->add($k, array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
 
-        $m = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($l, array('login_path' => '/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
-        $m->setProviderKey('main');
+        $m = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.user_db')), 'main', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $l, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($l, '/'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $l, 'main', $m, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '539b16ffdd496', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
+        $n = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($m, array('login_path' => '/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $n->setProviderKey('main');
+
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($l, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.user_db')), 'main', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $m, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($m, '/'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $m, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $m, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '540dd015ed2d0', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $l, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $m, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $m, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -3034,6 +3088,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\CentroLogBundle/Resources/views', 'CentroLog');
         $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\AlmacenBundle/Resources/views', 'Almacen');
         $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\src\\Gestor_cocina\\RecetasBundle/Resources/views', 'Recetas');
+        $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\vendor\\fp\\openid-bundle\\Fp\\OpenIdBundle/Resources/views', 'FpOpenId');
         $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('C:\\xampp\\htdocs\\Gestor_de_cocina\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
         $instance->addPath('C:/xampp/htdocs/Gestor_de_cocina/app/Resources/views');
@@ -3302,10 +3357,10 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Access_DecisionManagerService()
     {
-        $a = $this->get('security.role_hierarchy');
-        $b = $this->get('security.authentication.trust_resolver');
+        $a = $this->get('security.authentication.trust_resolver');
+        $b = $this->get('security.role_hierarchy');
 
-        return $this->services['security.access.decision_manager'] = new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager(array(0 => new \Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter($a), 1 => new \Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter(new \Symfony\Component\Security\Core\Authorization\ExpressionLanguage(), $b, $a), 2 => new \Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter($b)), 'affirmative', false, true);
+        return $this->services['security.access.decision_manager'] = new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager(array(0 => new \Fp\OpenIdBundle\Security\Core\Authorization\Voter\OpenIdAuthenticatedVoter(), 1 => new \Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter(new \Symfony\Component\Security\Core\Authorization\ExpressionLanguage(), $a, $b), 2 => new \Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter($b), 3 => new \Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter($a)), 'affirmative', false, true);
     }
 
     /**
@@ -3322,7 +3377,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.user_db'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('539b16ffdd496')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.user_db'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('540dd015ed2d0')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -3360,7 +3415,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_RoleHierarchyService()
     {
-        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_ADMIN' => array(0 => 'ROLE_USER')));
+        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_ADMIN' => array(0 => 'ROLE_USER'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_USER')));
     }
 
     /**
@@ -3517,6 +3572,7 @@ class appDevDebugProjectContainer extends Container
                 'CentroLogBundle' => 'Gestor_cocina\\CentroLogBundle\\CentroLogBundle',
                 'AlmacenBundle' => 'Gestor_cocina\\AlmacenBundle\\AlmacenBundle',
                 'RecetasBundle' => 'Gestor_cocina\\RecetasBundle\\RecetasBundle',
+                'FpOpenIdBundle' => 'Fp\\OpenIdBundle\\FpOpenIdBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
                 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle',
@@ -3795,6 +3851,10 @@ class appDevDebugProjectContainer extends Container
                 'ROLE_ADMIN' => array(
                     0 => 'ROLE_USER',
                 ),
+                'ROLE_SUPER_ADMIN' => array(
+                    0 => 'ROLE_ADMIN',
+                    1 => 'ROLE_USER',
+                ),
             ),
             'twig.class' => 'Twig_Environment',
             'twig.loader.filesystem.class' => 'Symfony\\Bundle\\TwigBundle\\Loader\\FilesystemLoader',
@@ -4025,6 +4085,13 @@ class appDevDebugProjectContainer extends Container
             'sensio_framework_extra.converter.doctrine.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Request\\ParamConverter\\DoctrineParamConverter',
             'sensio_framework_extra.converter.datetime.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Request\\ParamConverter\\DateTimeParamConverter',
             'sensio_framework_extra.view.listener.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\TemplateListener',
+            'security.authentication.provider.fp_openid.class' => 'Fp\\OpenIdBundle\\Security\\Core\\Authentication\\Provider\\OpenIdAuthenticationProvider',
+            'security.authentication.listener.fp_openid.class' => 'Fp\\OpenIdBundle\\Security\\Http\\Firewall\\OpenIdAuthenticationListener',
+            'security.access.fp_openid_authenticated_voter.class' => 'Fp\\OpenIdBundle\\Security\\Core\\Authorization\\Voter\\OpenIdAuthenticatedVoter',
+            'fp_openid.relying_party.light_open_id.class' => 'Fp\\OpenIdBundle\\Bridge\\RelyingParty\\LightOpenIdRelyingParty',
+            'fp_openid.relying_party.recovered_failure.class' => 'Fp\\OpenIdBundle\\RelyingParty\\RecoveredFailureRelyingParty',
+            'fp_openid.relying_party.collection.class' => 'Fp\\OpenIdBundle\\RelyingParty\\RelyingPartyCollection',
+            'fp_openid.template.engine' => 'twig',
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',
             'web_profiler.controller.exception.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ExceptionController',

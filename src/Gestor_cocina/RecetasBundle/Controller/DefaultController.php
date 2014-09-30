@@ -17,7 +17,11 @@ class DefaultController extends Controller
     //Creacion de las vistas
     public function indexAction()
     {
-        return $this->render('RecetasBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $rec_recientes = $em->getRepository('RecetasBundle:Recetas')->findRecientes();
+        
+        return $this->render('RecetasBundle:Default:index.html.twig', array('rec_recientes' => $rec_recientes));
+         // return $this->render('RecetasBundle:Default:index.html.twig');
     }
     public function recetasAction()
     {
@@ -33,14 +37,16 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
-        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('productos'=>$productos));
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
+        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('productos'=>$productos,'categorias'=>$categorias));
     }/*****************************/
     public function editar_recetaAction($receta){
         $em = $this->getDoctrine()->getEntityManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
         $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
-        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('receta_edit'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes));
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
+        return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('receta_edit'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
     }
     /*******************/
     public function borrar_recetaAction($receta)
@@ -64,27 +70,6 @@ class DefaultController extends Controller
 
         return $this->redirect($this->generateUrl('recetas')); 
     }
-    
-
-    // public function uploadAction(Request $request)
-    // {
-    //     $peticion = $this->getRequest();
-    //     $image = $this->getRequest()->files->get('img');
-    //     // print_r($image);
-    //     if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-
-    //                 // $originalName = $image->getClientOriginalName();
-    //                 // $name_array = explode('.', $originalName);
-    //                 // $file_type = $name_array[sizeof($name_array) - 1];
-    //                 // $valid_filetypes = array('jpg', 'jpeg', 'bmp', 'png');
-
-    //                 $photo = new Photo();
-    //                 $photo->setFile($image);
-    //                 $photo->upload("/perfil","avion.jpg");
-    //                 // $photo->move('perfil');
-
-    //     }
-    // }
     
 
 } 

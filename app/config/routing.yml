@@ -26,6 +26,12 @@ perfil:
 edit_usuario:
     pattern: /edit_usuario/{usuario}
     defaults: { _controller: RecetasBundle:User:editPerfil }
+borrarUsuario:
+    pattern: /borrarUsuario
+    defaults: { _controller: RecetasBundle:User:borrarUsuario }
+editarRol:
+    pattern: /editarRol
+    defaults: { _controller: RecetasBundle:User:editarRol }    
   # -----------------------------------------------------------#
 login:
     pattern: /login
@@ -64,6 +70,15 @@ borrar_receta:
     pattern: /recetas/borrar/{receta}
     defaults: { _controller: RecetasBundle:Default:borrar_receta }
 # -------------------------------------------------------------------------#
+
+solicitudes:
+    pattern: /solicitudes
+    defaults: { _controller: CentroLogBundle:Default:solicitudes }
+pedir_productos:
+    pattern: /solicitudes/pedir_productos
+    defaults: { _controller: CentroLogBundle:Default:pedir_productos }
+
+# -------------------------------------------------------------------------#
 centro_log:
     pattern: /centro_log
     defaults: { _controller: CentroLogBundle:Default:index }
@@ -85,7 +100,9 @@ delPedido:
 editEstado:
     pattern: /centro_log/editEstado
     defaults: { _controller: CentroLogBundle:Default:editEstado }
-
+validarPedido:
+    pattern: /centro_log/validarPedido
+    defaults: { _controller: CentroLogBundle:Default:validarPedido }
 # -------------------------------------------------------------------------#
 almacen:
     pattern: /almacen
@@ -111,3 +128,9 @@ borrar_producto:
 
 
 
+
+
+
+
+# fp_openid_security:
+#     resource: "@FpOpenIdBundle/Resources/config/routing/security.xml"

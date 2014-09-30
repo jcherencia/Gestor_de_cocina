@@ -14,7 +14,13 @@
 			<h1>Acceso a Usuarios - Gestor de Cocina</h1>
 			{% if error %}
 				{% if error.message == "Bad credentials" %}
-					<h2>Error en el login</h2>
+					<div class="row">
+						<div class="col-md-10">
+							<h4><span class="label label-danger"><strong>Error en el login:</strong> Usuario o contraseña incorrectos</span></h4>
+
+						</div>
+					</div>
+					
 				{% endif %}
 			{% endif %}
 			<form action="{{ path('login_check') }}" method="post" role="form" class="form-horizontal">

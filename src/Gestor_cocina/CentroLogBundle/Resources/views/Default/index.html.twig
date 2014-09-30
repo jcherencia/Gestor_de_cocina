@@ -5,83 +5,29 @@
 		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/admin.css') }}">
 		
 	{% endblock %}
+
 		{% block body %}
-	<div class='navbar navbar-default complement-1-b'>
-			<div class='container'> 
-				<div class='navbar-header'>
-					<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='.navbar-collapse'>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-						<span class='icon-bar'></span>
-					</button>
-					<a class='navbar-brand' href='#'> Gestor de cocina</a>
-				</div>
-				<div class='navbar-collapse collapse'>
-					<ul class='nav navbar-nav menu'>
-						<li >
-							<a href="{{ path('inicio') }}"> Inicio</a>
-						</li>
-						<li>
-							<a href="{{ path('recetas') }}"> Recetas</a>
-						</li>
-						<li class='active'>
-							<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-						</li>
-						<li>
-							<a href="{{ path('almacen') }}"> Almacén</a>
-						</li>
-					</ul>
-					<ul class='nav navbar-nav navbar-right menu-user'>
-						{% if app.user %}
-								<li class='dropdown'>
-									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-										<span class='glyphicon glyphicon-user'></span>  
-										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
-										<span class='caret caret-white'></span>
-									</a>
-									<ul class='dropdown-menu complement-1-b'>
-										<li>
-											<a href="{{ path('perfil') }}"> 
-												<span class='glyphicon glyphicon-user'></span>
-												<span>   Perfil</span>
-											</a>
-										</li>
-										<li>
-											<a href="{{ path('logout') }}">
-												<span class='glyphicon glyphicon-off'></span>
-												<span>   Cerrar Sesión</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-						{% else %}
-							<li><a class="underline" href="{{ path('login') }}">Login</a></li>
-	        				<li><a href="">|</a></li>
-	        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
-						{% endif %}
-				</div>
-			</div>
-		</div>
+	
 	<div class="admin">
 		<div class="col-md-2 complement-1-b">
 			<div class="complement-1-b side-bar-admin">				
 				<ul class="nav navbar-nav side-nav">
-					<li>
+					<li class="active">
 						<a href="#" id="pedidos">
 							<span class="glyphicon glyphicon-inbox"></span>
 							<span> Pedidos</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" id="usuarios">
+						<a href="#usuarios" id="usuarios">
 							<span class="glyphicon glyphicon-user"></span>
 							<span> Gestion de usuarios</span>
 						</a>
 					</li>
-					<li class="active">
-						<a href="#" id="informacion">
+					<li >
+						<a href="#" id="categorias">
 							<span class="glyphicon glyphicon-dashboard"></span>
-							<span> Info</span>
+							<span>Gestion de categorías</span>
 						</a>
 					</li>
 				</ul>
@@ -128,7 +74,7 @@
 															</a></td>
 															<td class="cantidad" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.cantidad}} {{solicitud.producto.unidad}}</td>
 															<td>{{solicitud.fecha|date("d/m/Y")}}</td>
-															<td>Usuario 1</td>
+															<td>{{solicitud.usuario.nombre}}</td>
 															<td>
 																<div class="btn-group btn-group-sm">
 																	<button id="button_{{solicitud.id}}" data-id="{{solicitud.id}}" data-agregado="false"data-idprod="{{solicitud.producto.id}}" type="button" class="agregarProd btn btn-primary">
@@ -192,12 +138,12 @@
 													{% for pedido in pedidos if pedido.estado == "pendiente" %}
 														<tr id="pedPend_{{pedido.id}}">
 															<td>
-															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
+															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="{{pedido.creador.nombre}} {{pedido.creador.apellidos}}">
 																<span class="glyphicon glyphicon-file"></span>
 																<span class="ped-tit"> Pedido pendiente {{pedido.id}}</span>
 															</a></td>
 															<td class="fecha_pend">{{pedido.fecha|date("d/m/Y")}}</td>
-															<td class="usu_pend">Usuario 1</td>
+															<td class="usu_pend">{{pedido.creador.nombre}} {{pedido.creador.apellidos}}</td>
 															<td>
 																<div class="btn-group btn-group-sm">
 																	<button type="button" class="btn btn-primary edit_pend" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
@@ -249,7 +195,7 @@
 														</tr>
 													</thead>
 													<tbody id="ped_enviado">
-													{% for pedido in pedidos if pedido.estado == "enviado" %}
+													{% for pedido in pedidos if pedido.estado == "enviado" or pedido.estado == "validado" %}
 														<tr id="pedEnv_{{pedido.id}}">
 															<td>
 															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
@@ -257,7 +203,7 @@
 																<span class="ped-tit"> Pedido enviado {{pedido.id}}</span>
 															</a></td>
 															<td class="fecha_env">{{pedido.fecha|date("d/m/Y")}}</td>
-															<td class="usu_env">Usuario 1</td>
+															<td class="usu_env">{{pedido.creador.nombre}} {{pedido.creador.apellidos}}</td>
 															<td>
 																<div class="btn-group btn-group-sm">
 																	<button type="button" class="btn btn-primary edit_enviado" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
@@ -284,7 +230,7 @@
 								</div>
 							</div>
 						</div>
-							<div class="panel panel-success">
+						<div class="panel panel-success">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -309,24 +255,42 @@
 													</tr>
 												</thead>
 												<tbody>
-													{% for pedido in pedidos if pedido.estado == "recibido" %}
+													{% for pedido in pedidos if pedido.estado == "recibido" or pedido.estado == "validado" %}
 														<tr id="pedRecb_{{pedido.id}}">
 															<td>
-															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="Usuario 1">
+															<a href="#" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" class="showPedido" data-fecha="{{pedido.fecha|date("d/m/Y")}}" data-usu="{{pedido.creador.nombre}} {{pedido.creador.apellidos}}" data-toggle="tooltip" data-placement="bottom" title="Ver pedido">
 																<span class="glyphicon glyphicon-file"></span>
 																<span class="ped-tit"> Pedido recibido {{pedido.id}}</span>
 															</a></td>
 															<td class="fecha_recib">{{pedido.fecha|date("d/m/Y")}}</td>
-															<td class="usu_recib">Usuario 1</td>
+															<td class="usu_recib">{{pedido.creador.nombre}} {{pedido.creador.apellidos}}</td>
 															<td>
+															{% if pedido.estado == "recibido"%}
 																<div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary edit_recibido" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}">
+																	<button id="validar_pedido" data-id="{{pedido.id}}" data-url="{{path('validarPedido')}}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Validar pedido">
+																		<span class="glyphicon glyphicon-ok"></span>
+																	</button>
+																	<button type="button" class="btn btn-primary edit_recibido" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" data-toggle="tooltip" data-placement="bottom" title="Editar pedido">
 																		<span class="glyphicon glyphicon-edit"></span>
 																	</button>
-																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}">
+																	<button type="button" class="btn btn-danger del_ped" data-id="{{pedido.id}}" data-url="{{path('delPedido')}}" data-toggle="tooltip" data-placement="bottom" title="Borrar pedido">
 																		<span class="glyphicon glyphicon-trash"></span>
 																	</button>
 																</div>
+															{% else %}
+															<span class="label label-success">
+																{# <a href="">Pedido validado</a> #}
+																<span class="glyphicon glyphicon-ok"></span> Pedido validado
+															</span>
+
+																{# <div class="btn-group btn-group-sm">
+																	<button type="button" class="btn btn-primary" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" data-toggle="tooltip" data-placement="bottom" title="Ver pedido">
+																		<span class="glyphicon glyphicon-edit"></span>
+																	</button>
+																	
+																</div> #}
+															{% endif %}
+
 															</td>
 														</tr>
 														{% else %}
@@ -340,9 +304,9 @@
 										
 									</div>
 								</div>
+								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -355,63 +319,152 @@
 						</span>
 					</div>
 				<div class="panel-body">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th class="col-sm-6 col-md-2">Nombre</th>
-								<th class="col-sm-6 col-md-2">Apellidos</th>
-								<th class="col-sm-6 col-md-1">Usuario</th>
-								<th class="col-sm-6 col-md-1">Email</th>
-								<th class="col-sm-6 col-md-1">Registro</th>
-								<th class="col-sm-6 col-md-1">Tipo</th>
-								<th class="col-sm-4 col-md-1">Opciones</th>
-							</tr>
-						</thead>
-						<tbody>
-						{% for usuario in usuarios %}
-							<tr data-id="{{usuario.id}}">
-								<td>{{usuario.nombre}}</td>
-								<td>{{usuario.apellidos}}</td>
-								<td>{{usuario.username}}</td>
-								<td>{{usuario.email}}</td>
-								<td>{{usuario.fechaRegistro|date("d/m/Y")}}</td>
-								{% for roles in usuario.roles %}
-									{% if roles == "ROLE_USER" %}
-									<td>Usuario</td>
-									{% elseif roles == "ROLE_ADMIN" %}
-									<td>Administrador</td>
-									{% endif %}
-								{% endfor %}
-								
-								<td> 
-									<div class="btn-group btn-group-sm">
-										<button data-href="" class="btn btn-primary">
-											<span class="glyphicon glyphicon-edit"></span>
-										</button>
-										<button data-href="" class="btn btn-danger">
-											<span class="glyphicon glyphicon-remove"></span>
-										</button>
-									</div>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="4"><a href="#">No hay usuarios.</a></td>
-							</tr>
-						{% endfor %}
-						</tbody>
-					</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+												
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class="col-sm-6 col-md-2">Nombre</th>
+											<th class="col-sm-6 col-md-2">Apellidos</th>
+											<th class="col-sm-6 col-md-1">Usuario</th>
+											<th class="col-sm-6 col-md-1">Email</th>
+											<th class="col-sm-6 col-md-1">Registro</th>
+											<th class="col-sm-6 col-md-1">Tipo</th>
+											{% if is_granted('ROLE_SUPER_ADMIN') %}
+												<th class="col-sm-4 col-md-1">Opciones</th>
+											{% endif %}
+										</tr>
+									</thead>
+									<tbody>
+									{% for usuario in usuarios %}
+										<tr data-id="{{usuario.id}}">
+											<td>{{usuario.nombre}}</td>
+											<td>{{usuario.apellidos}}</td>
+											<td>{{usuario.username}}</td>
+											<td>{{usuario.email}}</td>
+											<td>{{usuario.fechaRegistro|date("d/m/Y")}}</td>
+											{% for roles in usuario.roles %}
+												{% if roles == "ROLE_USER" %}
+													<td>Usuario</td>
+												{% elseif roles == "ROLE_ADMIN" %}
+													<td>Admin</td>
+												{% elseif roles == "ROLE_SUPER_ADMIN" %}
+													<td>Super admin</td>
+												{% endif %}
+											{% endfor %}
+											{% if is_granted('ROLE_SUPER_ADMIN') and usuario.id != app.user.id %}
+												<td> 
+													<div class="btn-group btn-group-sm">
+														{% for roles in usuario.roles %}
+															{% if roles == "ROLE_USER" %}
+																<button  class="btn btn-success promocionar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Promocionar Usuario">
+																	<span class="glyphicon glyphicon-user"></span> Promocionar
+																	{# <span class="glyphicon glyphicon-thumbs-up"></span> #}
+																</button>
+															{% endif %}
+															{% if roles == "ROLE_ADMIN" %}
+																<button  class="btn btn-danger degradar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Degradar Usuario">
+																	<span class="glyphicon glyphicon-user"></span> Degradar
+																	{# <span class="glyphicon glyphicon-thumbs-down"></span> #}
+																</button>
+															{% endif %}
+														{% endfor %}
+														{# <button data-id="{{usuario.id}}" data-url="{{ path('borrarUsuario')}}" class="btn btn-danger borrar_usuario">
+															<span class="glyphicon glyphicon-remove"></span>
+														</button> #}
+													</div>
+												</td>
+											{% endif %}
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4"><a href="#">No hay usuarios.</a></td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+					
+							</div>{# fin table-responsive#}
+						</div>{# fin col-md-12#}
+					</div>{# fin row#}
+				</div>{# fin panel-body#}
+			</div>{# fin panel#}
+		</div>{# fin mod#}
+	</div>{# fin row#}
+
+		{# <div class="row">
+			<div id="mod_categorias"  style="display:none"  class="mod col-md-10">
+				
+			</div><!--fin_mod_categorias-->
+		</div><!--fin_row--> #}
+
 
 		<div class="row">
-			<div id="mod_informacion" style="display:none" class="mod col-md-10">
-			
-			</div>
-		</div>
+			<div id="mod_categorias" style="display:none" class="mod col-md-10">
+				<div id="panel-grid" class="panel panel-primary panel-view">
+					<div class="panel-heading complement-1-b">
+						<span> 
+							<strong>Gestion de Categorías</strong>
+						</span>
+					</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+												
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class="col-sm-8 col-md-2">Nombre</th>
+											<th class="col-sm-4 col-md-1">Opciones</th>
+											{# <th class="col-sm-6 col-md-2">Apellidos</th>
+											<th class="col-sm-6 col-md-1">Usuario</th>
+											<th class="col-sm-6 col-md-1">Email</th>
+											<th class="col-sm-6 col-md-1">Registro</th>
+											<th class="col-sm-6 col-md-1">Tipo</th>
+											{% if is_granted('ROLE_SUPER_ADMIN') %}
+												<th class="col-sm-4 col-md-1">Opciones</th>
+											{% endif %} #}
+										</tr>
+									</thead>
+									<tbody>
+									{% for categoria in categorias %}
+										<tr data-id="{{categoria.id}}">
+											<td>{{categoria.categoria}}</td>
+											<td> 
+													<div class="btn-group btn-group-sm">
+														<button class="btn btn-primary" onclick="editarEntidad({{categoria.id}})">Editar</button>
+														<button class="btn btn-danger" onclick="borrarEntidad({{categoria.id}})">Borrar</button>
+													</div>
+												</td>
+											
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4"><a href="#">No hay categorias.</a></td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+					
+							</div>{# fin table-responsive#}
+							<form>
+							    <div class="input-group col-md-4">
+							      <input type="text" class="form-control">
+							      <span class="input-group-btn">
+							        <button class="btn btn-primary" type="button">Agregar Categoría</button>
+							      </span>
+							    </div><!-- /input-group -->
+							</form>
+						</div>{# fin col-md-12#}
+					</div>{# fin row#}
+				</div>{# fin panel-body#}
+			</div>{# fin panel#}
+		</div>{# fin mod#}
+	</div>{# fin row#}
+
 </div><!--fin_div_admin-->
 	<div id='modal-pedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
 				<div class="modal-dialog">
@@ -499,12 +552,16 @@
 				</div>
 	</div>
 	<div id='modal-showpedido' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
-				<div class="modal-dialog" style="width:400px">
+				<div class="modal-dialog" style="width:500px">
 					<div class='modal-content'>
 						<div class='modal-header complement-1-b'>
 							<button class='close' type='button' data-dismiss='modal' aria-hidden='true'> ×</button>
 							<div class='modal-title'>
 								<strong>Nº pedido: </strong><span id="showIdPed"></span>
+								<button id="generarPDF" data-url="{{path('findPedido')}}" type="button"  class="btn btn-primary complement-1-b boton-right">
+									<span class="glyphicon glyphicon-file"></span>
+									PDF
+								</button>
 							</div>
 
 						</div>
@@ -549,5 +606,7 @@
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jsPDF/FileSaver.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jsPDF/jspdf.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/centro_log.js') }}"></script>
     {% endblock %}
