@@ -64,10 +64,10 @@ class Recetas extends \Gestor_cocina\RecetasBundle\Entity\Recetas implements \Do
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio');
+            return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio', 'nota_media');
         }
 
-        return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio');
+        return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio', 'nota_media');
     }
 
     /**
@@ -417,6 +417,28 @@ class Recetas extends \Gestor_cocina\RecetasBundle\Entity\Recetas implements \Do
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrecio', array());
 
         return parent::getPrecio();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setNotaMedia($nota_media)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNotaMedia', array($nota_media));
+
+        return parent::setNotaMedia($nota_media);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNotaMedia()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNotaMedia', array());
+
+        return parent::getNotaMedia();
     }
 
 }

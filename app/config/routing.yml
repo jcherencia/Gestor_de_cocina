@@ -70,7 +70,11 @@ borrar_receta:
     pattern: /recetas/borrar/{receta}
     defaults: { _controller: RecetasBundle:Default:borrar_receta }
 # -------------------------------------------------------------------------#
+valorar:
+    pattern: /recetas/valorar
+    defaults: { _controller: RecetasBundle:Default:valorar }
 
+# -------------------------------------------------------------------------#
 solicitudes:
     pattern: /solicitudes
     defaults: { _controller: CentroLogBundle:Default:solicitudes }

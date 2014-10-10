@@ -12,4 +12,39 @@ use Doctrine\ORM\EntityRepository;
  */
 class ValoracionRepository extends EntityRepository
 {
+
+	public function findValorado($id_receta,$id_usuario)
+    {
+    $em = $this->getEntityManager();
+
+        $consulta = $em->createQuery('
+            SELECT v
+            FROM RecetasBundle:Valoraciones v 
+            WHERE v.receta = :receta AND v.usuario = :usuario
+        ');
+        $consulta->setParameter('receta', $id_receta);
+        $consulta->setParameter('usuario', $id_usuario);
+        $consulta->setMaxResults(1);
+
+        $result= $consulta->getOneOrNullResult();
+        if(count($result)==1){
+    		return $result->getId();
+        }else{
+        	return 0;
+        }
+    }
+    public function findNotasByRec($id_receta)
+    {
+    	$em = $this->getEntityManager();
+
+        $consulta = $em->createQuery('
+            SELECT v.puntuacion
+            FROM RecetasBundle:Valoraciones v 
+            WHERE v.receta = :receta 
+        ');
+        $consulta->setParameter('receta', $id_receta);
+        return $consulta->getResult();
+     //    $consulta->setMaxResults(1);
+    	// SELECT puntuacion FROM `valoraciones` WHERE valoraciones.`receta_id`=74
+    }
 }

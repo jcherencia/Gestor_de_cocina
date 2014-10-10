@@ -2,6 +2,7 @@
 	{% block title %}Mis recetas - Gestor de cocina {% endblock %}
 	{% block stylesheet %} 
 		{{ parent() }}
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/star-rating.css') }}">
 		
 		
 	{% endblock %}
@@ -274,6 +275,20 @@
 									</tr>
 								</tbody>
 							</table>
+							<div class="row">
+								<div class="col-md-8">
+								<input id="valoracion" type="number" class="rating" min=0 max=5 step=1 data-size="xs">
+								<input type="hidden" id="val_receta" data-url="{{path('valorar')}}" data-userid="{{ app.user.id }}" >
+								</div>
+								<div class="col-md-4">
+									<div class="notamedia">
+										<span>Nota media</span>
+										<span id="notamedia">4,5</span>
+									</div>
+									
+								</div>
+							</div>
+							
 							
 						</div>						
 						<div class='modal-footer'>
@@ -297,6 +312,9 @@
         {{ parent() }}
         	<script type="text/javascript" src="{{ asset('public/js/bootstrap.touchspin.js') }}"></script>
         	<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/star-rating.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/valoracion.js') }}"></script>
+
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 

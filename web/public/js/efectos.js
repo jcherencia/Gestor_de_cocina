@@ -43,6 +43,8 @@ $(document).ready(function(){
 	});
 	//prepare_rec();
 	generateSelect();
+	//**************************************************//
+	
 });//FIN DOCUMENT READY
 /*******************************/
 function showInfoCreate () {
@@ -137,6 +139,7 @@ function view_receta(){
 		$("#modal-prepare p.desc").html(desc);
 		$("#modal-prepare .ingr").html(ingr);
 		$("#modal-prepare #prepare_rec").data( "id", id );
+		$('#val_receta').val(id);
 		//******************************************//
 		$("#modal-prepare input[name='comensales']").val(comens);
 

@@ -621,6 +621,18 @@ li.ui-menu-item{
 	background: rgba(223,240,216,0.6);
 	color:#3C763D;
 }
+/************************************/
+.notamedia{
+	border: 1px solid;
+	background: none repeat scroll 0% 0% #0776A0;
+	padding: 15px;
+	color: #FFF;	
+}
+.notamedia > #notamedia{
+	font-weight: bold;
+	padding-left: 10px;
+	font-size: 1.2em;
+}
 /*********RESPONSIVE DESIGN***********/
 @media (max-width: 767px) {
 

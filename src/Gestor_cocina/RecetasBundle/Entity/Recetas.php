@@ -39,6 +39,8 @@ class Recetas{
 	protected $tags;
 	/** @ORM\Column(type="float") */
 	protected $precio;
+    /** @ORM\Column(type="float") */
+    protected $nota_media;
    
 
 
@@ -309,6 +311,29 @@ class Recetas{
     public function getPrecio()
     {
         return $this->precio;
+    }
+
+    /**
+     * Set precio
+     *
+     * @param integer $precio
+     * @return Recetas
+     */
+    public function setNotaMedia($nota_media)
+    {
+        $this->nota_media = $nota_media;
+
+        return $this;
+    }
+
+    /**
+     * Get nota_media
+     *
+     * @return integer 
+     */
+    public function getNotaMedia()
+    {
+        return $this->nota_media;
     }
 
    

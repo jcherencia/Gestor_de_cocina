@@ -253,6 +253,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::borrar_recetaAction',));
             }
 
+            // valorar
+            if ($pathinfo === '/recetas/valorar') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::valorarAction',  '_route' => 'valorar',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/solicitudes')) {

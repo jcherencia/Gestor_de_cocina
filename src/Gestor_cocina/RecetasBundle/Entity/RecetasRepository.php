@@ -12,32 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecetasRepository extends EntityRepository
 {
-	public function recientes() { 
 
-
-		// //construimos la consulta
-		$query = "SELECT * FROM  `recetas` ORDER BY  `recetas`.`fecha_creacion` DESC LIMIT 0 , 5";
-
-		// //obtenemos el singleton de la conexión
-		// $con = Doctrine_Manager::getInstance()->connection();
-
-		// //ejecutamos la consulta
-		// $st = $con->execute($query);
-
-		// //recuperamos las tuplas de resultados
-		// $rs = $st->fetchAll();
-
-		// //O si quieres obtener los resultados asociados
-		// // $rs = $st->fetchAssoc($query);
-		// return $rs;
-		$salida['prueba1']="Receta 1";
-		$salida['prueba2']="Receta 2";
-		$salida['prueba3']="Receta 3";
-
-		return $salida;
-
-		
-	} 
 	public function findRecientes()
     {
         $em = $this->getEntityManager();
