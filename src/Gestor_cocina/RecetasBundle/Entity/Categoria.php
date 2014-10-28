@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Categoria
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gestor_cocina\RecetasBundle\Entity\CategoriaRepository")
  */
 class Categoria
 {
@@ -45,7 +45,7 @@ class Categoria
      * @param string $nombre
      * @return Categoria
      */
-    public function setCategoria($nombre)
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
 
@@ -57,7 +57,7 @@ class Categoria
      *
      * @return string 
      */
-    public function getCategoria()
+    public function getNombre()
     {
         return $this->nombre;
     }

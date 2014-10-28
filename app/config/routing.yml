@@ -12,6 +12,9 @@
 inicio:
     pattern: /
     defaults: { _controller: RecetasBundle:Default:index }
+buscar:
+    pattern: /buscar
+    defaults: { _controller: RecetasBundle:Default:buscar }
 
   # -----------------------------------------------------------#
 registro:
@@ -48,15 +51,22 @@ upload:
     pattern: /upload
     defaults: { _controller:RecetasBundle:Default:upload }
 # -----------------------------------------------------------#
+receta:
+    pattern: /receta/{receta}
+    defaults: { _controller: RecetasBundle:Default:receta }
 recetas:
     pattern: /recetas
     defaults: { _controller: RecetasBundle:Default:recetas }
+filtro_cat:
+    pattern: /recetas/filtrar/{categoria}
+    defaults: { _controller: RecetasBundle:Default:filtrar }
 nueva_receta:
     pattern: /recetas/nueva_receta
     defaults: { _controller: RecetasBundle:Default:nueva_receta }
 crear_receta:
     pattern: /recetas/nueva_receta/crear
     defaults: { _controller: RecetasBundle:FormRecetas:crear_receta }
+
 listar_ing:
     pattern: /recetas/nueva_receta/crear/listar_ing
     defaults: { _controller: AlmacenBundle:Default:listarProductos }
@@ -69,6 +79,16 @@ mod_receta:
 borrar_receta:
     pattern: /recetas/borrar/{receta}
     defaults: { _controller: RecetasBundle:Default:borrar_receta }
+# -------------------------------------------------------------------------#
+nueva_categoria:
+    pattern: /recetas/nueva_categoria
+    defaults: { _controller: RecetasBundle:FormRecetas:nueva_categoria }
+edit_categoria:
+    pattern: /recetas/edit_categoria
+    defaults: { _controller: RecetasBundle:FormRecetas:edit_categoria }
+del_categoria:
+    pattern: /recetas/del_categoria
+    defaults: { _controller: RecetasBundle:FormRecetas:del_categoria }
 # -------------------------------------------------------------------------#
 valorar:
     pattern: /recetas/valorar

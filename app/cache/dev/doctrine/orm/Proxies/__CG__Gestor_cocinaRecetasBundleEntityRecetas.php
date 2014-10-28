@@ -64,10 +64,10 @@ class Recetas extends \Gestor_cocina\RecetasBundle\Entity\Recetas implements \Do
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio', 'nota_media');
+            return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'categoria', 'foto', 'tags', 'precio', 'notamedia');
         }
 
-        return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'foto', 'tags', 'precio', 'nota_media');
+        return array('__isInitialized__', 'id', 'nombre', 'slug', 'creador', 'fecha_creacion', 'descripcion', 'comensales', 'tiempo', 'categoria', 'foto', 'tags', 'precio', 'notamedia');
     }
 
     /**
@@ -356,6 +356,28 @@ class Recetas extends \Gestor_cocina\RecetasBundle\Entity\Recetas implements \Do
     /**
      * {@inheritDoc}
      */
+    public function setCategoria(\Gestor_cocina\RecetasBundle\Entity\Categoria $categoria)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoria', array($categoria));
+
+        return parent::setCategoria($categoria);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCategoria()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategoria', array());
+
+        return parent::getCategoria();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setFoto($foto)
     {
 
@@ -422,12 +444,12 @@ class Recetas extends \Gestor_cocina\RecetasBundle\Entity\Recetas implements \Do
     /**
      * {@inheritDoc}
      */
-    public function setNotaMedia($nota_media)
+    public function setNotaMedia($notamedia)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNotaMedia', array($nota_media));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNotaMedia', array($notamedia));
 
-        return parent::setNotaMedia($nota_media);
+        return parent::setNotaMedia($notamedia);
     }
 
     /**

@@ -165,6 +165,23 @@
   margin: 80px auto;
   width: 640px;
 }
+/***************************************/
+.form-horizontal td .form-control-static{
+	padding-top:0px;
+}
+.filtro{
+	overflow-y: auto;
+	max-height: 200px;
+}
+.filtro li a{
+	color:black !important;
+}
+.filtro li a:hover{
+	color:white !important;
+	background-color: #0776A0 !important;
+	background-image: none !important;
+}
+/***************************************/
 figure {
      display:block;
      position:relative;
@@ -250,8 +267,20 @@ input[type="checkbox"]{
 	*background: linear-gradient(to bottom, rgb(34, 103, 151), rgb(12, 52, 82)) repeat scroll 0% 0% rgb(20, 70, 106);
 	background-color: #1C485D !important;
 }
+.panel-primary {
+	border-radius: 0px !important;
+}
+.panel-primary > .panel-heading button.dropdown-toggle{
+	border-radius: 0px;
+}
+ul.dropdown-menu.filtro {
+	border-radius: 0px;
+}
+.panel-primary > .panel-heading{
+	border-radius: 0px !important;
+}
 .panel-primary > .panel-heading a{
-	color:white !important;
+	color:white ;
 }
 
 /*********ERROR CSS*********/
@@ -294,15 +323,15 @@ label.error{
 /**********************************/
 .note h1.title{
 	font:400 23px 'Montserrat',tahoma,verdana,sans-serif;
-	*color:#1C485D;
+	/*color:#1C485D;*/
 	color:#eee;
 	font-size: 40px;
   	text-transform:uppercase;
-  	text-shadow:
+  	/*text-shadow:
   	 0 1px 0 #557D90,
 	 0 2px 0 #9BB9C7,
 	 0 3px 0 #bbb,
-	 0 6px 5px rgba(0,0,0,.5);
+	 0 6px 5px rgba(0,0,0,.5);*/
   	margin-bottom: 5px;
   	margin-top: 10px;
   	
@@ -339,9 +368,7 @@ label.error{
     position: relative;
    
 }
-.search{
-	*margin-top:40px;
-}
+
 .note.taupe:before {
      -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
     background: none repeat scroll 0 0 #ADF96E; 
@@ -363,13 +390,40 @@ label.error{
 .row-grid{
 	margin-bottom: 30px;
 }
+
+/***************************************/
+.resul_busqueda{
+	border-radius: 0px !important;
+	padding: 0px;
+	/*min-width: 45px;*/
+	max-width: 1000px;
+	overflow: auto;
+
+}
+.resul_busqueda .popover-title {
+	border-radius: 0px !important;
+	font-weight: bold;
+	color:white;
+}
+.resul_busqueda .popover-content {
+	color:black;
+	padding:0px;
+}
+
+/*-------------------*/
+.search{
+	*margin-top:40px;
+}
 .search input{
-	border-radius: 12px;
+	border-radius: 0px;
 }
 .search button{
-	border-bottom-right-radius: 12px;
-	border-top-right-radius: 12px;
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+	color:white;
 }
+
+/********************************************/
 .scrollable-y{
 	height: 200px;
 	overflow-y: auto;
@@ -379,6 +433,12 @@ label.error{
 	display: none;
 }
 /******************************/
+.fav{
+	color: rgb(209, 168, 4);
+	font-weight: bold;	
+}
+
+/**********************************/
 .editinput{
 	border-width: 1px 1px 3px;
 	border-style: solid;
@@ -583,6 +643,9 @@ li.ui-menu-item{
 	font:600 23px 'Montserrat',tahoma,verdana,sans-serif;
 	color:white;
 }
+.modal .modal-header .modal-title a{
+	color:white !important;
+}
 .modal table.table{
 	border:1px solid rgba(0,0,0,0.25);
 }
@@ -632,6 +695,9 @@ li.ui-menu-item{
 	font-weight: bold;
 	padding-left: 10px;
 	font-size: 1.2em;
+}
+.top-star{
+	content: "\e007";
 }
 /*********RESPONSIVE DESIGN***********/
 @media (max-width: 767px) {

@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 use Gestor_cocina\RecetasBundle\Entity\Recetas;
 use Gestor_cocina\RecetasBundle\Entity\Ingredientes;
+use Gestor_cocina\RecetasBundle\Entity\Categoria;
 use Gestor_cocina\RecetasBundle\Util\Util;
 
 
@@ -133,12 +134,14 @@ class FormRecetasController extends Controller
         $campos= $peticion->request->all();
         $em = $this->getDoctrine()->getManager();
         $receta = $em->getRepository('RecetasBundle:Recetas')->findOneBySlug($receta);
+        $categ = $em->getRepository('RecetasBundle:Categoria')->find($campos['categoria']);
         $receta->setNombre($campos['nombre']);
         $receta->setSlug(Util::getSlug($campos['nombre']));
         $receta->setDescripcion(nl2br($campos['descripcion']));
         $receta->setComensales($campos['comensales']);
         $receta->setPrecio($campos['precio']);
         $receta->setTiempo($campos['tiempo']);
+        $receta->setCategoria($categ);
         // $receta->setCategoria($campos['categoria']);
         // $receta->setPrecio($campos['precio']);
         // $receta->setPrecio($campos['precio']);
@@ -241,5 +244,47 @@ class FormRecetasController extends Controller
         $query = $qb->getQuery();
         return $query->getResult();
    }
-   
+   /***************************************************/
+    public function nueva_categoriaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $peticion=$this->container->get('request');
+        $campos= $peticion->request->all();
+        $data=$campos['data'];
+        // $data="prueba";
+        $cat = new Categoria();
+        $cat->setNombre($data);
+        $em->persist($cat);
+        $em->flush();
+        return new Response($cat->getId(), Response::HTTP_OK);
+        // return new Response($data, Response::HTTP_OK);
+    }
+     public function edit_categoriaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $peticion=$this->container->get('request');
+        $campos= $peticion->request->all();
+        $data=$campos['data'];
+        $id=$campos['id'];
+        $cat = $em->getRepository('RecetasBundle:Categoria')->find($id);
+        $cat->setNombre($data);
+        $em->persist($cat);
+        $em->flush();
+        return new Response($cat->getId(), Response::HTTP_OK);
+        // return new Response($id." - ".$data, Response::HTTP_OK);
+        // return new Response($cat, Response::HTTP_OK);
+
+    }
+     public function del_categoriaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $peticion=$this->container->get('request');
+        $campos= $peticion->request->all();
+        $id=$campos['id'];
+        $cat = $em->getRepository('RecetasBundle:Categoria')->find($id);
+        $em->remove($cat);
+        $em->flush();
+        return new Response($cat->getId(), Response::HTTP_OK);
+    }
+    /***************************************************/
 }

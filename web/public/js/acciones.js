@@ -62,6 +62,111 @@ function loadTextarea(){
 	
 }
 //**************************************************************//
+//******************* GESTION DE CATEGORIAS ********************//
+//**************************************************************//
+function addCategoria () {
+	cat=$('#add_categ').val();
+	url=$('#url_addcat').val();
+	url_cenlog=$('#url_cenlog').val();
+	// alert(url_cenlog);
+	// cat="Guisos";
+	if (cat!="") {
+		$.ajax({
+			url: url,
+			type: 'POST',
+			async: true,
+			data: {'data':cat},
+			success: function (response) {
+				// alert(response);
+				if (response!="") {
+					$('#add_categ').val("");
+					window.location=url_cenlog+"?menu=categorias";
+				};
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+			    alert(xhr.status);
+			    alert(thrownError);
+			}
+		});
+	}
+}
+
+function updCategoria (id,accion,element) {
+	categ=$('tr#categ_'+id+' .categ');
+	url=$('#url_editcat').val();
+	url_cenlog=$('#url_cenlog').val();
+	// alert(url);
+	switch(accion){
+		case 'edit':
+			val = categ.html();
+			categ.html('<input type="text" class="form-control in_categ" value="'+val+'">');
+			element.removeClass('btn btn-primary complement-1-b');
+			element.addClass('btn btn-success');
+			element.html("<span class='glyphicon glyphicon-floppy-disk'></span> Guardar");
+			element.attr("onclick","updCategoria("+id+",'save',$(this))");
+			element.siblings('button').html("<span class='glyphicon glyphicon-remove'></span> Descartar");
+			element.siblings('button').attr("onclick","descartar("+id+",'"+val+"',$(this))");
+		break;
+		case 'save':
+			val = categ.children('.in_categ').val();
+			if (val !="") {
+				$.ajax({
+					url: url,
+					type: 'POST',
+					async: true,
+					data: {'id':id,'data':val},
+					success: function (response) {
+						// alert(response);
+						if (response!="") {
+							// $('#add_categ').val("");
+							window.location=url_cenlog+"?menu=categorias";
+						};
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+					        alert(xhr.status);
+					        alert(thrownError);
+					      }
+				});
+			}
+					
+		break;
+		
+	}
+}
+function descartar (id,val,element) {
+	categ=$('tr#categ_'+id+' .categ');
+	categ.html(val);
+	// alert(element.html());
+	element.html("<span class='glyphicon glyphicon-trash'></span> Borrar");
+	element.attr("onclick","delCategoria ('"+id+"')");
+	element.siblings('button').removeClass('btn btn-success');
+	element.siblings('button').addClass('btn btn-primary complement-1-b');
+	element.siblings('button').html("<span class='glyphicon glyphicon-edit'></span> Editar");
+	element.siblings('button').attr("onclick","updCategoria("+id+",'edit',$(this))");
+
+}
+function delCategoria (id) {
+	url=$('#url_delcat').val();
+	url_cenlog=$('#url_cenlog').val();
+	$.ajax({
+					url: url,
+					type: 'POST',
+					async: true,
+					data: {'id':id},
+					success: function (response) {
+						// alert(response);
+						if (response=="") {
+							window.location=url_cenlog+"?menu=categorias";
+						};
+					}
+				});
+}
+//**************************************************************//
+//**************** FIN GESTION DE CATEGORIAS *******************//
+//**************************************************************//
+
+
+//**************************************************************//
 //****************** GESTION DE INGREDIENTES *******************//
 //**************************************************************//
 
@@ -222,6 +327,7 @@ function editarIng () {
 		calcPrecioTotal();
 	}
 }
+
 //**************************************************************//
 //*************** FIN GESTION DE INGREDIENTES ******************//
 //**************************************************************//
@@ -253,25 +359,7 @@ function prepare_rec(id_receta,url,id_usuario){
 		success: function (response) {
 			notificacion ("Receta preparada: <strong>"+response+"</strong>",0,"show");
 			// alert("notificacion");
-		},
-		error: function(jqXHR, exception) {
-            if (jqXHR.status === 0) {
-                alert('Not connect.\n Verify Network.');
-            } else if (jqXHR.status == 404) {
-                alert('Requested page not found. [404]');
-            } else if (jqXHR.status == 500) {
-                         $('#respose').html(jqXHR.responseText); 
-                         alert(jqXHR.responseText);
-            } else if (exception === 'parsererror') {
-                alert('Requested JSON parse failed.');
-            } else if (exception === 'timeout') {
-                alert('Time out error.');
-            } else if (exception === 'abort') {
-                alert('Ajax request aborted.');
-            } else {
-                alert('Uncaught Error.\n' + jqXHR.responseText);
-            }
-        }
+		}
 	});
 }
 

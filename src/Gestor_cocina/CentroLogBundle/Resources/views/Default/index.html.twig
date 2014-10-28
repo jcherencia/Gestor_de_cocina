@@ -35,7 +35,7 @@
 		</div>
 		<div class="col-md-10">
 			<div class="row">
-				<div id="mod_pedidos" class="mod col-md-10">
+				<div id="mod_pedidos" class="mod col-md-11">
 					<div id="accordion" class="panel-group">
 						<div class="panel panel-primary">
 							<div class="panel-heading complement-1-b">
@@ -56,11 +56,11 @@
 												<table class="table">
 													<thead>
 														<tr>
-															<th class="col-md-4">Producto</th>
+															<th class="col-md-3">Producto</th>
 															<th class="col-md-2">Cantidad</th>
 															<th class="col-md-2">Fecha</th>
 															<th class="col-md-3">Solicitante</th>
-															<th class="col-md-1">Opciones</th>
+															<th class="col-md-2">Opciones</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -283,12 +283,7 @@
 																<span class="glyphicon glyphicon-ok"></span> Pedido validado
 															</span>
 
-																{# <div class="btn-group btn-group-sm">
-																	<button type="button" class="btn btn-primary" data-id="{{pedido.id}}" data-url="{{path('findPedido')}}" data-toggle="tooltip" data-placement="bottom" title="Ver pedido">
-																		<span class="glyphicon glyphicon-edit"></span>
-																	</button>
-																	
-																</div> #}
+																
 															{% endif %}
 
 															</td>
@@ -413,32 +408,29 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">
-												
+								<input type="hidden" id="url_cenlog" value="{{path('centro_log')}}">
+								<input type="hidden" id="url_addcat" value="{{path('nueva_categoria')}}">
+								<input type="hidden" id="url_editcat" value="{{path('edit_categoria')}}">
+								<input type="hidden" id="url_delcat" value="{{path('del_categoria')}}">
+										
 								<table class="table table-hover">
 									<thead>
 										<tr>
 											<th class="col-sm-8 col-md-2">Nombre</th>
 											<th class="col-sm-4 col-md-1">Opciones</th>
-											{# <th class="col-sm-6 col-md-2">Apellidos</th>
-											<th class="col-sm-6 col-md-1">Usuario</th>
-											<th class="col-sm-6 col-md-1">Email</th>
-											<th class="col-sm-6 col-md-1">Registro</th>
-											<th class="col-sm-6 col-md-1">Tipo</th>
-											{% if is_granted('ROLE_SUPER_ADMIN') %}
-												<th class="col-sm-4 col-md-1">Opciones</th>
-											{% endif %} #}
+											
 										</tr>
 									</thead>
 									<tbody>
 									{% for categoria in categorias %}
-										<tr data-id="{{categoria.id}}">
-											<td>{{categoria.categoria}}</td>
+										<tr id="categ_{{categoria.id}}">
+											<td class="categ">{{categoria.nombre}}</td>
 											<td> 
-													<div class="btn-group btn-group-sm">
-														<button class="btn btn-primary" onclick="editarEntidad({{categoria.id}})">Editar</button>
-														<button class="btn btn-danger" onclick="borrarEntidad({{categoria.id}})">Borrar</button>
-													</div>
-												</td>
+												<div class="btn-group btn-group-sm">
+													<button class="btn btn-primary complement-1-b" onclick="updCategoria({{categoria.id}},'edit',$(this))"><span class="glyphicon glyphicon-edit"></span> Editar</button>
+													<button class="btn btn-danger" onclick="delCategoria({{categoria.id}})"><span class="glyphicon glyphicon-trash"></span> Borrar</button>
+												</div>
+											</td>
 											
 										</tr>
 									{% else %}
@@ -452,9 +444,9 @@
 							</div>{# fin table-responsive#}
 							<form>
 							    <div class="input-group col-md-4">
-							      <input type="text" class="form-control">
+							      <input type="text" id="add_categ" class="form-control">
 							      <span class="input-group-btn">
-							        <button class="btn btn-primary" type="button">Agregar Categoría</button>
+							        <button class="btn btn-primary complement-1-b" type="button" onclick="addCategoria()">Agregar Categoría</button>
 							      </span>
 							    </div><!-- /input-group -->
 							</form>

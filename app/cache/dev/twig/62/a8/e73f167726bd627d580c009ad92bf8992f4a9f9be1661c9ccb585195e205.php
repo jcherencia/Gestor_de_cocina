@@ -73,13 +73,20 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t\t\t\t\t\t<div class='row search'>
 \t\t\t\t\t\t\t<form class='col-md-offset-2 col-md-8'>
 \t\t\t\t\t\t\t\t<div class=\"input-group search\">
-\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"input_busqueda\" onkeyup=\"buscar()\" data-url=\"";
+        // line 27
+        echo $this->env->getExtension('routing')->getPath("buscar");
+        echo "\" data-url-rec=\"";
+        echo $this->env->getExtension('routing')->getPath("inicio");
+        echo "\">
 \t\t\t\t\t\t\t\t\t<span class=\"input-group-btn\">
-\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary-dark\">
+\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-default complement-1-b\" onclick=\"buscar ()\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>
 \t\t\t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t\t</span>
+
 \t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t<div id=\"resul_busq\"></div>
 \t\t\t\t\t\t\t</form>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
@@ -98,31 +105,33 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t\t\t\t\t   \t\t<div class=\"lines\"></div>
 \t\t\t\t\t\t\t<ul class=\"list\">
 \t\t\t\t\t\t\t";
-        // line 51
+        // line 53
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes")));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["receta"]) {
             if ((twig_length_filter($this->env, (isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes"))) > 0)) {
-                // line 52
-                echo "\t\t\t\t\t\t\t\t<li><a href=\"\">";
+                // line 54
+                echo "\t\t\t\t\t\t\t\t<li><a href=\"";
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("receta", array("receta" => $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "id"))), "html", null, true);
+                echo "\">";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "nombre"), "html", null, true);
                 echo "</a></li>
 \t\t\t\t\t\t\t\t";
-                // line 54
+                // line 56
                 echo "\t\t\t\t\t\t\t";
                 $context['_iterated'] = true;
             }
         }
         if (!$context['_iterated']) {
-            // line 55
+            // line 57
             echo "\t\t\t\t\t\t\t\t<li>No hay recetas.</li>
 \t\t\t\t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 57
+        // line 59
         echo "\t\t\t\t\t\t\t</ul>
 \t\t\t\t\t\t
 \t\t\t\t\t  </div>
@@ -136,37 +145,43 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t\t\t\t\t  </div>
 \t\t\t\t\t  <div class=\"panel-body notepad\">
 \t\t\t\t\t  \t";
-        // line 69
+        // line 71
         if ($this->env->getExtension('security')->isGranted("ROLE_USER")) {
-            // line 70
+            // line 72
             echo "\t\t\t\t\t   \t\t<div class=\"lines\"></div>
-\t\t\t\t\t\t\t<ul class=\"list\">
+\t\t\t\t\t\t\t<ol class=\"list\">
 \t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t";
-            // line 73
+            // line 75
             $context['_parent'] = (array) $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["rec_recientes"]) ? $context["rec_recientes"] : $this->getContext($context, "rec_recientes")));
-            foreach ($context['_seq'] as $context["_key"] => $context["receta"]) {
-                // line 74
-                echo "\t\t\t\t\t\t\t\t\t<li><a href=\"\">";
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "nombre"), "html", null, true);
-                echo "</a></li>
-\t\t\t\t\t\t\t\t\t";
+            $context['_seq'] = twig_ensure_traversable((isset($context["favoritas"]) ? $context["favoritas"] : $this->getContext($context, "favoritas")));
+            foreach ($context['_seq'] as $context["key"] => $context["fav"]) {
                 // line 76
+                echo "\t\t\t\t\t\t\t\t\t<li><span class=\"index\">";
+                echo twig_escape_filter($this->env, ((isset($context["key"]) ? $context["key"] : $this->getContext($context, "key")) + 1), "html", null, true);
+                echo "º</span><a href=\"";
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("receta", array("receta" => $this->getAttribute((isset($context["fav"]) ? $context["fav"] : $this->getContext($context, "fav")), "id"))), "html", null, true);
+                echo "\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["fav"]) ? $context["fav"] : $this->getContext($context, "fav")), "nombre"), "html", null, true);
+                echo "</a> <span class=\"fav\">(";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["fav"]) ? $context["fav"] : $this->getContext($context, "fav")), "notamedia"), "html", null, true);
+                echo "<span class=\"glyphicon glyphicon-star\"></span>)</span></li>
+\t\t\t\t\t\t\t\t\t";
+                // line 78
                 echo "\t\t\t\t\t\t\t\t";
             }
             $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['receta'], $context['_parent'], $context['loop']);
+            unset($context['_seq'], $context['_iterated'], $context['key'], $context['fav'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 77
+            // line 79
             echo "\t\t\t\t\t\t\t";
         } else {
-            // line 78
+            // line 80
             echo "\t\t\t\t\t\t\t\t<h4><a href=\"\">Accede a tu cuenta para ver las recetas favoritas.</a></h4>
 \t\t\t\t\t\t\t";
         }
-        // line 80
-        echo "\t\t\t\t\t\t\t</ul>
+        // line 82
+        echo "\t\t\t\t\t\t\t</ol>
 \t\t\t\t\t\t
 \t\t\t\t\t  </div>
 \t\t\t\t\t</div>
@@ -177,19 +192,19 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 \t";
     }
 
-    // line 89
+    // line 91
     public function block_javascript($context, array $blocks = array())
     {
-        // line 90
+        // line 92
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 91
+        // line 93
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 92
+        // line 94
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -207,6 +222,6 @@ class __TwigTemplate_62a8e73f167726bd627d580c009ad92bf8992f4a9f9be1661c9ccb58519
 
     public function getDebugInfo()
     {
-        return array (  193 => 92,  189 => 91,  184 => 90,  181 => 89,  169 => 80,  165 => 78,  162 => 77,  156 => 76,  151 => 74,  147 => 73,  142 => 70,  140 => 69,  126 => 57,  119 => 55,  113 => 54,  108 => 52,  102 => 51,  65 => 17,  56 => 10,  53 => 9,  46 => 6,  42 => 5,  37 => 4,  31 => 3,);
+        return array (  208 => 94,  204 => 93,  199 => 92,  196 => 91,  184 => 82,  180 => 80,  177 => 79,  171 => 78,  160 => 76,  156 => 75,  151 => 72,  149 => 71,  135 => 59,  128 => 57,  122 => 56,  115 => 54,  109 => 53,  78 => 27,  65 => 17,  56 => 10,  53 => 9,  46 => 6,  42 => 5,  37 => 4,  31 => 3,);
     }
 }

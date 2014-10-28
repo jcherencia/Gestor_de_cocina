@@ -80,9 +80,9 @@
 	color: #9e0909;
 }
 /************BORDES EN LOS PANELES******************/
-.admin .table tbody > tr:last-child > td{
+/*.admin .table tbody > tr:last-child > td{
 	border:transparent;
-}
+}*/
 .admin .panel-warning .table thead > tr > th{
 	border-bottom: 2px solid #c09853;
 }

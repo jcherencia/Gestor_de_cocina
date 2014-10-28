@@ -24,13 +24,15 @@
 						<div class='row search'>
 							<form class='col-md-offset-2 col-md-8'>
 								<div class="input-group search">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" id="input_busqueda" onkeyup="buscar()" data-url="{{ path('buscar')}}" data-url-rec="{{ path('inicio')}}">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary-dark">
+										<button type="button" class="btn btn-default complement-1-b" onclick="buscar ()">
 											<span class="glyphicon glyphicon-search"></span>
 										</button>
 									</span>
+
 								</div>
+								<div id="resul_busq"></div>
 							</form>
 						</div>
 					</div>
@@ -49,7 +51,7 @@
 					   		<div class="lines"></div>
 							<ul class="list">
 							{% for receta in rec_recientes if rec_recientes|length > 0 %}
-								<li><a href="">{{ receta.nombre }}</a></li>
+								<li><a href="{{ path('receta', { 'receta': receta.id }) }}">{{ receta.nombre }}</a></li>
 								{# <a href="">{{ receta.nombre }}</a> #}
 							{% else %}
 								<li>No hay recetas.</li>
@@ -68,16 +70,16 @@
 					  <div class="panel-body notepad">
 					  	{% if is_granted('ROLE_USER') %}
 					   		<div class="lines"></div>
-							<ul class="list">
+							<ol class="list">
 							
-								{% for receta in rec_recientes %}
-									<li><a href="">{{ receta.nombre }}</a></li>
+								{% for key,fav in favoritas %}
+									<li><span class="index">{{key+1}}º</span><a href="{{ path('receta', { 'receta': fav.id }) }}">{{ fav.nombre }}</a> <span class="fav">({{fav.notamedia}}<span class="glyphicon glyphicon-star"></span>)</span></li>
 									{# <a href="">{{ receta.nombre }}</a> #}
 								{% endfor %}
 							{% else %}
 								<h4><a href="">Accede a tu cuenta para ver las recetas favoritas.</a></h4>
 							{% endif %}
-							</ul>
+							</ol>
 						
 					  </div>
 					</div>

@@ -27,4 +27,37 @@ class RecetasRepository extends EntityRepository
 
         return $consulta->getResult();
     }
+    public function findTop()
+    {
+         $em = $this->getEntityManager();
+    
+         $consulta = $em->createQuery('
+            SELECT r.id,r.nombre,r.notamedia
+            FROM  RecetasBundle:Recetas r
+            ORDER BY r.notamedia DESC
+         ');
+        $consulta->setMaxResults(5);
+
+        return $consulta->getResult();
+    }
+    public function findSearch($search)
+    {
+        
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery("SELECT r.id,r.nombre FROM RecetasBundle:Recetas r WHERE  r.nombre like :searchterm")
+->setParameter('searchterm', '%'.$search.'%');
+        return $consulta->getResult();
+        // return $search;
+    }
+    public function findFiltro($filtro)
+    {
+       $em = $this->getEntityManager();
+       $consulta = $em->createQuery("SELECT r FROM RecetasBundle:Recetas r WHERE  r.categoria = :searchterm")
+// ->setParameter('searchterm', '%'.$filtro.'%');
+->setParameter('searchterm', ''.$filtro.'');
+
+       return $consulta->getResult();
+    }
+    
+    
 }

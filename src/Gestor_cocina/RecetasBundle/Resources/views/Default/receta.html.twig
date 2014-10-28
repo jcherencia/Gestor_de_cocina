@@ -1,0 +1,174 @@
+{% extends '::base.html.twig' %}
+	{% block title %}Recetas - Gestor de cocina {% endblock %}
+	{% block stylesheet %} 
+		{{ parent() }}
+			<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jasny-bootstrap.css') }}">
+		
+	{% endblock %}
+		{% block body %}
+	<div class='content'>
+		
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+			{# {% if  receta is defined %} #}
+				<div class="panel panel-primary">
+					<div class="panel-heading complement-1-b">
+						<strong>Receta: {{receta.nombre}}</strong>
+					</div>
+					
+					<div class="panel-body">
+						<form id="form-recetas" class="form-horizontal" method ="POST"  enctype="multipart/form-data"  >
+							<input type="hidden" name="receta_id" value="{{receta.id}}">
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Foto</label>
+								<div class="col-md-6">
+									<div class="fileinput fileinput-new" data-provides="fileinput">
+									  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+									    <img alt="Pulsa para Subir tu foto"  src="{{ asset(receta.foto) }}"  >
+									  </div>
+
+									</div> 
+								</div>
+							
+								{% if message is defined%}
+									<div class="col-md-12">
+										<span>{{message}}</span>
+									</div>
+								{% endif %}
+							</div>
+							{# <div class="form-group">
+								<label for="" class="col-md-3 control-label">Nombre</label>
+								<div class="col-md-6">
+									
+									<p class="form-control-static">{{receta.nombre}}</p>
+
+								</div>
+							</div> #}
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Preparación</label>
+								<div class="col-md-6">
+									
+									{% set twig_content_variable= receta.descripcion %}
+									{% set replace_value_var= '<br />' %}
+									{% set replace_with_value_var = '\n' %}
+									<p class="form-control-static">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</p>
+									
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Comensales</label>
+								<div class="col-md-2">
+									<p class="form-control-static">{{receta.comensales}}</p>
+								</div>
+
+							</div>
+					
+							<div class="form-group">
+								<label for="precio" class="col-md-3 control-label">Precio</label>
+								<div class="col-md-2">
+									<div class="input-group">
+										<p class="form-control-static">{{receta.precio}} €</p>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Tiempo</label>
+								<div class="col-md-2">
+									<div class="input-group">
+										<p class="form-control-static">{{receta.tiempo}} min</p>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Categoría</label>
+								<div class="col-md-6">
+									
+									{% if receta.categoria %}
+									    <p class="form-control-static">{{receta.categoria.nombre}}</p>
+									{% else %}
+									 	<p class="form-control-static">Sin categoría.</p>
+									{% endif %}
+									
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label">Nota media</label>
+								<div class="col-md-2">
+									<p class="form-control-static"><span class="fav">{{receta.notamedia}} <span class="glyphicon glyphicon-star"></span></p>
+									
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<table class="table table-hover">
+										<thead>
+											<th class="col-md-8">Ingrediente</th>
+											<th class="col-md-3">Cantidad</th>
+											<th class="col-md-2"></th>
+										</thead>
+										<tbody id="listado_ingr">
+
+											{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
+												<tr class="ingr_{{ingre.producto.id}} ingredientes">
+													<td class="nombre" 
+													data-undCompra="{{ingre.producto.unidadCompra}}" 
+													data-precio="{{ingre.producto.precio}}" 
+													data-unidad="{{ingre.producto.unidad}}">{{ingre.producto.nombre}}<input type="hidden" name="id_ing[{{ingre.producto.id}}]" value="{{ingre.producto.id}}"></td>
+													<td>
+														<div class="input-group">
+															<p class="form-control-static">{{ingre.cantidad}} {{ingre.producto.unidad}}</p>	
+													</td>
+												</tr>
+
+											{% endfor %}
+
+										</tbody>
+										
+
+									</table>	
+								</div>
+							
+							</div>
+							<div class="form-group">
+								<label for="" class="col-md-3 control-label"> </label>
+								<div class="col-md-6">
+									<div id="list_ingr" class="col-md-9"></div>
+									<input type="hidden" name="ingredientes" id="ingredientes">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-2 col-md-10 btn-separated">
+									<a href="{{ path('editar_receta', { 'receta': receta.id }) }}" class="btn btn-primary complement-1-b">
+										<span class="glyphicon glyphicon-edit"></span>
+										<span> Editar</span>
+									</a>
+									<a href="{{path('recetas')}}" class="btn btn-danger">
+										<span class="glyphicon glyphicon-remove"></span>
+										<span>  Cerrar</span>
+									</a>
+								</div>
+							</div>
+						</form>
+						<div class="info"></div>
+					</div>
+				</div>
+					{#  ---------------------------------------#}
+					
+				</div>
+			</div>
+		</div>
+	</div> <!--end container-->
+	<!-- Modal -->
+	
+</div>
+{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+        	<script type="text/javascript" src="{{ asset('public/js/jasny-bootstrap.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/jquery.validate.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/validate.js') }}"></script>
+    {% endblock %}

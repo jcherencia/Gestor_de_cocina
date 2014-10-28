@@ -8,108 +8,63 @@
 	{% endblock %}
 		{% block body %}
 			<div class='content'>
-				{# <div class='navbar navbar-default complement-1-b'>
-					<div class='container'> 
-						<div class='navbar-header'>
-							<button class='navbar-toggle' type='button', data-toggle='collapse', data-target='navbar-collapse'>
-								<span class='icon-bar'></span>
-								<span class='icon-bar'></span>
-								<span class='icon-bar'></span>
-							</button>
-							<a class='navbar-brand' href='#'> Gestor de cocina</a>
-						</div>
-						<div class='navbar-collapse collapse'>
-							<ul class='nav navbar-nav menu'>
-								<li>
-									<a href="{{ path('inicio') }}"> Inicio</a>
-								</li>
-								{% if is_granted('ROLE_USER') %}
-								<li  class='active'>
-									<a href="{{ path('recetas') }}"> Mis Recetas</a>
-								</li>
-								<li>
-									<a href="{{ path('solicitudes') }}">Mis solicitudes</a>
-								</li>
-								{% endif %}
-								
-								{% if is_granted('ROLE_ADMIN') %}
-								<li>
-									<a href="{{ path('centro_log') }}"> Centro Logístico</a>
-								</li>
-								
-								<li>
-									<a href="{{ path('almacen') }}"> Almacén</a>
-								</li>
-								{% endif %}
-							</ul>
-							<ul class='nav navbar-nav navbar-right menu-user'>
-							{% if app.user %}
-								<li class='dropdown'>
-									<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-										<span class='glyphicon glyphicon-user'></span>  
-										<span>Usuario: <strong>{{ app.user.nombre }}</strong></span>
-										<span class='caret caret-white'></span>
-									</a>
-									<ul class='dropdown-menu complement-1-b'>
-										<li>
-											<a href="{{ path('perfil') }}"> 
-												<span class='glyphicon glyphicon-user'></span>
-												<span>   Perfil</span>
-											</a>
-										</li>
-										<li>
-											<a href="{{ path('logout') }}">
-												<span class='glyphicon glyphicon-off'></span>
-												<span>   Cerrar Sesión</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-							{% else %}
-								<li><a class="underline" href="{{ path('login') }}">Login</a></li>
-		        				<li><a href="">|</a></li>
-		        				<li><a class="underline" href="{{ path('registro') }}">Registro</a></li>
-							{% endif %}
-							</ul>
-						</div>
-					</div>
-				</div> #}
+				
 			<div class='container'>
 				<div class='row row-grid'>
 					<div class='col-md-12'>
 						<a href="{{ path('nueva_receta') }}">
-							<button class='btn btn-primary complement-1-b'> Nueva Receta</button>
+							<button class='btn btn-primary complement-1-b'><span class="glyphicon glyphicon-plus"></span> Nueva Receta</button>
 						</a>
+						<div class='btn-group pull-right'>
+							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
+								<span class="glyphicon glyphicon-list-alt"></span> Categorias  
+								<span class='caret'></span>
+							</button>
+							<ul class='dropdown-menu filtro' role='menu'>
+								<li>
+								<a href="{{path('recetas')}}">Sin filtro</a>
+								</li>
+								<li class="divider"></li>
+								{% for categoria in categorias %}
+									<li>
+										<a href="{{ path('filtro_cat', { 'categoria': categoria.id }) }}"> {{categoria.nombre}}</a>
+									</li>
+								{% endfor %}
+								
+							</ul>
+						</div>
 					</div>
+
+
 				</div>
 				<div id='panel-grid' class='panel panel-primary panel-view'>
 					<div class='panel-heading complement-1-b'>
 						<a data-toggle="collapse" data-parent="#accordion" href="#misrecetas">
 							<strong>
-								<span>  Mis recetas</span>
+								<span>  Mis recetas </span>
 							</strong>
 						</a>
 						{# <span> 
 							<strong> Mis recetas</strong>
 						</span> #}
-						<div class='btn-group pull-right dropdown-head-panel'>
+						{# <div class='btn-group pull-right dropdown-head-panel'>
 							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
 								Categorias  
 								<span class='caret'></span>
 							</button>
-							<ul class='dropdown-menu' role='menu'>
+							<ul class='dropdown-menu filtro' role='menu'>
 								<li>
-									<a href='#'>  Ver categoría:</a>
+								<a href="{{path('recetas')}}">Sin filtro</a>
 								</li>
-								<li class='divider'></li>
-								<li>
-									<a href='#'> Tipo</a>
-								</li>
-								<li>
-									<a href='#'> Fecha</a>
-								</li>
+								<li class="divider"></li>
+								{% for categoria in categorias %}
+									<li>
+										<a href="{{ path('filtro_cat', { 'categoria': categoria.id }) }}"> {{categoria.nombre}}</a>
+									</li>
+								{% endfor %}
+								
 							</ul>
-						</div>
+						</div> #}
 					</div>
 					<div id="misrecetas" class="panel-collapse collapse in">
 						<div class='panel-body'>
@@ -123,19 +78,15 @@
 											<a class='nombre' href="">{{ receta.nombre }}</a>
 											<p class='description info_hide'>{{ receta.descripcion }}</p>
 											<div class='info-rec content-hide'>
+												<input type="hidden" id="editable" value="true">
+												<div id='slug_view'>{{ path('receta', { 'receta': receta.id }) }}</div>
 												<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
 												<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
 												
-												{# {% set twig_content_variable= receta.descripcion %}
-												{% set replace_value_var= '<br />' %}
-												{% set replace_with_value_var = '\n' %}
-
-
-												<p class='desc'>{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</p> #}
 												<p class='desc'>{{ receta.descripcion }}</p>
 												<ul class='ingr list-group'>
 													{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
-															<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
+														<li class="list-group-item" data-id="{{ingre.producto.id}}">{{ingre.producto.nombre}} <span class="badge">{{ingre.cantidad}} {{ingre.producto.unidad}}</span></li>
 
 													{% else %}
 														<li>No hay ingredientes</li>
@@ -143,12 +94,28 @@
 												</ul>
 												<div class='precio'>{{ receta.precio }}</div>
 												<div class='tiempo'>{{ receta.tiempo }}</div>
+												{% if receta.categoria %}
+												    <div class='categoria'>{{ receta.categoria.nombre }}</div>
+												{% else %}
+												 	<div class='categoria'>Sin categoría</div>
+												{% endif %}
+												{# <div class='categoria'>{{ receta.categoria.id }}</div> #}
 												<div class='comensales'>{{ receta.comensales }}</div>
+												<div class="nota_media">{{ receta.notamedia }}</div>
 											</div>
 										</figcaption>
 									</figure>
 								
 								</div>
+								{% else %}
+									<div class='col-sm-6 col-md-3'>
+											<figure class='receta' data-id="NULL">
+												<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
+												<figcaption>
+													<a class='nombre' href="">No hay resultados</a>
+												</figcaption>
+											</figure>	
+									</div>
 								{% endfor %}
 							</div>
 						</div>
@@ -164,31 +131,29 @@
 						{# <span> 
 							<strong> Mis recetas</strong>
 						</span> #}
-						<div class='btn-group pull-right dropdown-head-panel'>
+			{# 			<div class='btn-group pull-right dropdown-head-panel'>
 							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
 								Categorias  
 								<span class='caret'></span>
 							</button>
-							<ul class='dropdown-menu' role='menu'>
+							<ul class='dropdown-menu filtro' role='menu'>
 								<li>
-									<a href='#'>  Ver categoría:</a>
+								<a href="{{path('recetas')}}">Sin filtro</a>
 								</li>
-								<li class='divider'></li>
-								<li>
-									<a href='#'> Tipo</a>
-								</li>
-								<li>
-									<a href='#'> Fecha</a>
-								</li>
+								{% for categoria in categorias %}
+									<li>
+										<a href="{{ path('filtro_cat', { 'categoria': categoria.id }) }}"> {{categoria.nombre}}</a>
+									</li>
+								{% endfor %}
+								
 							</ul>
-						</div>
+						</div> #}
 					</div>
 					<div id="recetas" class="panel-collapse collapse">
 						<div class='panel-body'>
 							<div class='row row-grid'>
 							{% for receta in recetas  %}
 								<div class='col-sm-6 col-md-3'>
-								
 									<figure class='receta' data-id="{{ receta.id }}">
 										<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
 										<figcaption>
@@ -196,15 +161,13 @@
 											<p class='description info_hide'>{{ receta.descripcion }}</p>
 											<p>{{ receta.creador.nombre }} {{ receta.creador.apellidos }}</p>
 											<div class='info-rec content-hide'>
+												{% if receta.creador.id == app.user.id %}
+													<input type="hidden" id="editable" value="true">
+												{% else %}
+													<input type="hidden" id="editable" value="false">
+												{% endif %}
 												<div id='slug_edit'>{{ path('editar_receta', { 'receta': receta.id }) }}</div>
 												<div id='slug_del'>{{ path('borrar_receta', { 'receta': receta.id }) }}</div>
-												
-												{# {% set twig_content_variable= receta.descripcion %}
-												{% set replace_value_var= '<br />' %}
-												{% set replace_with_value_var = '\n' %}
-
-
-												<p class='desc'>{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</p> #}
 												<p class='desc'>{{ receta.descripcion }}</p>
 												<ul class='ingr list-group'>
 													{% for key, ingre in ingredientes if ingre.receta.id == receta.id %}
@@ -216,12 +179,28 @@
 												</ul>
 												<div class='precio'>{{ receta.precio }}</div>
 												<div class='tiempo'>{{ receta.tiempo }}</div>
+												           
+												{% if receta.categoria %}
+												    <div class='categoria'>{{ receta.categoria.nombre }}</div>
+												{% else %}
+												 	<div class='categoria'>Sin categoría</div>
+												{% endif %}
 												<div class='comensales'>{{ receta.comensales }}</div>
+												<div class="nota_media">{{ receta.notamedia }}</div>
 											</div>
 										</figcaption>
 									</figure>
 								
 								</div>
+								{% else %}
+									<div class='col-sm-6 col-md-3'>
+											<figure class='receta' data-id="NULL">
+												<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
+												<figcaption>
+													<a class='nombre' href="">No hay resultados</a>
+												</figcaption>
+											</figure>	
+									</div>
 								{% endfor %}
 							</div>
 						</div>
@@ -237,8 +216,8 @@
 							<div class='modal-title'>
 								<span id='ModalLabel' class='col-md-9'></span>
 
-								<div class='btn-group btn-group-sm'>
-										<button data-href="" id='edit' class="btn btn-primary complement-1-b">
+								<div class='btn-group btn-group-sm' id="panel-edit">
+										<button data-href="" id='edit' class="btn btn-primary complement-1-b" >
 											<span class='glyphicon glyphicon-edit'></span>
 										</button>
 										<button data-href="" data-type="delete" id='delete' class='btn btn-danger'>
@@ -257,7 +236,13 @@
 									<ul class='ingr'></ul>
 								</div>
 							</div>
-							<h4> Preparación <span class='tiempo'></span></h4>
+							<div class='row'>
+								<div class='col-md-12'>
+									<h4> Preparación <span class='tiempo'></span></h4>
+								</div>
+								
+							</div>
+							
 							<p class='desc'></p>
 							<table class='info_pr_rec table'>
 								<thead>
@@ -275,6 +260,11 @@
 									</tr>
 								</tbody>
 							</table>
+							<div class='row'>
+								<div class='col-md-12'>
+									<h4> Categoría: <i><span class='categoria'></span></h4></i>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-md-8">
 								<input id="valoracion" type="number" class="rating" min=0 max=5 step=1 data-size="xs">
@@ -283,7 +273,7 @@
 								<div class="col-md-4">
 									<div class="notamedia">
 										<span>Nota media</span>
-										<span id="notamedia">4,5</span>
+										<span id="notamedia"></span>
 									</div>
 									
 								</div>

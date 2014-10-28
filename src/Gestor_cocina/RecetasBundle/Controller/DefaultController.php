@@ -18,31 +18,87 @@ class DefaultController extends Controller
     //Creacion de las vistas
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $rec_recientes = $em->getRepository('RecetasBundle:Recetas')->findRecientes();
-        
-        return $this->render('RecetasBundle:Default:index.html.twig', array('rec_recientes' => $rec_recientes));
+        $fav = $em->getRepository('RecetasBundle:Recetas')->findTop();
+        return $this->render('RecetasBundle:Default:index.html.twig', array('rec_recientes' => $rec_recientes,'favoritas' => $fav));
          // return $this->render('RecetasBundle:Default:index.html.twig');
     }
+    /****************************************************************/
+    public function recetaAction($receta)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
+        $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
+        $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
+        return $this->render('RecetasBundle:Default:receta.html.twig',array('receta'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
+    }
+
+    public function filtrarAction($categoria)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recetas = $em->getRepository('RecetasBundle:Recetas')->findFiltro($categoria);
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
+        $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
+        return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
+    }
+
+    /****************************************************************/
+    public function buscarAction()
+    {
+        $peticion=$this->container->get('request');
+        $campos= $peticion->request->all();
+        $busqueda=$campos['busqueda'];
+        // $busqueda="Tortilla";
+        /***********************************/
+        $em = $this->getDoctrine()->getManager();
+        // $result = $em->getRepository('RecetasBundle:Recetas')->findAll();
+        $result = $em->getRepository('RecetasBundle:Recetas')->findSearch($busqueda);
+        // return $result;
+        $salida="";
+        for ($i=0; $i < count($result); $i++) { 
+            $j=0;
+            foreach ($result[$i] as $key => $value) {
+                $salida.=$key." = ".$value;
+                if ($j!=count($result[$i])-1) {
+                    $salida.="&";
+                } 
+                $j++;
+                
+            }
+            if ($i!=count($result)-1) {
+                    $salida.="||";
+                } 
+        }
+        // return print_r($result,TRUE);
+        return new Response($salida, Response::HTTP_OK);
+        // return new Response($campos['busqueda'], Response::HTTP_OK);
+    }
+
+    /****************************************************************/
     public function recetasAction()
     {
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
+        
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findOrdenNomb();
+        // $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
-        return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes));
+        return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
 
     }
    
     public function nueva_recetaAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
         $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
         return $this->render('RecetasBundle:Default:nueva_receta.html.twig',array('productos'=>$productos,'categorias'=>$categorias));
     }/*****************************/
     public function editar_recetaAction($receta){
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();
         $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
@@ -52,7 +108,7 @@ class DefaultController extends Controller
     /*******************/
     public function borrar_recetaAction($receta)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $receta = $em->getRepository('RecetasBundle:Recetas')->find($receta);
         $ingredientes = $em->getRepository('RecetasBundle:Ingredientes')->findAll();
         foreach ($ingredientes as $key => $ingre) {
@@ -71,6 +127,8 @@ class DefaultController extends Controller
 
         return $this->redirect($this->generateUrl('recetas')); 
     }
+
+    
     public function valorarAction()
     {
         $peticion=$this->container->get('request');

@@ -48,4 +48,37 @@ class OpenIdIdentity extends BaseUserIdentity
         parent::__construct();
         // your own logic (nothing for this example)
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Gestor_cocina\RecetasBundle\Entity\Usuarios $user
+     * @return OpenIdIdentity
+     */
+    public function setUser(\Gestor_cocina\RecetasBundle\Entity\Usuarios $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Gestor_cocina\RecetasBundle\Entity\Usuarios 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

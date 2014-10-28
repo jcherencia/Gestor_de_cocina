@@ -31,8 +31,8 @@ class Recetas{
 	protected $comensales;
 	/** @ORM\Column(type="integer",nullable=true) */
 	protected $tiempo;
-    // * @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Categoria") 
-    // protected $categoria;
+    /** @ORM\ManyToOne(targetEntity="Gestor_cocina\RecetasBundle\Entity\Categoria") */
+    protected $categoria;
 	/** @ORM\Column(type="string", length=150,nullable=true) */
 	protected $foto;
 	/** @ORM\Column(type="array",nullable=true) */
@@ -40,7 +40,7 @@ class Recetas{
 	/** @ORM\Column(type="float") */
 	protected $precio;
     /** @ORM\Column(type="float") */
-    protected $nota_media;
+    protected $notamedia;
    
 
 
@@ -227,22 +227,22 @@ class Recetas{
      * @param $autor
      * @return Categoria
      */
-    // public function setCategoria(Categoria $categoria)
-    // {
-    //     $this->categoria = $categoria;
+    public function setCategoria(Categoria $categoria)
+    {
+        $this->categoria = $categoria;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // /**
-    //  * Get categoria
-    //  *
-    //  * @return integer 
-    //  */
-    // public function getCategoria()
-    // {
-    //     return $this->categoria;
-    // }
+    /**
+     * Get categoria
+     *
+     * @return integer 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
 
     /**
      * Set foto
@@ -319,21 +319,21 @@ class Recetas{
      * @param integer $precio
      * @return Recetas
      */
-    public function setNotaMedia($nota_media)
+    public function setNotaMedia($notamedia)
     {
-        $this->nota_media = $nota_media;
+        $this->notamedia = $notamedia;
 
         return $this;
     }
 
     /**
-     * Get nota_media
+     * Get notamedia
      *
      * @return integer 
      */
     public function getNotaMedia()
     {
-        return $this->nota_media;
+        return $this->notamedia;
     }
 
    
