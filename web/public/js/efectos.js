@@ -65,9 +65,71 @@ $(document).ready(function(){
 
 	generateSelect();
 	//**************************************************//
-	
+	if ($('#dataSwitch').length) {
+		controlVista();
+	}
+	// cargarDataTable ("userrecetas");
+	// cargarDataTable ("allrecetas");
 	});//FIN DOCUMENT READY
 /*******************************/
+function controlVista () {
+	var options = new Array();
+	options['offText'] = '<span class="glyphicon glyphicon-list-alt"></span>';
+	options['onText'] = '<span class="glyphicon glyphicon-th-large"></span>';
+	options['state'] = true;
+	options['labelText']="Cuadr";
+	options['offColor'] ='primary';
+	$(".toggleviews").bootstrapSwitch(options);
+	$(".toggleviews").on({'switchChange.bootstrapSwitch': function(event, state) {
+			target=$(this).data('target');
+				if (state) {
+					vista="grid";
+					textVista="Cuadr";
+					
+				}else{
+					vista="list";
+					textVista="Lista";
+					
+				}
+					toggleviews (vista,target);
+					$(".toggleviews").bootstrapSwitch('labelText',textVista);
+				}
+		  });
+}
+function toggleviews (vista,target) {
+	// cargarDataTable ("userrecetas");
+	switch(target){
+		case 'misrecetas':
+			switch(vista){
+				case 'grid':
+					$('#cont_misrecetas').removeClass('hide');
+					// $('#userrecetas').addClass('hide');
+					cargarDataTable ("userrecetas",false);
+				break;
+				case 'list':
+					$('#cont_misrecetas').addClass('hide');
+					cargarDataTable ("userrecetas",true);
+				break;
+			}
+		break;
+		case 'recetas':
+			switch(vista){
+				case 'grid':
+					$('#cont_recetas').removeClass('hide');
+					// $('#userrecetas').addClass('hide');
+					cargarDataTable ("allrecetas",false);
+				break;
+				case 'list':
+					$('#cont_recetas').addClass('hide');
+					// $('#userrecetas').addClass('hide');
+					cargarDataTable ("allrecetas",true);
+				break;
+			}
+		break;
+	}
+}
+
+
 function buscar () {
 
 	busqueda=$('#input_busqueda').val();

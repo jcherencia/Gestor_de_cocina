@@ -58,6 +58,17 @@ class RecetasRepository extends EntityRepository
 
        return $consulta->getResult();
     }
-    
+    public function findResultsUser($user)
+    {
+        $em = $this->getEntityManager();
+            if ($user!="NULL") {
+                 $consulta = $em->createQuery("SELECT r.id,r.nombre,r.fecha_creacion,r.comensales,r.tiempo,r.precio,r.notamedia FROM RecetasBundle:Recetas r WHERE  r.creador = :creador")
+        // ->setParameter('searchterm', '%'.$filtro.'%');
+        ->setParameter('creador', ''.$user.'');
+            } else {
+                 $consulta = $em->createQuery("SELECT r.id,r.nombre,r.fecha_creacion,r.comensales,r.tiempo,r.precio,r.notamedia FROM RecetasBundle:Recetas r");
+            }
+      return $consulta->getResult();
+    }
     
 }

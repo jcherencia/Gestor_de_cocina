@@ -660,7 +660,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
             $context = array_intersect_key($context, $_parent) + $_parent;
             // line 352
             echo "\t\t\t\t\t\t\t\t\t\t\t";
-            if (($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN") && ($this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "id") != $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user"), "id")))) {
+            if (($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN") && ($this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "username") != "admin"))) {
                 // line 353
                 echo "\t\t\t\t\t\t\t\t\t\t\t\t<td> 
 \t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
@@ -678,7 +678,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
                         echo "\" data-url=\"";
                         echo $this->env->getExtension('routing')->getPath("editarRol");
                         echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Promocionar Usuario\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-user\"></span> Promocionar
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-up\"></span> Promocionar
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
                         // line 360
                         echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
@@ -688,37 +688,58 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
                     echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
                     if (((isset($context["roles"]) ? $context["roles"] : $this->getContext($context, "roles")) == "ROLE_ADMIN")) {
                         // line 363
+                        echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button  class=\"btn btn-danger degradar\" data-id=\"";
+                        // line 364
+                        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "id"), "html", null, true);
+                        echo "\" data-url=\"";
+                        echo $this->env->getExtension('routing')->getPath("editarRol");
+                        echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Degradar Usuario\">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button  class=\"btn btn-success promocionar\" data-id=\"";
+                        // line 367
+                        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "id"), "html", null, true);
+                        echo "\" data-url=\"";
+                        echo $this->env->getExtension('routing')->getPath("editarRol");
+                        echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Promocionar Usuario\"><span class=\"glyphicon glyphicon-thumbs-up\"></span>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+                    }
+                    // line 371
+                    echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+                    if (((isset($context["roles"]) ? $context["roles"] : $this->getContext($context, "roles")) == "ROLE_SUPER_ADMIN")) {
+                        // line 372
                         echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button  class=\"btn btn-danger degradar\" data-id=\"";
                         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["usuario"]) ? $context["usuario"] : $this->getContext($context, "usuario")), "id"), "html", null, true);
                         echo "\" data-url=\"";
                         echo $this->env->getExtension('routing')->getPath("editarRol");
                         echo "\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Degradar Usuario\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-user\"></span> Degradar
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
-                        // line 366
-                        echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\"></span> Degradar
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
                     }
-                    // line 368
+                    // line 377
                     echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['roles'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 369
-                echo "\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
-                // line 372
-                echo "\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
+                // line 378
+                echo "\t\t\t\t\t\t\t\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t";
             }
-            // line 375
+            // line 382
             echo "\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t";
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 377
+            // line 384
             echo "\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t<td colspan=\"4\"><a href=\"#\">No hay usuarios.</a></td>
 \t\t\t\t\t\t\t\t\t\t</tr>
@@ -727,27 +748,27 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['usuario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 381
+        // line 388
         echo "\t\t\t\t\t\t\t\t\t</tbody>
 \t\t\t\t\t\t\t\t</table>
 \t\t\t\t\t
 \t\t\t\t\t\t\t</div>";
-        // line 385
+        // line 392
         echo "\t\t\t\t\t\t</div>";
-        // line 386
+        // line 393
         echo "\t\t\t\t\t</div>";
-        // line 387
+        // line 394
         echo "\t\t\t\t</div>";
-        // line 388
+        // line 395
         echo "\t\t\t</div>";
-        // line 389
+        // line 396
         echo "\t\t</div>";
-        // line 390
+        // line 397
         echo "\t</div>";
-        // line 391
+        // line 398
         echo "
 \t\t";
-        // line 397
+        // line 404
         echo "
 
 \t\t<div class=\"row\">
@@ -763,19 +784,19 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t<div class=\"col-md-12\">
 \t\t\t\t\t\t\t<div class=\"table-responsive\">
 \t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"url_cenlog\" value=\"";
-        // line 411
+        // line 418
         echo $this->env->getExtension('routing')->getPath("centro_log");
         echo "\">
 \t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"url_addcat\" value=\"";
-        // line 412
+        // line 419
         echo $this->env->getExtension('routing')->getPath("nueva_categoria");
         echo "\">
 \t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"url_editcat\" value=\"";
-        // line 413
+        // line 420
         echo $this->env->getExtension('routing')->getPath("edit_categoria");
         echo "\">
 \t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"url_delcat\" value=\"";
-        // line 414
+        // line 421
         echo $this->env->getExtension('routing')->getPath("del_categoria");
         echo "\">
 \t\t\t\t\t\t\t\t\t\t
@@ -789,27 +810,27 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t\t\t</thead>
 \t\t\t\t\t\t\t\t\t<tbody>
 \t\t\t\t\t\t\t\t\t";
-        // line 425
+        // line 432
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["categorias"]) ? $context["categorias"] : $this->getContext($context, "categorias")));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["categoria"]) {
-            // line 426
+            // line 433
             echo "\t\t\t\t\t\t\t\t\t\t<tr id=\"categ_";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "id"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t<td class=\"categ\">";
-            // line 427
+            // line 434
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "nombre"), "html", null, true);
             echo "</td>
 \t\t\t\t\t\t\t\t\t\t\t<td> 
 \t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group btn-group-sm\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-primary complement-1-b\" onclick=\"updCategoria(";
-            // line 430
+            // line 437
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "id"), "html", null, true);
             echo ",'edit',\$(this))\"><span class=\"glyphicon glyphicon-edit\"></span> Editar</button>
 \t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-danger\" onclick=\"delCategoria(";
-            // line 431
+            // line 438
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "id"), "html", null, true);
             echo ")\"><span class=\"glyphicon glyphicon-trash\"></span> Borrar</button>
 \t\t\t\t\t\t\t\t\t\t\t\t</div>
@@ -820,7 +841,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 437
+            // line 444
             echo "\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t<td colspan=\"4\"><a href=\"#\">No hay categorias.</a></td>
 \t\t\t\t\t\t\t\t\t\t</tr>
@@ -829,12 +850,12 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['categoria'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 441
+        // line 448
         echo "\t\t\t\t\t\t\t\t\t</tbody>
 \t\t\t\t\t\t\t\t</table>
 \t\t\t\t\t
 \t\t\t\t\t\t\t</div>";
-        // line 445
+        // line 452
         echo "\t\t\t\t\t\t\t<form>
 \t\t\t\t\t\t\t    <div class=\"input-group col-md-4\">
 \t\t\t\t\t\t\t      <input type=\"text\" id=\"add_categ\" class=\"form-control\">
@@ -844,17 +865,17 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t    </div><!-- /input-group -->
 \t\t\t\t\t\t\t</form>
 \t\t\t\t\t\t</div>";
-        // line 454
+        // line 461
         echo "\t\t\t\t\t</div>";
-        // line 455
+        // line 462
         echo "\t\t\t\t</div>";
-        // line 456
+        // line 463
         echo "\t\t\t</div>";
-        // line 457
+        // line 464
         echo "\t\t</div>";
-        // line 458
+        // line 465
         echo "\t</div>";
-        // line 459
+        // line 466
         echo "
 </div><!--fin_div_admin-->
 \t<div id='modal-pedido' class=\"modal fade\" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>
@@ -893,11 +914,11 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t<div class=\"list-group scrollable-y\">
 \t\t\t\t\t\t\t\t\t\t";
-        // line 496
+        // line 503
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["productos"]) ? $context["productos"] : $this->getContext($context, "productos")));
         foreach ($context['_seq'] as $context["_key"] => $context["producto"]) {
-            // line 497
+            // line 504
             echo "\t\t\t\t\t\t\t\t\t\t\t  <a href=\"#\" data-idprod='";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "id"), "html", null, true);
             echo "' data-nombre='";
@@ -906,7 +927,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidad"), "html", null, true);
             echo "' class=\"list-group-item\">
 \t\t\t\t\t\t\t\t\t\t\t    ";
-            // line 498
+            // line 505
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "nombre"), "html", null, true);
             echo "
 \t\t\t\t\t\t\t\t\t\t\t    <span class=\"glyphicon glyphicon-plus-sign pull-right\"></span>
@@ -916,7 +937,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['producto'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 502
+        // line 509
         echo "\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t<div class='col-md-7 '>
@@ -950,15 +971,15 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t   </div>
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t";
-        // line 535
+        // line 542
         echo "\t\t\t\t\t\t</div>\t\t\t\t\t\t
 \t\t\t\t\t\t<div class='modal-footer'>
 \t\t\t\t\t\t\t<button type=\"button\" id=\"crearPed\" class=\"btn btn-primary complement-1-b\" data-url=\"";
-        // line 537
+        // line 544
         echo $this->env->getExtension('routing')->getPath("genPedido");
         echo "\">Crear Pedido</button>
 \t\t\t\t\t\t\t<button type=\"button\" id=\"editPed\" class=\"btn btn-primary complement-1-b hidden\" data-url=\"";
-        // line 538
+        // line 545
         echo $this->env->getExtension('routing')->getPath("editPedido");
         echo "\">Editar Pedido</button>
 \t\t\t\t\t\t\t<button class='btn btn-danger' type='button' data-dismiss='modal' > Cancelar</button>
@@ -976,7 +997,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t<div class='modal-title'>
 \t\t\t\t\t\t\t\t<strong>Nº pedido: </strong><span id=\"showIdPed\"></span>
 \t\t\t\t\t\t\t\t<button id=\"generarPDF\" data-url=\"";
-        // line 553
+        // line 560
         echo $this->env->getExtension('routing')->getPath("findPedido");
         echo "\" type=\"button\"  class=\"btn btn-primary complement-1-b boton-right\">
 \t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-file\"></span>
@@ -1008,7 +1029,7 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t\t\t\t\t\t\t
 \t\t\t\t\t\t</div>\t\t\t\t\t\t
 \t\t\t\t\t\t<div id=\"btn_showPed\" class='modal-footer' data-url='";
-        // line 582
+        // line 589
         echo $this->env->getExtension('routing')->getPath("editEstado");
         echo "'>
 \t\t\t\t\t\t\t
@@ -1026,35 +1047,35 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 \t";
     }
 
-    // line 596
+    // line 603
     public function block_javascript($context, array $blocks = array())
     {
-        // line 597
+        // line 604
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 598
+        // line 605
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 599
+        // line 606
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 600
+        // line 607
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jquery.confirm.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 601
+        // line 608
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jsPDF/FileSaver.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 602
+        // line 609
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jsPDF/jspdf.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 603
+        // line 610
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/centro_log.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -1072,6 +1093,6 @@ class __TwigTemplate_1645586bda1f6faa8434eb0dfca90aa1f612f51a239f3083d49bc2ca773
 
     public function getDebugInfo()
     {
-        return array (  1058 => 603,  1054 => 602,  1050 => 601,  1046 => 600,  1042 => 599,  1038 => 598,  1033 => 597,  1030 => 596,  1012 => 582,  980 => 553,  962 => 538,  958 => 537,  954 => 535,  920 => 502,  910 => 498,  901 => 497,  897 => 496,  858 => 459,  856 => 458,  854 => 457,  852 => 456,  850 => 455,  848 => 454,  838 => 445,  833 => 441,  824 => 437,  813 => 431,  809 => 430,  803 => 427,  798 => 426,  793 => 425,  779 => 414,  775 => 413,  771 => 412,  767 => 411,  751 => 397,  748 => 391,  746 => 390,  744 => 389,  742 => 388,  740 => 387,  738 => 386,  736 => 385,  731 => 381,  722 => 377,  716 => 375,  711 => 372,  709 => 369,  703 => 368,  699 => 366,  691 => 363,  688 => 362,  684 => 360,  676 => 357,  673 => 356,  669 => 355,  665 => 353,  662 => 352,  656 => 351,  652 => 349,  648 => 347,  644 => 345,  641 => 344,  637 => 343,  633 => 342,  629 => 341,  625 => 340,  621 => 339,  617 => 338,  612 => 337,  607 => 336,  602 => 333,  598 => 331,  596 => 330,  559 => 295,  550 => 292,  541 => 288,  534 => 283,  531 => 281,  521 => 276,  513 => 273,  505 => 270,  502 => 269,  500 => 268,  493 => 266,  489 => 265,  484 => 263,  471 => 261,  465 => 259,  459 => 258,  421 => 222,  412 => 219,  403 => 215,  393 => 209,  385 => 206,  381 => 205,  376 => 203,  367 => 201,  361 => 199,  355 => 198,  317 => 162,  308 => 159,  293 => 152,  285 => 149,  277 => 146,  273 => 145,  268 => 143,  255 => 141,  249 => 139,  243 => 138,  197 => 94,  188 => 90,  170 => 83,  160 => 80,  154 => 77,  150 => 76,  140 => 75,  135 => 73,  130 => 71,  126 => 70,  121 => 69,  116 => 68,  56 => 10,  53 => 9,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  1079 => 610,  1075 => 609,  1071 => 608,  1067 => 607,  1063 => 606,  1059 => 605,  1054 => 604,  1051 => 603,  1033 => 589,  1001 => 560,  983 => 545,  979 => 544,  975 => 542,  941 => 509,  931 => 505,  922 => 504,  918 => 503,  879 => 466,  877 => 465,  875 => 464,  873 => 463,  871 => 462,  869 => 461,  859 => 452,  854 => 448,  845 => 444,  834 => 438,  830 => 437,  824 => 434,  819 => 433,  814 => 432,  800 => 421,  796 => 420,  792 => 419,  788 => 418,  772 => 404,  769 => 398,  767 => 397,  765 => 396,  763 => 395,  761 => 394,  759 => 393,  757 => 392,  752 => 388,  743 => 384,  737 => 382,  731 => 378,  725 => 377,  714 => 372,  711 => 371,  702 => 367,  694 => 364,  691 => 363,  688 => 362,  684 => 360,  676 => 357,  673 => 356,  669 => 355,  665 => 353,  662 => 352,  656 => 351,  652 => 349,  648 => 347,  644 => 345,  641 => 344,  637 => 343,  633 => 342,  629 => 341,  625 => 340,  621 => 339,  617 => 338,  612 => 337,  607 => 336,  602 => 333,  598 => 331,  596 => 330,  559 => 295,  550 => 292,  541 => 288,  534 => 283,  531 => 281,  521 => 276,  513 => 273,  505 => 270,  502 => 269,  500 => 268,  493 => 266,  489 => 265,  484 => 263,  471 => 261,  465 => 259,  459 => 258,  421 => 222,  412 => 219,  403 => 215,  393 => 209,  385 => 206,  381 => 205,  376 => 203,  367 => 201,  361 => 199,  355 => 198,  317 => 162,  308 => 159,  293 => 152,  285 => 149,  277 => 146,  273 => 145,  268 => 143,  255 => 141,  249 => 139,  243 => 138,  197 => 94,  188 => 90,  170 => 83,  160 => 80,  154 => 77,  150 => 76,  140 => 75,  135 => 73,  130 => 71,  126 => 70,  121 => 69,  116 => 68,  56 => 10,  53 => 9,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

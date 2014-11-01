@@ -349,26 +349,33 @@
 													<td>Super admin</td>
 												{% endif %}
 											{% endfor %}
-											{% if is_granted('ROLE_SUPER_ADMIN') and usuario.id != app.user.id %}
+											{% if is_granted('ROLE_SUPER_ADMIN') and usuario.username != "admin" %}
 												<td> 
 													<div class="btn-group btn-group-sm">
 														{% for roles in usuario.roles %}
 															{% if roles == "ROLE_USER" %}
 																<button  class="btn btn-success promocionar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Promocionar Usuario">
-																	<span class="glyphicon glyphicon-user"></span> Promocionar
+																	<span class="glyphicon glyphicon-thumbs-up"></span> Promocionar
 																	{# <span class="glyphicon glyphicon-thumbs-up"></span> #}
 																</button>
 															{% endif %}
 															{% if roles == "ROLE_ADMIN" %}
+																<div class="btn-group">
+																	<button  class="btn btn-danger degradar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Degradar Usuario">
+																	<span class="glyphicon glyphicon-thumbs-down"></span>
+																	</button>
+																	<button  class="btn btn-success promocionar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Promocionar Usuario"><span class="glyphicon glyphicon-thumbs-up"></span>
+																</button>
+																</div>
+															{% endif %}
+															{% if roles == "ROLE_SUPER_ADMIN" %}
 																<button  class="btn btn-danger degradar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Degradar Usuario">
-																	<span class="glyphicon glyphicon-user"></span> Degradar
-																	{# <span class="glyphicon glyphicon-thumbs-down"></span> #}
+																	<span class="glyphicon glyphicon-thumbs-down"></span> Degradar
+																	
 																</button>
 															{% endif %}
 														{% endfor %}
-														{# <button data-id="{{usuario.id}}" data-url="{{ path('borrarUsuario')}}" class="btn btn-danger borrar_usuario">
-															<span class="glyphicon glyphicon-remove"></span>
-														</button> #}
+													
 													</div>
 												</td>
 											{% endif %}

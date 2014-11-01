@@ -34,6 +34,7 @@ class DefaultController extends Controller
         $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
         return $this->render('RecetasBundle:Default:receta.html.twig',array('receta'=>$receta,'productos'=>$productos,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
     }
+    
 
     public function filtrarAction($categoria)
     {
@@ -50,7 +51,7 @@ class DefaultController extends Controller
         $peticion=$this->container->get('request');
         $campos= $peticion->request->all();
         $busqueda=$campos['busqueda'];
-        // $busqueda="Tortilla";
+        
         /***********************************/
         $em = $this->getDoctrine()->getManager();
         // $result = $em->getRepository('RecetasBundle:Recetas')->findAll();
@@ -89,7 +90,48 @@ class DefaultController extends Controller
         return $this->render('RecetasBundle:Default:recetas.html.twig', array('recetas' => $recetas,'ingredientes'=>$ingredientes,'categorias'=>$categorias));
 
     }
-   
+    public function getRecetasAction()
+    {
+        $peticion=$this->container->get('request');
+        $campos= $peticion->request->all();
+        $usuario=$campos['usuario'];
+        // $usuario=19;
+        
+        /***********************************/
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository('RecetasBundle:Recetas')->findResultsUser($usuario);
+        // $result = $em->getRepository('RecetasBundle:Recetas')->findSearch($busqueda);
+        // return $result;
+        $salida="";
+        for ($i=0; $i < count($result); $i++) { 
+            $j=0;
+            foreach ($result[$i] as $key => $value) {
+                if ($key=="fecha_creacion") {
+                    $value=date_format($value, 'd-m-Y h:m');
+                    // $salida.=$key." = ".$value;
+                    $salida.=$value;
+
+                } else{
+                    // $salida.=$key." = ".$value;
+                    $salida.=$value;
+
+                }
+                
+                
+                if ($j!=count($result[$i])-1) {
+                    $salida.="&";
+                } 
+                $j++;
+                
+            }
+            if ($i!=count($result)-1) {
+                    $salida.="||";
+                } 
+        }
+        // return print_r($result,TRUE);
+        return new Response($salida, Response::HTTP_OK);
+        // return new Response($campos['busqueda'], Response::HTTP_OK);
+    }
     public function nueva_recetaAction()
     {
         $em = $this->getDoctrine()->getManager();

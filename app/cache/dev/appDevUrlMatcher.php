@@ -219,76 +219,81 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::recetaAction',));
             }
 
-            if (0 === strpos($pathinfo, '/recetas')) {
-                // recetas
-                if ($pathinfo === '/recetas') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::recetasAction',  '_route' => 'recetas',);
+            // recetas
+            if ($pathinfo === '/recetas') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::recetasAction',  '_route' => 'recetas',);
+            }
+
+        }
+
+        // getrecetas
+        if ($pathinfo === '/getrecetas') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::getRecetasAction',  '_route' => 'getrecetas',);
+        }
+
+        if (0 === strpos($pathinfo, '/recetas')) {
+            // filtro_cat
+            if (0 === strpos($pathinfo, '/recetas/filtrar') && preg_match('#^/recetas/filtrar/(?P<categoria>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'filtro_cat')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::filtrarAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/recetas/nueva_receta')) {
+                // nueva_receta
+                if ($pathinfo === '/recetas/nueva_receta') {
+                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::nueva_recetaAction',  '_route' => 'nueva_receta',);
                 }
 
-                // filtro_cat
-                if (0 === strpos($pathinfo, '/recetas/filtrar') && preg_match('#^/recetas/filtrar/(?P<categoria>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'filtro_cat')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::filtrarAction',));
-                }
-
-                if (0 === strpos($pathinfo, '/recetas/nueva_receta')) {
-                    // nueva_receta
-                    if ($pathinfo === '/recetas/nueva_receta') {
-                        return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::nueva_recetaAction',  '_route' => 'nueva_receta',);
+                if (0 === strpos($pathinfo, '/recetas/nueva_receta/crear')) {
+                    // crear_receta
+                    if ($pathinfo === '/recetas/nueva_receta/crear') {
+                        return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::crear_recetaAction',  '_route' => 'crear_receta',);
                     }
 
-                    if (0 === strpos($pathinfo, '/recetas/nueva_receta/crear')) {
-                        // crear_receta
-                        if ($pathinfo === '/recetas/nueva_receta/crear') {
-                            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::crear_recetaAction',  '_route' => 'crear_receta',);
-                        }
-
-                        // listar_ing
-                        if ($pathinfo === '/recetas/nueva_receta/crear/listar_ing') {
-                            return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::listarProductosAction',  '_route' => 'listar_ing',);
-                        }
-
-                    }
-
-                }
-
-                if (0 === strpos($pathinfo, '/recetas/editar')) {
-                    // editar_receta
-                    if (preg_match('#^/recetas/editar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::editar_recetaAction',));
-                    }
-
-                    // mod_receta
-                    if (0 === strpos($pathinfo, '/recetas/editar/mod') && preg_match('#^/recetas/editar/mod/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'mod_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::editar_recetaAction',));
+                    // listar_ing
+                    if ($pathinfo === '/recetas/nueva_receta/crear/listar_ing') {
+                        return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::listarProductosAction',  '_route' => 'listar_ing',);
                     }
 
                 }
 
-                // borrar_receta
-                if (0 === strpos($pathinfo, '/recetas/borrar') && preg_match('#^/recetas/borrar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::borrar_recetaAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/recetas/editar')) {
+                // editar_receta
+                if (preg_match('#^/recetas/editar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::editar_recetaAction',));
                 }
 
-                // nueva_categoria
-                if ($pathinfo === '/recetas/nueva_categoria') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::nueva_categoriaAction',  '_route' => 'nueva_categoria',);
+                // mod_receta
+                if (0 === strpos($pathinfo, '/recetas/editar/mod') && preg_match('#^/recetas/editar/mod/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'mod_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::editar_recetaAction',));
                 }
 
-                // edit_categoria
-                if ($pathinfo === '/recetas/edit_categoria') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::edit_categoriaAction',  '_route' => 'edit_categoria',);
-                }
+            }
 
-                // del_categoria
-                if ($pathinfo === '/recetas/del_categoria') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::del_categoriaAction',  '_route' => 'del_categoria',);
-                }
+            // borrar_receta
+            if (0 === strpos($pathinfo, '/recetas/borrar') && preg_match('#^/recetas/borrar/(?P<receta>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_receta')), array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::borrar_recetaAction',));
+            }
 
-                // valorar
-                if ($pathinfo === '/recetas/valorar') {
-                    return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::valorarAction',  '_route' => 'valorar',);
-                }
+            // nueva_categoria
+            if ($pathinfo === '/recetas/nueva_categoria') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::nueva_categoriaAction',  '_route' => 'nueva_categoria',);
+            }
 
+            // edit_categoria
+            if ($pathinfo === '/recetas/edit_categoria') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::edit_categoriaAction',  '_route' => 'edit_categoria',);
+            }
+
+            // del_categoria
+            if ($pathinfo === '/recetas/del_categoria') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\FormRecetasController::del_categoriaAction',  '_route' => 'del_categoria',);
+            }
+
+            // valorar
+            if ($pathinfo === '/recetas/valorar') {
+                return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::valorarAction',  '_route' => 'valorar',);
             }
 
         }

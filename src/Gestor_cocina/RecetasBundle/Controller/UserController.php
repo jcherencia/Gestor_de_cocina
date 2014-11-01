@@ -196,17 +196,51 @@ class UserController extends Controller
         $id = $this->getRequest()->request->get('id');
         $accion = $this->getRequest()->request->get('accion');
         $user = $em->getRepository('RecetasBundle:Usuarios')->find($id);
+        $response="true";
+        $roles=$user->getRoles();
+        $rol=$roles[0];
         if ($accion=="promocionar") {
-            $user->setRoles('ROLE_ADMIN');
-            $em->persist($user);
+            $response="false1";
+            
+            switch ($rol) {
+                case 'ROLE_USER':
+                    $user->setRoles('ROLE_ADMIN');
+                    $em->persist($user);
+                    $response="false";
+                    break;
+                case 'ROLE_ADMIN':
+                    $user->setRoles('ROLE_SUPER_ADMIN');
+                    $em->persist($user);
+                    $response="false";
+                    break;
+                
+            }
+            
         }
         if ($accion=="degradar") {
-           $user->setRoles('ROLE_USER');
-           $em->persist($user);
+            $response="false2";
+           
+            $response="false";
+            switch ($rol) {
+                case 'ROLE_ADMIN':
+                    $user->setRoles('ROLE_USER');
+                    $response="false";
+                    $em->persist($user);
+                    break;
+                case 'ROLE_SUPER_ADMIN':
+                    $user->setRoles('ROLE_ADMIN');
+                    $em->persist($user);
+                    $response="false";
+                    break;
+           // $user->setRoles('ROLE_USER');
+           // $em->persist($user);
+            }
+
         }
         $em->flush();
-        $response="true";
-        return new Response($response, Response::HTTP_OK);
+            // $response=$salida;
+            // $response="false";
+            return new Response($response, Response::HTTP_OK);
         // echo $id.$accion;
     }
 }

@@ -738,14 +738,17 @@ function borrarUsuario(id,url){
 		});
 }
 function editarRol(id,url,accion){
+	url_cenlog=$('#url_cenlog').val();
 	$.ajax({
 			url: url,
 			type: 'POST',
 			async: true,
 			data: {'id':id,'accion':accion},
 			success: function (response) {
-				location.reload();
+				// location.reload();
 				// alert(response);
+				$('#add_categ').val("");
+				window.location=url_cenlog+"?menu=usuarios";
 			},
 			error: function(jqXHR, exception) {
 	            if (jqXHR.status === 0) {

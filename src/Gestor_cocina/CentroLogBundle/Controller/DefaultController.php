@@ -12,7 +12,7 @@ class DefaultController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
         $usuarios = $em->getRepository('RecetasBundle:Usuarios')->findAll();
-        $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
+        $categorias = $em->getRepository('RecetasBundle:Categoria')->findOrdenNomb();
         $solicitudes = $em->getRepository('CentroLogBundle:SolicitudProd')->findAll();
         $pedidos = $em->getRepository('CentroLogBundle:Pedido')->findAll();
         $productos = $em->getRepository('AlmacenBundle:Productos')->findAll();

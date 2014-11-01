@@ -382,7 +382,9 @@ label.error{
     top: 0;
     width: 0;
 }
-
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
 /*************************************/
 .more-info{
 	display: none;
@@ -698,6 +700,10 @@ li.ui-menu-item{
 }
 .top-star{
 	content: "\e007";
+}
+table.dataTable thead{
+	background-color: #0776A0;
+	color:white;
 }
 /*********RESPONSIVE DESIGN***********/
 @media (max-width: 767px) {

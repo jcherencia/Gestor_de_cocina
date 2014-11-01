@@ -57,6 +57,10 @@ receta:
 recetas:
     pattern: /recetas
     defaults: { _controller: RecetasBundle:Default:recetas }
+getrecetas:
+    pattern: /getrecetas
+    defaults: { _controller: RecetasBundle:Default:getRecetas }
+
 filtro_cat:
     pattern: /recetas/filtrar/{categoria}
     defaults: { _controller: RecetasBundle:Default:filtrar }

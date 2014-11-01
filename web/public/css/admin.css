@@ -13,7 +13,7 @@
 .admin .side-nav li.active,
 .admin .side-nav li a:focus{
 	background: #62B1D0;
-	color:inherit;
+	color:white;
 	border-right: 2px solid white;	
 }
 /************************/

@@ -3,18 +3,21 @@
 	{% block stylesheet %} 
 		{{ parent() }}
 		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/star-rating.css') }}">
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/bootstrap-switch.css') }}">
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jquery.dataTables.css') }}">
 		
 		
 	{% endblock %}
 		{% block body %}
 			<div class='content'>
-				
+				<div id="dataSwitch"></div>
 			<div class='container'>
 				<div class='row row-grid'>
 					<div class='col-md-12'>
 						<a href="{{ path('nueva_receta') }}">
 							<button class='btn btn-primary complement-1-b'><span class="glyphicon glyphicon-plus"></span> Nueva Receta</button>
 						</a>
+
 						<div class='btn-group pull-right'>
 							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
 								<span class="glyphicon glyphicon-list-alt"></span> Categorias  
@@ -37,6 +40,7 @@
 
 
 				</div>
+				<div id="url_rec" data-url="{{path('inicio')}}"></div>
 				<div id='panel-grid' class='panel panel-primary panel-view'>
 					<div class='panel-heading complement-1-b'>
 						<a data-toggle="collapse" data-parent="#accordion" href="#misrecetas">
@@ -44,31 +48,14 @@
 								<span>  Mis recetas </span>
 							</strong>
 						</a>
-						{# <span> 
-							<strong> Mis recetas</strong>
-						</span> #}
-						{# <div class='btn-group pull-right dropdown-head-panel'>
-							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
-								Categorias  
-								<span class='caret'></span>
-							</button>
-							<ul class='dropdown-menu filtro' role='menu'>
-								<li>
-								<a href="{{path('recetas')}}">Sin filtro</a>
-								</li>
-								<li class="divider"></li>
-								{% for categoria in categorias %}
-									<li>
-										<a href="{{ path('filtro_cat', { 'categoria': categoria.id }) }}"> {{categoria.nombre}}</a>
-									</li>
-								{% endfor %}
-								
-							</ul>
-						</div> #}
+						
+						<div class='btn-group pull-right dropdown-head-panel'>
+							<input type="checkbox" class="toggleviews" data-target="misrecetas" checked>
+						</div>
 					</div>
-					<div id="misrecetas" class="panel-collapse collapse in">
+					<div id="misrecetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}">
 						<div class='panel-body'>
-							<div class='row row-grid'>
+							<div class='row row-grid' id="cont_misrecetas">
 							{% for receta in recetas if receta.creador.id == app.user.id %}
 								<div class='col-sm-6 col-md-3'>
 								
@@ -118,8 +105,19 @@
 									</div>
 								{% endfor %}
 							</div>
-						</div>
-					</div>
+							{# <div class="row row-list">
+								<table>
+									{% for receta in recetas if receta.creador.id == app.user.id %}
+										<tr>
+											<td>{{receta.nombre}}</td>
+										</tr>
+									{% endfor %}
+								</table>
+								
+							</div> #}
+							<div id="userrecetas" data-user="{{app.user.id}}"></div>
+						</div>{# fin misrecetas body #}
+					</div>{# fin misrecetas #}
 				</div>
 				<div id='panel-grid' class='panel panel-primary panel-view'>
 					<div class='panel-heading complement-1-b'>
@@ -128,30 +126,14 @@
 								<span>  Todas las recetas</span>
 							</strong>
 						</a>
-						{# <span> 
-							<strong> Mis recetas</strong>
-						</span> #}
-			{# 			<div class='btn-group pull-right dropdown-head-panel'>
-							<button class='btn btn-primary complement-1-b dropdown-toggle' type='button' data-toggle='dropdown'> 
-								Categorias  
-								<span class='caret'></span>
-							</button>
-							<ul class='dropdown-menu filtro' role='menu'>
-								<li>
-								<a href="{{path('recetas')}}">Sin filtro</a>
-								</li>
-								{% for categoria in categorias %}
-									<li>
-										<a href="{{ path('filtro_cat', { 'categoria': categoria.id }) }}"> {{categoria.nombre}}</a>
-									</li>
-								{% endfor %}
-								
-							</ul>
-						</div> #}
+						
+						<div class='btn-group pull-right dropdown-head-panel'>
+							<input type="checkbox" class="toggleviews" data-target="recetas" checked>
+						</div>
 					</div>
-					<div id="recetas" class="panel-collapse collapse">
+					<div id="recetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}">
 						<div class='panel-body'>
-							<div class='row row-grid'>
+							<div class='row row-grid' id="cont_recetas">
 							{% for receta in recetas  %}
 								<div class='col-sm-6 col-md-3'>
 									<figure class='receta' data-id="{{ receta.id }}">
@@ -203,7 +185,9 @@
 									</div>
 								{% endfor %}
 							</div>
+							<div id="allrecetas" data-user="NULL"></div>
 						</div>
+
 					</div>
 				</div>
 
@@ -297,6 +281,7 @@
 			<div id="notification"></div>
 			
 		</div>
+		<a href="#" class="scrollup">Scroll</a>
 	{% endblock %}
     {% block javascript %}
         {{ parent() }}
@@ -304,7 +289,10 @@
         	<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
         	<script type="text/javascript" src="{{ asset('public/js/star-rating.js') }}"></script>
         	<script type="text/javascript" src="{{ asset('public/js/valoracion.js') }}"></script>
-
+        	<script type="text/javascript" src="{{ asset('public/js/bootstrap-switch.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/jquery.dataTables.js') }}"></script>
+        	
+        	<script type="text/javascript" src="{{ asset('public/js/datatable.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 
