@@ -40,7 +40,7 @@
 
 
 				</div>
-				<div id="url_rec" data-url="{{path('inicio')}}"></div>
+				<div id="url_ini" data-url="{{path('inicio')}}"></div>
 				<div id='panel-grid' class='panel panel-primary panel-view'>
 					<div class='panel-heading complement-1-b'>
 						<a data-toggle="collapse" data-parent="#accordion" href="#misrecetas">
@@ -53,14 +53,14 @@
 							<input type="checkbox" class="toggleviews" data-target="misrecetas" checked>
 						</div>
 					</div>
-					<div id="misrecetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}">
+					<div id="misrecetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}" data-tipo="user_recetas">
 						<div class='panel-body'>
 							<div class='row row-grid' id="cont_misrecetas">
 							{% for receta in recetas if receta.creador.id == app.user.id %}
 								<div class='col-sm-6 col-md-3'>
 								
 									<figure class='receta' data-id="{{ receta.id }}">
-										<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
+										<img class='' alt='300x200' src="{{ asset(receta.foto) }}">
 										<figcaption>
 											<a class='nombre' href="">{{ receta.nombre }}</a>
 											<p class='description info_hide'>{{ receta.descripcion }}</p>
@@ -97,7 +97,7 @@
 								{% else %}
 									<div class='col-sm-6 col-md-3'>
 											<figure class='receta' data-id="NULL">
-												<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
+												<img class='' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
 												<figcaption>
 													<a class='nombre' href="">No hay resultados</a>
 												</figcaption>
@@ -115,7 +115,7 @@
 								</table>
 								
 							</div> #}
-							<div id="userrecetas" data-user="{{app.user.id}}"></div>
+							<div id="userrecetas" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}" data-tipo="user_recetas"></div>
 						</div>{# fin misrecetas body #}
 					</div>{# fin misrecetas #}
 				</div>
@@ -131,13 +131,13 @@
 							<input type="checkbox" class="toggleviews" data-target="recetas" checked>
 						</div>
 					</div>
-					<div id="recetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}">
+					<div id="recetas" class="panel-collapse collapse in" data-url="{{ path('getrecetas') }}" data-user="{{ app.user.id }}" data-tipo="all_recetas">
 						<div class='panel-body'>
 							<div class='row row-grid' id="cont_recetas">
 							{% for receta in recetas  %}
 								<div class='col-sm-6 col-md-3'>
 									<figure class='receta' data-id="{{ receta.id }}">
-										<img class='img-rounded' alt='300x200' src="{{ asset(receta.foto) }}">
+										<img class='' alt='300x200' src="{{ asset(receta.foto) }}">
 										<figcaption>
 											<a class='nombre' href="">{{ receta.nombre }}</a>
 											<p class='description info_hide'>{{ receta.descripcion }}</p>
@@ -177,7 +177,7 @@
 								{% else %}
 									<div class='col-sm-6 col-md-3'>
 											<figure class='receta' data-id="NULL">
-												<img class='img-rounded' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
+												<img class='' alt='300x200' src="{{ asset('public/img/no_image.png') }}">
 												<figcaption>
 													<a class='nombre' href="">No hay resultados</a>
 												</figcaption>
@@ -185,7 +185,7 @@
 									</div>
 								{% endfor %}
 							</div>
-							<div id="allrecetas" data-user="NULL"></div>
+							<div id="allrecetas" data-user="NULL" data-url="{{ path('getrecetas') }}" data-tipo="all_recetas"></div>
 						</div>
 
 					</div>

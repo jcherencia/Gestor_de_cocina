@@ -5,39 +5,33 @@
 ***/
 $(document).ready(function(){
 	$("button[data-href]").click(function(){
-		if($(this).data("type")=="delete"){
-			$(".modal").modal('hide');
-			$.confirm({
-				title:"Alerta del sistema",
-		        text: "¿Desea realmente borrar el elemento seleccionado?",
-		        confirmButton: "Aceptar",
-    			cancelButton: "Cancelar",
-		        confirm: function(button) {
-		            alert("You just confirmed.");
-		        },
-		        cancel: function(button) {
-		            $(".modal").modal('show');
-		        }
-   			 });
-		// 	if(confirm("¿Desea realmente borrar?") == true)
-		// 	{
-		// 		location.href = $(this).attr("data-href");
-		// 	}
-		}else{
-			// alert("no");
-			location.href = $(this).attr("data-href");
-		}
+		// alert("ok");
+		confirmAction($(this));
 		
 	});
 	if ($('#prepare_rec').length){
 
 		$('#prepare_rec').click(function(){
-			// alert($(this).data('userid'));
-			prepare_rec(
-				$(this).data('id'),
-				$(this).data('url'),
-				$(this).data('userid')
-				);
+			id=$(this).data('id');
+			url=$(this).data('url');
+			userid=$(this).data('userid');
+			content="<p>¿Está seguro que desea que desea proceder a la preparación de la receta seleccionada?</p>";
+			content+="<p><i>Se descontarán los ingredientes de dicha receta del almacén o si fuera necesario se solicitará dicho produto.</i></p>";
+			$("#modal-prepare").modal('hide');
+			$.confirm({
+				title:"Alerta del sistema",
+			    text: content,
+			    confirmButton: "Aceptar",
+		    	cancelButton: "Cancelar",
+		    	theme:"complement-1-b",
+			    confirm: function(button) {
+			        // prepare_rec(id,url,userid);
+			    },
+			    cancel: function(button) {
+			       $("#modal-prepare").modal('show');
+			    }
+			});
+			
 		});
 
 		$("input[name='comensales']").TouchSpin({
@@ -61,6 +55,31 @@ function loadTextarea(){
 	}
 	
 }
+function confirmAction (element) {
+	if(element.data("type")=="delete"){
+
+			$(".modal").modal('hide');
+			$.confirm({
+				title:"Alerta del sistema",
+		        text: "¿Desea realmente borrar el elemento seleccionado?",
+		        confirmButton: "Aceptar",
+    			cancelButton: "Cancelar",
+		        confirm: function(button) {
+		            // alert("You just confirmed.");
+					location.href = element.attr("data-href");
+
+		        },
+		        cancel: function(button) {
+		            // $(".modal").modal('show');
+		        }
+   			 });
+		
+		}else{
+			// alert("no");
+			location.href = element.attr("data-href");
+		}
+}
+
 //**************************************************************//
 //******************* GESTION DE CATEGORIAS ********************//
 //**************************************************************//
@@ -441,4 +460,12 @@ function notificacion (contenido,tipo,accion) {
 	}
 	
 
+}
+
+
+function informButton (element) {
+	id=element.attr('id');
+	cont=element.data('info');
+	alertasPop (id,cont,"top","hover",false,"info");
+	// body...
 }

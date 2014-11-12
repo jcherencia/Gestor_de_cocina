@@ -4,9 +4,14 @@ use Doctrine\ORM\EntityRepository;
 
 class IngredienteRepository extends EntityRepository
 {
-	public function findIngrReceta($receta)
+	public function findDelProd($id)
 	{
-
-		echo "hola";
+	
+       $em = $this->getEntityManager();
+       $consulta = $em->createQuery("SELECT i FROM RecetasBundle:Ingredientes i WHERE i.producto=".$id);
+       return $consulta->getResult();
+    	# code...
 	}
+
 }
+

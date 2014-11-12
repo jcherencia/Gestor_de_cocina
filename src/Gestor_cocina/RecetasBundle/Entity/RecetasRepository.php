@@ -70,5 +70,11 @@ class RecetasRepository extends EntityRepository
             }
       return $consulta->getResult();
     }
+    public function findOrderByName()
+    {
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery("SELECT r FROM RecetasBundle:Recetas r ORDER BY r.nombre ASC");
+        return $consulta->getResult();
+    }
     
 }

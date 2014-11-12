@@ -33,10 +33,11 @@
 													<table class="table">
 														<thead>
 															<tr>
-																<th class="col-md-4">Producto</th>
-																<th class="col-md-2">Cantidad</th>
+																<th class="col-md-2">Producto</th>
+																<th class="col-md-2">Solicitado</th>
+																<th class="col-md-2">De Almacén</th>
 																<th class="col-md-2">Fecha</th>
-																<th class="col-md-1"></th>
+																<th class="col-md-2"></th>
 																														
 															</tr>
 														</thead>
@@ -50,12 +51,16 @@
 																		<span class="ped-tit"> {{solicitud.producto.nombre}}</span>
 																</a></td>
 																<td class="cantidad" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.cantidad}} {{solicitud.producto.unidad}}</td>
-																<td>{{solicitud.fecha|date("d/m/Y")}}</td>
+																<td class="prodsust" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.prodsustraido}} {{solicitud.producto.unidad}}</td>
+																<td class="date">{{solicitud.fecha|date("d/m/Y")}}</td>
 																{# <td>{{solicitud.usuario.nombre}}</td> #}
-																<td>
-																	<button type="button" class="btn btn-primary btn-sm">
-																	  <span class="glyphicon glyphicon-star"></span> Ver producto
-																	</button>	
+																<td class="option">
+																	<div class="btn-group">
+																		<button type="button" class="btn btn-primary btn-sm complement-1-b"
+																		data-url="{{path('prodSolicitado')}}" onclick="verProdSolc ('{{solicitud.id}}',$(this))">
+																		  <span class="glyphicon glyphicon-search"></span></button>
+																		<button type="button" class="btn btn-danger btn-sm" data-url="{{path('delSolicitud')}}" onclick="delSolc({{solicitud.id}},$(this))"><span class="glyphicon glyphicon-trash"></span></button>
+																	</div>	
 																</td>
 															</tr>
 														{% else %}
@@ -76,31 +81,38 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="panel panel-primary">
+					<div class="panel panel-primary" id="info_prod">
 						<div class='panel-heading complement-1-b'>
 							<span> 
-								<strong> Producto seleccionado</strong>
+								<strong><span class="nombre">Inform. producto</span></strong>
 							</span>
 							
 						</div>{# FIN PANEL HEAD#}
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-12 col-grid">
+								<div class="col-md-12 col-grid foto text-center">
 									<img class="img-rounded" src="/Gestor_de_cocina/web/public/img/no_image.png">
 								</div>
 								<div class="col-md-12">
 									<table class="table">
 										<tr>
 											<td>Stock</td>
-											<td>30 kg</td>
+											<td>
+												<span class="stock"></span> <span class="unidad"></span>
+											</td>
 										</tr>
 										<tr>
 											<td>Stock min</td>
-											<td>3 kg</td>
+											<td>
+												<span class="stockmin"></span> <span class="unidad"></span>
+											</td>
 										</tr>
 										<tr>
 											<td>Precio</td>
-											<td>3 kg</td>
+											<td>
+												<span class="precio"></span> € /
+												<span class="unidcompra"></span> <span class="unidad"></span>
+											</td>
 										</tr>
 									</table>
 								</div>
@@ -108,8 +120,26 @@
 							</div>
 						</div>
 						
-					</div>
+					</div>{# fin panel#}
+					<div class="panel panel-primary" id="info">
+						<div class='panel-heading complement-1-b'>
+							<span> 
+								<strong> Información</strong>
+							</span>
+							
+						</div>{# FIN PANEL HEAD#}
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<p>Al realizar una solicitud de productos se procederá a comprobar el stock de dicho producto en el almacén, y si fuera necesario se solicitará la cantidad necesaria al Centro Logístico.</p>	
+								</div>
+
+							</div>
+						</div>
+						
+					</div>{# fin panel #}
 				</div>
+
 			</div>
 		</div>
 		<div id='modal-peticiones' class="modal fade" tabindex='-1' role='dialog'  aria-labelledby='ModalLabel' aria-hidden='true'>

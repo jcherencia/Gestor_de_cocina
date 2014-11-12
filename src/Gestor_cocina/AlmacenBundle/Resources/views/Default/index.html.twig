@@ -3,12 +3,16 @@
 	{% block stylesheet %} 
 		{{ parent() }}
 		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/bootstrap-wizard.css') }}">
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/bootstrap-switch.css') }}">
+		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/jquery.dataTables.css') }}">
 		
 	{% endblock %}
 		{% block body %}
 
 
 	<div class="container">	
+	<div id="dataSwitch"></div>
+	<div id="url_ini" data-url="{{path('inicio')}}"></div>
 		<div class="row row-grid">
 			<div class="col-md-12">
 				<button  data-href="{{path('nuevo_producto')}}" class="btn btn-primary complement-1-b">
@@ -16,29 +20,15 @@
 				</button>
 			</div>
 	 	</div>
-		<div id="panel-grid" class="panel panel-primary panel-view">
+		<div id="productos" class="panel panel-primary panel-view" data-url="{{ path('verproductos') }}" data-user="{{ app.user.id }}" data-tipo="all_productos">
 		<div class="panel-heading complement-1-b">
 		 	<span>Almacén</span>
-		 	<div class="btn-group pull-right dropdown-head-panel">
-			 	<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle complement-1-b">Ordenar  
-			 		<span class="caret"></span>
-			 	</button>
-		 	<ul role="menu" class="dropdown-menu">
-			 	<li>
-			 		<a href="#">Ordenar por:</a>
-			 	</li>
-			 	<li class="divider"></li>
-			 	<li>
-			 		<a href="#">Tipo</a>
-			 	</li>
-		 		<li>
-		 		<a href="#">Fecha</a>
-		 		</li>
-	 		</ul>
-		 	</div>
+		 	<div class='btn-group pull-right dropdown-head-panel'>
+							<input type="checkbox" class="toggleviews" data-target="productos" checked>
+						</div>
 	 	</div>
 	 	<div class="panel-body">
-	 		<div class="row row-grid">
+	 		<div class='row row-grid' id="cont_productos">
 	 		{% for producto in productos %}
 	 			<div class="col-sm-6 col-md-3">
 	 				<figure>
@@ -75,9 +65,11 @@
 							</figcaption>
 						</figure>
 					</div>
-				{% endfor %}
+					{% endfor %}
+
 	 			
-				</div>
+				</div> {# end row grid#}
+				<div id="allproductos" data-user="NULL" data-url="{{ path('verproductos') }}" data-tipo="all_productos"></div>
 		 	</div>
 		</div>
 
@@ -87,6 +79,10 @@
     {% block javascript %}
         {{ parent() }}
         	<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/bootstrap-switch.js') }}"></script>
+        	<script type="text/javascript" src="{{ asset('public/js/jquery.dataTables.js') }}"></script>
+        	
+        	<script type="text/javascript" src="{{ asset('public/js/datatable.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
 			

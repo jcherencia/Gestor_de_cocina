@@ -162,6 +162,7 @@ var Tag = function (id_pro,nombre,cantidad,unidad) {
 	}
 
 	function solicitar (id_usu,url) {
+		// alert(url);
 		solicitudes={};
 		if ($('.tag_cnt').length) {
 			$('.tag_cnt').each(function(key, element){
@@ -169,16 +170,17 @@ var Tag = function (id_pro,nombre,cantidad,unidad) {
 			cantidad=$(this).children('.cantidad').text();
 			solicitudes[prod]=cantidad;
 			});
-			for (prod in solicitudes) {
-				alert(prod+" - "+solicitudes[prod]);
+			// for (prod in solicitudes) {
+			// 	alert(prod+" - "+solicitudes[prod]);
 				
-			};
+			// };
 			$.ajax({
 					url: url,
 					type: 'POST',
 					async: true,
 					data: {'id_usuario':id_usu, 'ingr':solicitudes},
 					success: function (response) {
+						// alert(response);
 						location.reload();
 					},
 					error: function(jqXHR, exception) {
@@ -204,7 +206,54 @@ var Tag = function (id_pro,nombre,cantidad,unidad) {
 			alertasPop ('solicitudes',"No ha introducido ningún ingrediente.",'bottom',false,'danger' );
 		}
 	}
+	function delSolc(id,element) {
+		url=element.data('url');
+		$.ajax({
+					url: url,
+					type: 'POST',
+					async: true,
+					data: {'idsolic':id,},
+					success: function (response) {
+						// alert(true);
+						if (response='true') {
+							location.reload();
+						};
+						
+					}
+				});
+	}
+	function verProdSolc(id,element) {
+		url=element.data('url');
+		$.ajax({
+					url: url,
+					type: 'POST',
+					async: true,
+					data: {'idsolic':id,},
+					success: function (response) {
+						separadores=["||","&","="];
+						respProc=procResponse(response,separadores);
+						// alert(print_r(respProc,true));
 
+						for (var i = 0; i < respProc[0].length; i++) {
+							// alert(respProc[0][i][0]);
+							key=respProc[0][i][0];
+							value=respProc[0][i][1];
+							if(key!="foto"){
+								$("#info_prod ."+key).html(value);
+							}else{
+								img='<img class="img-rounded img-xs" src="/Gestor_de_cocina/web/'+value+'">';
+								$("#info_prod ."+key).html(img);
+							}
+							
+						};
+						// $("#info_prod").show();
+						
+					}
+			
+				});
+	
+	}
+	
 	
 
 

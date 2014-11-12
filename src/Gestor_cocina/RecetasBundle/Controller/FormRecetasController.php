@@ -85,8 +85,9 @@ class FormRecetasController extends Controller
             } else {
                 $status = 'failed';
                 $message = 'File Error';
-                $dir="public/img/no_user2.png";
+                $dir="public/img/no_image.png";
                 $receta->setFoto($dir);
+                $receta->setNotaMedia("0");
                 $em->persist($receta);
                 $em->flush();                
             }//FIN INSTANCEOF

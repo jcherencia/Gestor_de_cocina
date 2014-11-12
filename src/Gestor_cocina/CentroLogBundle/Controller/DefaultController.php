@@ -37,10 +37,12 @@ class DefaultController extends Controller
     public function genSolicitudAction()
     {
     	$peticion=$this->container->get('request');
+		// $campos_get= $peticion->query->all();
 		$campos= $peticion->request->all();
     	/***********************************/
     	$em = $this->getDoctrine()->getManager();
-    	
+    	// $response=print_r($campos,TRUE);
+    	// $response=print_r($peticion,TRUE);
     	if (isset($campos['id'])) {
     		$id= (int)$campos['id'];
     		$receta = $em->getRepository('RecetasBundle:Recetas')->find($id);
@@ -48,18 +50,20 @@ class DefaultController extends Controller
     	} else {
     		$response="true";
     	}
-    	
-    	
-    	
+    	    	
     	$id_usuario= (int)$campos['id_usuario'];
 		
     	$usuario = $em->getRepository('RecetasBundle:Usuarios')->find($id_usuario);
     	foreach ($campos['ingr'] as $key => $value) {
+    		// print_r(expression)
     		$index=(int)$key;
     		$producto = $em->getRepository('AlmacenBundle:Productos')->findOneBy(array(
             'id'  => $index));
-    		$solicitud_cant=$this->comprobAlmacen($producto,$value);
-    		print_r($campos);
+            // $response.=print_r($producto,TRUE);
+    			$movim_almacen=$this->comprobAlmacen($producto,$value);
+		    	$solicitud_cant=$movim_almacen['cant'];
+		    	$sustraidoalm=$movim_almacen['sustr'];
+    		// $response.=print_r($solicitud_cant,TRUE);
     		if($solicitud_cant != false){
 				$solicitud = new SolicitudProd();
 	    		// $solicitud->setReceta($receta);
@@ -68,36 +72,73 @@ class DefaultController extends Controller
 	    		$solicitud->setCantidad($solicitud_cant);
 	    		$solicitud->setFecha(new \DateTime("now"));
 	    		$solicitud->setUsuario($usuario);
+	    		$solicitud->setProdsustraido($sustraidoalm);
+	    		// print_r($solicitud);
 	    	    $em->persist($solicitud);
 	        	
+    		}else{
+    			$solicitud = new SolicitudProd();
+	    		// $solicitud->setReceta($receta);
+	    		// $index=(int)$key;
+	    		$solicitud->setProducto($producto);
+	    		$solicitud->setCantidad(0);
+	    		$solicitud->setFecha(new \DateTime("now"));
+	    		$solicitud->setUsuario($usuario);
+	    		$solicitud->setProdsustraido($sustraidoalm);
+	    		// print_r($solicitud);
+	    	    $em->persist($solicitud);
     		}
     		
     	}
     	$em->flush();  
-    	// return new Response($response, Response::HTTP_OK);
+    	return new Response($response, Response::HTTP_OK);
     	
+    }
+
+    public function delSolicitudAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$peticion=$this->container->get('request');
+		// $campos_get= $peticion->query->all();
+		$campos= $peticion->request->all();
+		$idsolic=(int)$campos['idsolic'];
+		$solic = $em->getRepository('CentroLogBundle:SolicitudProd')->find($idsolic);
+		$sustr=$solic->getProdsustraido();
+		$prod=$solic->getProducto();
+		$em->remove($solic);
+		$em->flush();
+		$stock=$prod->getStock();
+		$prod->setStock($stock+$sustr);
+		$em->persist($prod);
+		$em->flush();
+		$response="true";
+		return new Response($response, Response::HTTP_OK);
+
     }
     public function comprobAlmacen($producto,$cantidad)
     {
     	// echo $producto->getNombre()." -- ".$producto->getStock();
+    	$em = $this->getDoctrine()->getManager();
     	$stock=$producto->getStock();
     	$stock_min=$producto->getStockMin();
-    	$solicitud=0;
+    	$solicitud=[];
     	if($cantidad >= $stock){
-			$solicitud = ($cantidad - $stock) + $stock_min;
+			$solicitud['cant'] = ($cantidad - $stock) + $stock_min;
+			$solicitud['sustr']=$stock;
 			$producto -> setStock(0); 
-			$em = $this->getDoctrine()->getManager();
+			
         	$em->persist($producto);
         	$em->flush();
     	}
     	if($cantidad < $stock){
 			$restante= $stock - $cantidad;
+			$solicitud['sustr']=$cantidad;
 			$producto -> setStock($restante); 
-			$em = $this->getDoctrine()->getManager();
-        	$em->persist($producto);
+			$em->persist($producto);
         	$em->flush();
+        	$solicitud['cant']=false;
 			if( $restante < $stock_min ){
-				$solicitud = $stock_min - $restante;
+				$solicitud['cant'] = $stock_min - $restante;
 			}
     	}
     		
@@ -273,6 +314,27 @@ class DefaultController extends Controller
 		$response="true";
 		return new Response($response, Response::HTTP_OK);
 			// print_r("expression");
+	}
+	public function prodSolicitadoAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+        $peticion=$this->container->get('request');
+        // $campos= $peticion->query->all();
+        $campos= $peticion->request->all();
+        $idsolic=(int)$campos['idsolic'];
+        $solic = $em->getRepository('CentroLogBundle:SolicitudProd')->find($idsolic);
+        $prod=$solic->getProducto();
+        $salida="";
+        $salida.="nombre=".$prod->getNombre()."&";
+        $salida.="precio=".$prod->getPrecio()."&";
+        $salida.="unidcompra=".$prod->getUnidadCompra()."&";
+        $salida.="stock=".$prod->getStock()."&";
+        $salida.="stockmin=".$prod->getStockMin()."&";
+        $salida.="unidad=".$prod->getUnidad()."&";
+        $salida.="foto=".$prod->getFoto()."";
+        // echo $salida;
+        return new Response($salida, Response::HTTP_OK);
+        // return new Response($idsolic, Response::HTTP_OK);
 	}
 
 }

@@ -304,9 +304,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::solicitudesAction',  '_route' => 'solicitudes',);
             }
 
-            // pedir_productos
-            if ($pathinfo === '/solicitudes/pedir_productos') {
-                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::pedir_productosAction',  '_route' => 'pedir_productos',);
+            if (0 === strpos($pathinfo, '/solicitudes/p')) {
+                // pedir_productos
+                if ($pathinfo === '/solicitudes/pedir_productos') {
+                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::pedir_productosAction',  '_route' => 'pedir_productos',);
+                }
+
+                // prodSolicitado
+                if ($pathinfo === '/solicitudes/prodSolicitado') {
+                    return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::prodSolicitadoAction',  '_route' => 'prodSolicitado',);
+                }
+
             }
 
         }
@@ -316,9 +324,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'centro_log',);
         }
 
-        // genSolicitud
-        if ($pathinfo === '/recetas/genSolicitud') {
-            return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+        if (0 === strpos($pathinfo, '/recetas')) {
+            // genSolicitud
+            if ($pathinfo === '/recetas/genSolicitud') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::genSolicitudAction',  '_route' => 'genSolicitud',);
+            }
+
+            // delSolicitud
+            if ($pathinfo === '/recetas/delSolicitud') {
+                return array (  '_controller' => 'Gestor_cocina\\CentroLogBundle\\Controller\\DefaultController::delSolicitudAction',  '_route' => 'delSolicitud',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/centro_log')) {
@@ -360,6 +376,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::indexAction',  '_route' => 'almacen',);
             }
 
+            // getProd
+            if ($pathinfo === '/almacen/getProd') {
+                return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::getProdAction',  '_route' => 'getProd',);
+            }
+
             // nuevo_producto
             if ($pathinfo === '/almacen/nuevo_producto') {
                 return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::nuevo_productoAction',  '_route' => 'nuevo_producto',);
@@ -368,6 +389,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // mod_producto
             if (0 === strpos($pathinfo, '/almacen/mod_producto') && preg_match('#^/almacen/mod_producto/(?P<producto>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'mod_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::mod_productoAction',));
+            }
+
+            // getproductos
+            if ($pathinfo === '/almacen/getproductos') {
+                return array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\DefaultController::getProductosAction',  '_route' => 'getproductos',);
             }
 
             if (0 === strpos($pathinfo, '/almacen/nuevo_producto')) {
@@ -388,6 +414,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_producto')), array (  '_controller' => 'Gestor_cocina\\AlmacenBundle\\Controller\\FormProductosController::borrar_productoAction',));
             }
 
+        }
+
+        // verproductos
+        if ($pathinfo === '/verproductos') {
+            return array (  '_controller' => 'Gestor_cocina\\RecetasBundle\\Controller\\DefaultController::verProductosAction',  '_route' => 'verproductos',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

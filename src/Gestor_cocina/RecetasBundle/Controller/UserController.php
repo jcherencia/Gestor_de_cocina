@@ -200,9 +200,14 @@ class UserController extends Controller
         $roles=$user->getRoles();
         $rol=$roles[0];
         if ($accion=="promocionar") {
-            $response="false1";
+            // $response="false1";
             
             switch ($rol) {
+                case 'ROLE_BLOQ':
+                    $user->setRoles('ROLE_USER');
+                    $em->persist($user);
+                    $response="false";
+                    break;
                 case 'ROLE_USER':
                     $user->setRoles('ROLE_ADMIN');
                     $em->persist($user);
@@ -222,6 +227,11 @@ class UserController extends Controller
            
             $response="false";
             switch ($rol) {
+                case 'ROLE_USER':
+                    $user->setRoles('ROLE_BLOQ');
+                    $em->persist($user);
+                    $response="false";
+                    break;
                 case 'ROLE_ADMIN':
                     $user->setRoles('ROLE_USER');
                     $response="false";
@@ -241,6 +251,5 @@ class UserController extends Controller
             // $response=$salida;
             // $response="false";
             return new Response($response, Response::HTTP_OK);
-        // echo $id.$accion;
     }
 }

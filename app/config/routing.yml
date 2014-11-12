@@ -105,7 +105,12 @@ solicitudes:
 pedir_productos:
     pattern: /solicitudes/pedir_productos
     defaults: { _controller: CentroLogBundle:Default:pedir_productos }
-
+prodSolicitado:
+    pattern: /solicitudes/prodSolicitado
+    defaults: { _controller: CentroLogBundle:Default:prodSolicitado }
+# prodSolicitado:
+#     pattern:/solicitudes/prodSolicitado
+#     defaults: { _controller: CentroLogBundle:Default:prodSolicitado }
 # -------------------------------------------------------------------------#
 centro_log:
     pattern: /centro_log
@@ -113,6 +118,9 @@ centro_log:
 genSolicitud:
     pattern: /recetas/genSolicitud
     defaults: { _controller: CentroLogBundle:Default:genSolicitud }
+delSolicitud:
+    pattern: /recetas/delSolicitud
+    defaults: { _controller: CentroLogBundle:Default:delSolicitud }
 genPedido:
     pattern: /centro_log/genPedido
     defaults: { _controller: CentroLogBundle:Default:genPedido }
@@ -135,13 +143,18 @@ validarPedido:
 almacen:
     pattern: /almacen
     defaults: { _controller: AlmacenBundle:Default:index }
+getProd:
+    pattern: /almacen/getProd
+    defaults: { _controller: AlmacenBundle:Default:getProd }
 nuevo_producto:
     pattern: /almacen/nuevo_producto
     defaults: { _controller: AlmacenBundle:Default:nuevo_producto }
 mod_producto:
     pattern: /almacen/mod_producto/{producto}
     defaults: { _controller: AlmacenBundle:Default:mod_producto }
-
+getproductos:
+    pattern: /almacen/getproductos
+    defaults: { _controller: AlmacenBundle:Default:getProductos }
 crear_producto:
     pattern: /almacen/nuevo_producto/crear
     defaults: { _controller: AlmacenBundle:FormProductos:crear_producto }
@@ -151,6 +164,10 @@ editar_producto:
 borrar_producto:
     pattern: /almacen/borrar_producto/{producto}
     defaults: { _controller: AlmacenBundle:FormProductos:borrar_producto }
+
+verproductos:
+    pattern: /verproductos
+    defaults: {_controller: RecetasBundle:Default:verProductos }
 # -------------------------------------------------------------------------#
 
 

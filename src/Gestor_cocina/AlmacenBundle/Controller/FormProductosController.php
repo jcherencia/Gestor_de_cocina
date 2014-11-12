@@ -39,7 +39,7 @@ class FormProductosController extends Controller
         $status = 'success';
             $uploadedURL='';
             $message='';
-        print_r($image);
+        // print_r($image);
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 2000000000)) {
 
@@ -100,7 +100,7 @@ class FormProductosController extends Controller
         $status = 'success';
             $uploadedURL='';
             $message='';
-        print_r($image);
+        // print_r($image);
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 2000000000)) {
 
@@ -147,9 +147,27 @@ class FormProductosController extends Controller
      public function borrar_productoAction($producto)
    {
         $em = $this->getDoctrine()->getManager();
-        $producto = $em->getRepository('AlmacenBundle:Productos')->findOneBySlug($producto);
-        $em->remove($producto);
+        $prod = $em->getRepository('AlmacenBundle:Productos')->find($producto);
+        $solcprod = $em->getRepository('CentroLogBundle:SolicitudProd')->findDelProd($producto);
+        
+        if(count($solcprod)!=0){
+          foreach ($solcprod as $key => $solc) {
+              $em->remove($solc);   
+          }
+          // $em->flush();
+        }
+        $ingrts = $em->getRepository('RecetasBundle:Ingredientes')->findDelProd($producto);
+
+        if(count($ingrts)!=0){
+          foreach ($ingrts as $key => $ingre) {
+              $em->remove($ingre);   
+          }
+          
+        }
+        // echo count($ingrts);
+        $em->remove($prod);   
         $em->flush();
+
         return $this->redirect($this->generateUrl('almacen')); 
     }
     public function recalculaPrecio($producto)

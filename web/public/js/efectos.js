@@ -126,6 +126,21 @@ function toggleviews (vista,target) {
 				break;
 			}
 		break;
+		case 'productos':
+		// alert("to");
+			switch(vista){
+				case 'grid':
+					$('#cont_productos').removeClass('hide');
+					// $('#userrecetas').addClass('hide');
+					cargarDataTable ("allproductos",false);
+				break;
+				case 'list':
+					$('#cont_productos').addClass('hide');
+					// $('#userrecetas').addClass('hide');
+					cargarDataTable ("allproductos",true);
+				break;
+			}
+		break;
 	}
 }
 

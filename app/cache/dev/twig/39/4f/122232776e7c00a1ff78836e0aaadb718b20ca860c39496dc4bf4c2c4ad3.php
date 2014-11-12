@@ -264,15 +264,31 @@ class __TwigTemplate_394f122232776e7c00a1ff78836e0aaadb718b20ca860c39496dc4bf4c2
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
 \t\t\t\t\t\t\t\t<div class=\"col-md-offset-2 col-md-10 btn-separated\">
-\t\t\t\t\t\t\t\t\t<a href=\"";
+\t\t\t\t\t\t\t\t\t";
         // line 143
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("editar_receta", array("receta" => $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "id"))), "html", null, true);
-        echo "\" class=\"btn btn-primary complement-1-b\">
+        if ((($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user"), "id") == $this->getAttribute($this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "creador"), "id")) || $this->env->getExtension('security')->isGranted("ROLE_ADMIN"))) {
+            // line 144
+            echo "\t\t\t\t\t\t\t\t\t";
+            // line 145
+            echo "
+\t\t\t\t\t\t\t\t\t<a href=\"";
+            // line 146
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("editar_receta", array("receta" => $this->getAttribute((isset($context["receta"]) ? $context["receta"] : $this->getContext($context, "receta")), "id"))), "html", null, true);
+            echo "\" class=\"btn btn-primary complement-1-b\">
 \t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\"></span>
 \t\t\t\t\t\t\t\t\t\t<span> Editar</span>
 \t\t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t\t\t<a href=\"";
-        // line 147
+\t\t\t\t\t\t\t\t\t";
+        } else {
+            // line 151
+            echo "\t\t\t\t\t\t\t\t\t\t<a href=\"\" class=\"btn btn-primary complement-1-b\"disabled>
+\t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\"></span>
+\t\t\t\t\t\t\t\t\t\t<span> Editar</span>
+\t\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t\t\t";
+        }
+        // line 156
+        echo "\t\t\t\t\t\t\t\t\t<a href=\"";
         echo $this->env->getExtension('routing')->getPath("recetas");
         echo "\" class=\"btn btn-danger\">
 \t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
@@ -285,7 +301,7 @@ class __TwigTemplate_394f122232776e7c00a1ff78836e0aaadb718b20ca860c39496dc4bf4c2
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t\t";
-        // line 159
+        // line 168
         echo "</div>
 \t\t\t</div>
 \t\t</div>
@@ -296,31 +312,31 @@ class __TwigTemplate_394f122232776e7c00a1ff78836e0aaadb718b20ca860c39496dc4bf4c2
 ";
     }
 
-    // line 167
+    // line 176
     public function block_javascript($context, array $blocks = array())
     {
-        // line 168
+        // line 177
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
         \t<script type=\"text/javascript\" src=\"";
-        // line 169
+        // line 178
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jasny-bootstrap.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 170
+        // line 179
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 171
+        // line 180
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 172
+        // line 181
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jquery.validate.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 173
+        // line 182
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/validate.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -338,6 +354,6 @@ class __TwigTemplate_394f122232776e7c00a1ff78836e0aaadb718b20ca860c39496dc4bf4c2
 
     public function getDebugInfo()
     {
-        return array (  324 => 173,  320 => 172,  316 => 171,  312 => 170,  308 => 169,  303 => 168,  300 => 167,  289 => 159,  276 => 147,  269 => 143,  250 => 126,  236 => 121,  224 => 118,  220 => 117,  216 => 116,  210 => 114,  205 => 113,  187 => 98,  179 => 92,  175 => 90,  169 => 88,  167 => 87,  156 => 79,  145 => 71,  133 => 62,  122 => 55,  118 => 54,  115 => 53,  113 => 52,  107 => 48,  104 => 39,  98 => 36,  95 => 35,  93 => 34,  84 => 28,  75 => 22,  67 => 17,  63 => 15,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  340 => 182,  336 => 181,  332 => 180,  328 => 179,  324 => 178,  319 => 177,  316 => 176,  305 => 168,  291 => 156,  284 => 151,  276 => 146,  273 => 145,  271 => 144,  269 => 143,  250 => 126,  236 => 121,  224 => 118,  220 => 117,  216 => 116,  210 => 114,  205 => 113,  187 => 98,  179 => 92,  175 => 90,  169 => 88,  167 => 87,  156 => 79,  145 => 71,  133 => 62,  122 => 55,  118 => 54,  115 => 53,  113 => 52,  107 => 48,  104 => 39,  98 => 36,  95 => 35,  93 => 34,  84 => 28,  75 => 22,  67 => 17,  63 => 15,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Productos
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gestor_cocina\AlmacenBundle\Entity\ProductosRepository")
  */
+
 class Productos
 {
     /**

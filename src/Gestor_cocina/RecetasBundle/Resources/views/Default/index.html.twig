@@ -4,9 +4,21 @@
 	{% block stylesheet %} 
 		{{ parent() }}
 		<link type='text/css' rel='stylesheet' href="{{ asset('public/css/notepad.css') }}">
-		
+		<style type="text/css">
+
+
+</style>
 	{% endblock %}
 	{% block body %}
+		{% if is_granted('ROLE_BLOQ') %}
+		<div id="bloq">
+			{# <div id="textinfo"> #}
+			<div class="msgblock complement-1-b" role="alert">
+				<h1><span class="glyphicon glyphicon-user"></span> Usuario bloqueado</h1>
+				<h3><i>Póngase en contacto con el administrador.</i></h3>
+			</div>
+		</div>
+		{% endif %}
 		<div class='content'>
 		
 					

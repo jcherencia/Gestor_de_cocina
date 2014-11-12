@@ -58,8 +58,9 @@
 														<tr>
 															<th class="col-md-3">Producto</th>
 															<th class="col-md-2">Cantidad</th>
-															<th class="col-md-2">Fecha</th>
-															<th class="col-md-3">Solicitante</th>
+															<th class="col-md-2">De almacén</th>
+															<th class="col-md-1">Fecha</th>
+															<th class="col-md-2">Solicitante</th>
 															<th class="col-md-2">Opciones</th>
 														</tr>
 													</thead>
@@ -73,18 +74,26 @@
 																	<span class="ped-tit"> {{solicitud.producto.nombre}}</span>
 															</a></td>
 															<td class="cantidad" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.cantidad}} {{solicitud.producto.unidad}}</td>
+															<td class="prodsust" data-unidad='{{solicitud.producto.unidad}}' data-cantidad='{{solicitud.cantidad}}'>{{solicitud.prodsustraido}} {{solicitud.producto.unidad}}</td>
 															<td>{{solicitud.fecha|date("d/m/Y")}}</td>
 															<td>{{solicitud.usuario.nombre}}</td>
+															{% if solicitud.cantidad != 0 %}
 															<td>
 																<div class="btn-group btn-group-sm">
 																	<button id="button_{{solicitud.id}}" data-id="{{solicitud.id}}" data-agregado="false"data-idprod="{{solicitud.producto.id}}" type="button" class="agregarProd btn btn-primary">
 																		<span class="glyphicon glyphicon-plus"></span>
 																	</button>
-																	<button data-id="{{solicitud.id}}" data-idprod="{{solicitud.producto.id}}" data-cant="{{solicitud.cantidad}}" data-und="{{solicitud.producto.unidad}}" type="button" class="elimProd btn btn-danger">
+																	<button data-id="{{solicitud.id}}" data-idprod="{{solicitud.producto.id}}" data-cant="{{solicitud.cantidad}}" data-und="{{solicitud.producto.unidad}}" type="button" class="elimProd btn btn-warning">
 																		<span class="elim_pro glyphicon glyphicon-remove"></span>
 																	</button>
+																	<button type="button" class="btn btn-danger btn-sm" data-url="{{path('delSolicitud')}}" onclick="delSolc({{solicitud.id}},$(this))"><span class="glyphicon glyphicon-trash"></span></button>
 																</div>
 															</td>
+															{% else %}
+																<td>
+																	<button type="button" class="btn btn-danger btn-sm" data-url="{{path('delSolicitud')}}" onclick="delSolc({{solicitud.id}},$(this))"><span class="glyphicon glyphicon-trash"></span></button>
+																</td>
+															{% endif %}
 														</tr>
 													{% else %}
 															<tr>
@@ -342,22 +351,33 @@
 											<td>{{usuario.fechaRegistro|date("d/m/Y")}}</td>
 											{% for roles in usuario.roles %}
 												{% if roles == "ROLE_USER" %}
-													<td>Usuario</td>
+													<td><span class="label label-info">Usuario</span></td>
+												{% elseif roles == "ROLE_BLOQ" %}
+													<td><span class="label label-warning">Bloqueado</span></td>
 												{% elseif roles == "ROLE_ADMIN" %}
-													<td>Admin</td>
+													<td><span class="label label-success">Admin</span></td>
 												{% elseif roles == "ROLE_SUPER_ADMIN" %}
-													<td>Super admin</td>
+													<td><span class="label label-primary">Super admin</span></td>
 												{% endif %}
 											{% endfor %}
 											{% if is_granted('ROLE_SUPER_ADMIN') and usuario.username != "admin" %}
 												<td> 
 													<div class="btn-group btn-group-sm">
 														{% for roles in usuario.roles %}
-															{% if roles == "ROLE_USER" %}
+															
+															{% if roles == "ROLE_BLOQ" %}
 																<button  class="btn btn-success promocionar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Promocionar Usuario">
-																	<span class="glyphicon glyphicon-thumbs-up"></span> Promocionar
-																	{# <span class="glyphicon glyphicon-thumbs-up"></span> #}
+																	<span class="glyphicon glyphicon-thumbs-up"></span> Desbloq
 																</button>
+															{% endif %}
+															{% if roles == "ROLE_USER" %}
+																<div class="btn-group">
+																	<button  class="btn btn-danger degradar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Degradar Usuario">
+																	<span class="glyphicon glyphicon-thumbs-down"></span>
+																	</button>
+																	<button  class="btn btn-success promocionar" data-id="{{usuario.id}}" data-url="{{ path('editarRol')}}" data-toggle="tooltip" data-placement="bottom" title="Promocionar Usuario"><span class="glyphicon glyphicon-thumbs-up"></span>
+																</button>
+																</div>
 															{% endif %}
 															{% if roles == "ROLE_ADMIN" %}
 																<div class="btn-group">
@@ -604,6 +624,7 @@
         {{ parent() }}
 			<script type="text/javascript" src="{{ asset('public/js/efectos.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/acciones.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('public/js/solicitudes.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/jquery.confirm.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/jsPDF/FileSaver.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('public/js/jsPDF/jspdf.js') }}"></script>

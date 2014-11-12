@@ -82,7 +82,10 @@ class DefaultController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
+        // $recetas = $em->getRepository('RecetasBundle:Recetas')->findAll();
+        $recetas = $em->getRepository('RecetasBundle:Recetas')->findOrderByName();
+        
+        
         
         $categorias = $em->getRepository('RecetasBundle:Categoria')->findOrdenNomb();
         // $categorias = $em->getRepository('RecetasBundle:Categoria')->findAll();
@@ -132,6 +135,41 @@ class DefaultController extends Controller
         return new Response($salida, Response::HTTP_OK);
         // return new Response($campos['busqueda'], Response::HTTP_OK);
     }
+    public function verProductosAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository('AlmacenBundle:Productos')->findProducts();
+        // $result = $em->getRepository('RecetasBundle:Recetas')->findSearch($busqueda);
+        // return $result;
+        $salida="";
+        for ($i=0; $i < count($result); $i++) { 
+            $j=0;
+            foreach ($result[$i] as $key => $value) {
+                if ($key=="fecha_creacion") {
+                    $value=date_format($value, 'd-m-Y h:m');
+                    // $salida.=$key." = ".$value;
+                    $salida.=$value;
+
+                } else{
+                    // $salida.=$key." = ".$value;
+                    $salida.=$value;
+
+                }
+                
+                
+                if ($j!=count($result[$i])-1) {
+                    $salida.="&";
+                } 
+                $j++;
+                
+            }
+            if ($i!=count($result)-1) {
+                    $salida.="||";
+                } 
+        }
+        return new Response($salida, Response::HTTP_OK);
+        
+    } 
     public function nueva_recetaAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -158,11 +196,6 @@ class DefaultController extends Controller
                 $em->remove($ingre);
            }
         }
-        // $defaul_img="public/img/no_image.png";
-        // $url_img=$receta->getFoto();
-        // if($url_img!=$defaul_img){
-        //     echo __DIR__."../../../../"."../Gestor_de_cocina/web/".$url_img;
-        // }
         $em->flush();
         $em->remove($receta);
         $em->flush();

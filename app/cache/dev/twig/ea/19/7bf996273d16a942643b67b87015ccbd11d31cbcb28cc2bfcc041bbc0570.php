@@ -374,7 +374,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t  <div class=\"fileinput-new thumbnail\" style=\"width: 200px; height: 150px;\">
 \t\t\t\t\t\t\t\t\t    <img alt=\"Pulsa para Subir tu foto\"  src=\"";
             // line 199
-            echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_user2.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/img/no_image.png"), "html", null, true);
             echo "\"  >
 \t\t\t\t\t\t\t\t\t  </div>
 \t\t\t\t\t\t\t\t\t  <div class=\"fileinput-preview fileinput-exists thumbnail\" style=\"max-width: 200px; max-height: 150px;\"></div>
@@ -443,30 +443,33 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
 \t\t\t\t\t\t\t\t<label for=\"\" class=\"col-md-3 control-label\">Categoría</label>
-\t\t\t\t\t\t\t\t<div class=\"col-md-2\">
-\t\t\t\t\t\t\t\t\t<select class=\"form-control\">
+\t\t\t\t\t\t\t\t<div class=\"col-md-6\">
+\t\t\t\t\t\t\t\t\t<select name=\"categoria\" class=\"form-control\">
+\t\t\t\t\t\t\t\t\t\t<option value=\"\">Selecciona...</option>
 \t\t\t\t\t\t\t\t\t\t";
-            // line 260
+            // line 261
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["categorias"]) ? $context["categorias"] : $this->getContext($context, "categorias")));
             foreach ($context['_seq'] as $context["_key"] => $context["categoria"]) {
-                // line 261
+                // line 262
                 echo "\t\t\t\t\t\t\t\t\t\t\t<option value=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "id"), "html", null, true);
-                echo "\"></option>
+                echo "\">";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["categoria"]) ? $context["categoria"] : $this->getContext($context, "categoria")), "nombre"), "html", null, true);
+                echo "</option>\t
 \t\t\t\t\t\t\t\t\t\t";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['categoria'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 263
+            // line 264
             echo "\t\t\t\t\t\t\t\t\t</select>
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t<div class=\"form-group\">
 \t\t\t\t\t\t\t\t<label class=\"col-md-3\"></label>
 \t\t\t\t\t\t\t\t<button id=\"add_ing\" type=\"button\" class=\"col-md-3 btn btn-primary complement-1-b\" onClick=\"crearListadoIng('list_ingre')\" data-url=\"";
-            // line 268
+            // line 269
             echo $this->env->getExtension('routing')->getPath("listar_ing");
             echo "\">Añadir ingredientes</button>
 
@@ -501,7 +504,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t\t\t\t<span> Guardar</span>
 \t\t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 300
+            // line 301
             echo $this->env->getExtension('routing')->getPath("recetas");
             echo "\" class=\"btn btn-danger\">
 \t\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>
@@ -514,7 +517,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t</div>
 \t\t\t\t\t";
         }
-        // line 310
+        // line 311
         echo "\t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
@@ -539,7 +542,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 \t\t\t\t\t\t\t</thead>
 \t\t\t\t\t\t\t<tbody>
 \t\t\t\t\t\t\t";
-        // line 333
+        // line 334
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["productos"]) ? $context["productos"] : $this->getContext($context, "productos")));
         $context['loop'] = array(
@@ -556,26 +559,26 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["producto"]) {
-            // line 334
+            // line 335
             echo "\t\t\t\t\t\t\t\t<tr class=\"ing_seleccionable\" id=\"ing_seleccionable_";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["loop"]) ? $context["loop"] : $this->getContext($context, "loop")), "index0"), "html", null, true);
             echo "\">
 \t\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" class=\"form-control\" data-value=\"";
-            // line 335
+            // line 336
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "id"), "html", null, true);
             echo "\"></td>
 \t\t\t\t\t\t\t\t\t<td class=\"info_nombre\">";
-            // line 336
+            // line 337
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "nombre"), "html", null, true);
             echo "</td>
 \t\t\t\t\t\t\t\t\t<td>";
-            // line 337
+            // line 338
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "stock"), "html", null, true);
             echo "  <span class=\"unidad\">";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidad"), "html", null, true);
             echo "</span></td>
 \t\t\t\t\t\t\t\t\t<td><span class=\"precio\">";
-            // line 338
+            // line 339
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "precio"), "html", null, true);
             echo "</span> € / <span class=\"und_comp\">";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["producto"]) ? $context["producto"] : $this->getContext($context, "producto")), "unidadCompra"), "html", null, true);
@@ -597,7 +600,7 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['producto'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 342
+        // line 343
         echo "
 \t\t\t\t\t\t\t</tbody>
 \t\t\t\t\t\t</table>
@@ -615,31 +618,31 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 ";
     }
 
-    // line 357
+    // line 358
     public function block_javascript($context, array $blocks = array())
     {
-        // line 358
+        // line 359
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
         \t<script type=\"text/javascript\" src=\"";
-        // line 359
+        // line 360
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jasny-bootstrap.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 360
+        // line 361
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/efectos.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 361
+        // line 362
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/acciones.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 362
+        // line 363
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/jquery.validate.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script type=\"text/javascript\" src=\"";
-        // line 363
+        // line 364
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("public/js/validate.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -657,6 +660,6 @@ class __TwigTemplate_ea197bf996273d16a942643b67b87015ccbd11d31cbcb28cc2bfcc041bb
 
     public function getDebugInfo()
     {
-        return array (  643 => 363,  639 => 362,  635 => 361,  631 => 360,  627 => 359,  622 => 358,  619 => 357,  601 => 342,  579 => 338,  573 => 337,  569 => 336,  565 => 335,  560 => 334,  543 => 333,  518 => 310,  505 => 300,  470 => 268,  463 => 263,  454 => 261,  450 => 260,  406 => 218,  403 => 216,  397 => 213,  394 => 212,  392 => 211,  377 => 199,  367 => 193,  360 => 187,  346 => 175,  323 => 154,  309 => 147,  303 => 144,  293 => 143,  281 => 140,  277 => 139,  273 => 138,  267 => 136,  262 => 135,  245 => 121,  238 => 116,  230 => 113,  222 => 111,  219 => 110,  211 => 108,  203 => 106,  200 => 105,  197 => 104,  193 => 103,  180 => 93,  169 => 85,  164 => 83,  158 => 79,  152 => 70,  141 => 63,  137 => 62,  134 => 61,  131 => 60,  120 => 51,  114 => 47,  108 => 44,  105 => 43,  103 => 42,  88 => 30,  81 => 25,  77 => 22,  73 => 21,  65 => 15,  63 => 14,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
+        return array (  646 => 364,  642 => 363,  638 => 362,  634 => 361,  630 => 360,  625 => 359,  622 => 358,  604 => 343,  582 => 339,  576 => 338,  572 => 337,  568 => 336,  563 => 335,  546 => 334,  521 => 311,  508 => 301,  473 => 269,  466 => 264,  455 => 262,  451 => 261,  406 => 218,  403 => 216,  397 => 213,  394 => 212,  392 => 211,  377 => 199,  367 => 193,  360 => 187,  346 => 175,  323 => 154,  309 => 147,  303 => 144,  293 => 143,  281 => 140,  277 => 139,  273 => 138,  267 => 136,  262 => 135,  245 => 121,  238 => 116,  230 => 113,  222 => 111,  219 => 110,  211 => 108,  203 => 106,  200 => 105,  197 => 104,  193 => 103,  180 => 93,  169 => 85,  164 => 83,  158 => 79,  152 => 70,  141 => 63,  137 => 62,  134 => 61,  131 => 60,  120 => 51,  114 => 47,  108 => 44,  105 => 43,  103 => 42,  88 => 30,  81 => 25,  77 => 22,  73 => 21,  65 => 15,  63 => 14,  56 => 9,  53 => 8,  46 => 5,  42 => 4,  37 => 3,  31 => 2,);
     }
 }

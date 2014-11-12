@@ -38,7 +38,12 @@ class SolicitudProd
      * @ORM\Column(name="cantidad", type="float")
      */
     private $cantidad;
-
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prodsustraido", type="float")
+     */
+    private $prodsustraido;
     /**
      * @var string
      *
@@ -63,28 +68,7 @@ class SolicitudProd
     {
         return $this->id;
     }
-     /**
-     * Set producto
-     *
-     * @param string $producto
-     * @return SolicitudProd
-     */
-    public function setReceta($receta)
-    {
-        $this->receta = $receta;
-
-        return $this;
-    }
-
-    /**
-     * Get producto
-     *
-     * @return string 
-     */
-    public function getReceta()
-    {
-        return $this->receta;
-    }
+    
 
     /**
      * Set producto
@@ -130,6 +114,28 @@ class SolicitudProd
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+    /**
+     * Set prodsustraido
+     *
+     * @param float $prodsustraido
+     * @return SolicitudProd
+     */
+    public function setProdsustraido($prodsustraido)
+    {
+        $this->prodsustraido = $prodsustraido;
+
+        return $this;
+    }
+
+    /**
+     * Get prodsustraido
+     *
+     * @return float 
+     */
+    public function getProdsustraido()
+    {
+        return $this->prodsustraido;
     }
 
     /**

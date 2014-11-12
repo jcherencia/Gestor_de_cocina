@@ -7,6 +7,7 @@ security:
             # iterations: 10
  
     role_hierarchy:
+        # ROLE_BLOQ: [ROLE_USER]
         ROLE_ADMIN: [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_USER]
  
@@ -35,6 +36,7 @@ security:
             anonymous: true
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /receta, roles: ROLE_USER }
         - { path: /recetas, roles: ROLE_USER }
         - { path: /solicitudes, roles: ROLE_USER }
         - { path: /centro_log, roles: ROLE_ADMIN }

@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class SolicitudProdRepository extends EntityRepository
 {
+	public function findDelProd($id)
+	{
+	
+       $em = $this->getEntityManager();
+       $consulta = $em->createQuery("SELECT s FROM CentroLogBundle:SolicitudProd s WHERE s.producto=".$id);
+       return $consulta->getResult();
+    	# code...
+	}
 }
